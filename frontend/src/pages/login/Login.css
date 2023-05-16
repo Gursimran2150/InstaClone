@@ -1,0 +1,47 @@
+.main {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 100px;
+}
+
+.loginPanel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  margin-top: 10px;
+
+
+}
+
+.loginPanel .imgBox {
+  position: relative;
+  width: 380.32px;
+  height: 581.15px;
+  background: url('./home-phones.png');
+  background-size: 468.32px 634.15px;
+  background-position: -46px 0;
+  background-repeat: no-repeat;
+  margin-bottom: 12px;
+  margin-right: 32px;
+}
+
+.loginPanel .imgBox>img {
+  height: 100%;
+}
+
+.loginPanel .imgBox .innerImg {
+  position: absolute;
+  top: 25px;
+  left: 112px;
+}
+
+@media screen and (max-width: 870px){
+  .imgBox{
+    display: none;
+  }
+}
+

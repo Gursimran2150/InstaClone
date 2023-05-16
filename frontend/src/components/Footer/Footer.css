@@ -1,0 +1,38 @@
+.mainFooter {
+    height: auto;
+    color: #737373;
+    font-weight: var(--font-weight-system);
+    font-size: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.footerLinks {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.footerLinks > a {
+    color: inherit;
+    text-decoration: none;
+    padding: 4px 8px;
+}
+
+.links {
+    color: inherit;
+    font-size: inherit;
+}
+
+.laguageSelection {
+    color: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    background-color: transparent;
+    border: none;
+    width: 60px;
+    margin-right: 10px;
+}

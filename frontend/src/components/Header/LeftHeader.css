@@ -1,0 +1,184 @@
+.leftHeader{
+  width: 244px;
+   height: 100vh;
+  position: fixed;
+
+   display: flex;
+   flex-direction: column;    
+   justify-content: space-between;
+  align-items: flex-start;
+
+   
+  border-right: 1px solid rgba(var(--grey-4));
+  padding:8px 12px 27px 12px;
+}
+
+/* icons */
+.leftHeaderIcon{
+  box-sizing: border-box;
+  font-size: 14px;
+  color: rgb(var(--ig-primary-text));
+  font-family: var(--font-family-system);
+  font-size: var(--system-14-font-size);
+  line-height: var(--system-14-line-height);
+  padding: 30px 12px 14px 12px;
+  margin: 0px 0px 19px;
+}
+
+/* list */
+.leftHeaderLinkList{
+/* padding-left: 12px; */
+padding-right: 12px;
+}
+.leftHeaderLinkBox{
+
+  padding: 12px;
+}
+
+.leftHeaderLinkBox>a{
+  align-items: center;
+  color: rgb(var(--ig-primary-text));
+
+}
+
+
+.leftHeaderLink{
+  display: flex;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  justify-content: flex-start;
+  align-items: center;
+  /* padding: 0px 0px 16px; */
+}
+
+
+.leftHeaderLinkName{
+  padding-left: 20px;
+}
+
+
+.LeftHeaderBottom>a{
+  display: flex;
+padding: 12px;
+color: rgb(var(--ig-primary-text));
+
+}
+
+
+.leftHeaderLinkBox>a :hover{
+  /* background-color: gray; */
+
+}
+
+
+@media only screen and (max-width: 1260px) {
+  .leftHeader{
+ width: 100px;
+  }
+.leftHeaderLinkName{
+  display: none;
+}
+.leftHeaderIcon{
+  display: none;
+}
+
+}
+
+
+
+/* left side modal header  */
+
+
+.mo.modal.left .modal-dialog,dal.right .modal-dialog {
+  position: fixed;
+  margin: auto;
+  width: 320px;
+  height: 100%;
+  -webkit-transform: translate3d(0%, 0, 0);
+      -ms-transform: translate3d(0%, 0, 0);
+       -o-transform: translate3d(0%, 0, 0);
+          transform: translate3d(0%, 0, 0);
+}
+
+.modal.left .modal-content,
+.modal.right .modal-content {
+  height: 100%;
+  overflow-y: auto;
+}
+
+.modal.left .modal-body,
+.modal.right .modal-body {
+  padding: 15px 15px 80px;
+}
+
+/*Left*/
+.modal.left.fade .modal-dialog{
+  left: -320px;
+  -webkit-transition: opacity 0.3s linear, left 0.3s ease-out;
+     -moz-transition: opacity 0.3s linear, left 0.3s ease-out;
+       -o-transition: opacity 0.3s linear, left 0.3s ease-out;
+          transition: opacity 0.3s linear, left 0.3s ease-out;
+}
+
+.modal.left.fade.in .modal-dialog{
+  left: 0;
+}
+      
+/*Right*/
+.modal.right.fade .modal-dialog {
+  right: -320px;
+  -webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
+     -moz-transition: opacity 0.3s linear, right 0.3s ease-out;
+       -o-transition: opacity 0.3s linear, right 0.3s ease-out;
+          transition: opacity 0.3s linear, right 0.3s ease-out;
+}
+
+.modal.right.fade.in .modal-dialog {
+  right: 0;
+}
+
+/* ----- MODAL STYLE ----- */
+.modal-content {
+  border-radius: 0;
+  border: none;
+}
+
+.modal-header {
+  border-bottom-color: #EEEEEE;
+  background-color: #FAFAFA;
+}
+
+/* ----- v CAN BE DELETED v ----- */
+
+.demo {
+padding-top: 60px;
+padding-bottom: 110px;
+}
+
+.btn-demo {
+margin: 15px;
+padding: 10px 15px;
+border-radius: 0;
+font-size: 16px;
+background-color: #FFFFFF;
+}
+
+.btn-demo:focus {
+outline: 0;
+}
+
+.demo-footer {
+position: fixed;
+bottom: 0;
+width: 100%;
+padding: 15px;
+background-color: #212121;
+text-align: center;
+}
+
+.demo-footer > a {
+text-decoration: none;
+font-weight: bold;
+font-size: 16px;
+color: #fff;
+}

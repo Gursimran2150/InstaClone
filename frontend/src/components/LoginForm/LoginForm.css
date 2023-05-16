@@ -1,0 +1,131 @@
+
+.icon{
+  margin-top: 25px;
+  margin-bottom: 5px;
+}
+
+.loginContainer{
+  padding: 0px 40px;
+  border: 1px solid rgb(var(--grey-2));
+  font-size: 13px;
+  display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    gap:10px;
+}
+
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  padding-top: 15px;
+  gap:8px;
+}
+
+ /*  button for hide and show password */
+.hideShowPassword{
+  border: none;
+  background-color: transparent;
+font-size: 14px;
+text-align: center;
+padding: 8px 8px;
+}
+
+
+ /* ************* */
+
+.loginBtn{
+width: 100%;
+  border: none;
+  border-radius: 7px;
+  color: white;
+  background-color: rgba(var(--blue-4));
+  font-size: 14px;
+  font-weight: var(--font-weight-system-semibold);
+  padding: 8px 0px;
+  margin: 7px 0px;
+}
+.loginBtn:hover{
+  background-color: rgb(24, 119, 242);
+/* cursor: not-allowed; */
+}
+
+
+.loginBtn:disabled, .loginBtn[disabled] {
+opacity: 0.78;
+ cursor: not-allowed;
+  /* pointer-events: none; */
+
+}
+
+/* FACEBOOK LINKS OPTION */
+.facebookLink{
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+.facebookLink>img{
+  margin-right: 7px;
+}
+.facebookLink>a{
+  color: #385185;
+  font-size: 14px;
+  font-weight: var(--font-weight-system-semibold);
+  text-decoration: none;
+  padding: 5px 0px;
+}
+
+
+
+
+
+.errorWearningShow{
+  display: block;
+  color: rgba(var(--ig-error-or-destructive ));
+  max-width: 270px;
+text-align: center ;
+font-size: 14px;
+
+padding: 20px 0px 30px 0px;
+}
+
+.errorWearningHide{
+  display: none;
+margin: 0px;
+}
+
+
+
+.forgotPass{
+  font-size: 12px;
+  color: rgba(var(--blue-8));
+text-decoration: none;
+padding: 10px 0px 20px 0px ;
+}
+
+
+
+/* have an account option block */
+.loginOption {
+  border: 1px solid rgb(var(--grey-2));
+  font-size: 14px;
+  background-color: white;
+  min-width: 350px;
+  text-align: center;
+  margin-top: 10px;
+  padding: 25px 0px 25px 0px  ;
+
+}
+
+
+.loginOption > span >a {
+  text-decoration: none;
+color: #0095f6;
+font-weight: var(--font-weight-system-semibold);
+}
+
+

@@ -1,0 +1,52 @@
+/* story list  */
+.storyList{
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 16px;
+  padding: 16px 0px;
+  gap: 10 px;
+  /* overflow-x:scroll */
+}
+
+.storyback{
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 66px;
+  height: 66px;
+  background: radial-gradient(circle at 33% 100%, #fed373 4%, #f15245 30%, #d92e7f 62%, #9b36b7 85%, #515ecf);
+  margin: 4px;
+}
+
+
+
+
+
+
+/* single user profle on story */
+.userStory{
+  display: flex;
+  flex-direction:column;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 4px;
+  margin-bottom: 8px;
+}
+.storyback>img{
+outline-style: double;
+outline-color: white;
+outline-width: 2px;
+  background-color: white;
+border-radius: 50%;
+
+/* margin: 4px; */
+/* border: 2px solid lightblue */
+}
+.storyUserName{
+  font-size: 12px;
+  line-height: 12px;
+  font-weight: var(--font-weight-system-regular);
+  color: rgb(var(--ig-primary-text))
+}

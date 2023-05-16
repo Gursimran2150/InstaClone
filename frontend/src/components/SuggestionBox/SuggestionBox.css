@@ -1,0 +1,115 @@
+.suggestionContainer{
+
+margin: 40px 0px 10px 0px;
+
+
+}
+.userDetails{
+display: flex;
+align-items: center;
+justify-content: space-between;
+
+
+}
+
+.userProfile{
+  display: flex;
+  gap: 10px;
+}
+
+
+
+/* username */
+.suggestedListUserCont{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.suggestedListUserName{
+font-size: 14px;
+font-weight: 600;
+}
+.suggestedListName{
+  font-size: 12px;
+}
+/* ******** */
+
+/* .userDetail>span{
+  color: #737373;
+  font-size: 12px;
+} */
+
+
+.switchButton>button{
+  color: #0095F6;
+  font-size: 12px;
+  background-color: transparent;
+padding-bottom: 7px;
+font-weight: 600;
+}
+
+
+/* sugeeee */
+
+
+.suggestedUserProfile{
+  display: flex;
+align-items: center;
+justify-content: space-between;
+/* margin-left: 10px; */
+
+}
+
+.suggestedUserProfileImg{
+    width: 32px;
+      height: 32px;
+border-radius: 50%;
+background-color: red;
+  overflow: hidden;
+}
+
+.suggestedUserProfileImg >img {
+  width: 100%;
+  height: 100%;
+object-fit: cover;
+}
+
+.suggestionHeading{
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: #737373;
+
+  margin: 5px 0px 5px 3px;
+  font-weight: 600;
+
+}
+.suggestionHeading>button{
+  font-weight: 500;
+  font-size: 12px;
+  background-color: transparent;
+}
+
+
+
+
+/* footer links  -----  */
+.suggestionBoxFooterLinks{
+  font-size: 12px;
+  /* color: #737373; */
+  color: #C7C7C7;
+}
+.suggestionBoxFooterLinks a{
+  /* color: #737373; */
+  color: #C7C7C7;
+  line-height: 16px;
+}
+.suggestionBoxFooterLinks a:not(:last-of-type)::after {
+  content: '\00B7';
+  margin: 0 0.10em 0 0.10em;
+}
+
+
+.suggestionBoxFooterHeading, .suggestionBoxFooterLink{
+  margin-top: 20px;
+}
