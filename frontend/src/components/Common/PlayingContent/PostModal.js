@@ -7,10 +7,17 @@ import ImgTag from "../../ImgTag";
 import Post from "./Post";
 import CommentPostModal from "./CommentPostModal";
 import ContentHeader from "../ContentHeader";
+import { useEffect, useState } from "react";
+import CommentHeader from "../CommentHeader";
+import { useSelector } from "react-redux";
 
 function PostModal({ post, isOpen, handleClose, postList, isClose }) {
   const classes = useStyles();
 
+  const comments = useSelector((state) => state.comments.data);
+  const commentsArray = Object.values(comments).slice(0, -1);
+
+  //console.log(commentsArray);
   // convert uri
   const convert = (url) => {
     if (url.uri) {
@@ -22,7 +29,7 @@ function PostModal({ post, isOpen, handleClose, postList, isClose }) {
 
   if (post) {
     const filterPost = postList.filter((item) => post._id == item._id);
-    
+
     return (
       <div>
         <Modal show={isOpen} className={classes.contentBox}>
@@ -38,52 +45,68 @@ function PostModal({ post, isOpen, handleClose, postList, isClose }) {
 
           <div className={classes.containerBox}>
             <div className={classes.innerBox1}>
-              <ImgTag src={convert(post?.media[0]?.url)} className={classes.innerBox1Img} width={550} />
+              <ImgTag
+                src={convert(post?.media[0]?.url)}
+                className={classes.innerBox1Img}
+                width={550}
+              />
             </div>
             <div className={classes.innerBox2}>
+              <ContentHeader
+                data={{
+                  userName: post.userName,
+                  profileImage: post.profileImage,
+                  createdAt: post.createdAt,
+                }}
+              />
 
-              <ContentHeader  data={{
-          userName: post.userName,
-          profileImage: post.profileImage,
-          createdAt: post.createdAt,
-        }}/>
+              <div className={classes.commentListBox}>
+                <div
+                  className="postDescription"
+                  style={{ display: "flex", gap: "10px" }}
+                >
+                  <div className="userProfileImg">
+                    <ImgTag
+                      src={
+                        post?.profileImage
+                          ? convert(post?.profileImage)
+                          : " ../images/inputIcons/profile.png"
+                      }
+                      width={35}
+                    />
+                  </div>
+                  <div className="userDetailOnPost">
+                    <div className="userDetailTopLine">
+                      <span className="userDetailOnPostUserName">
+                        {post?.userName}
+                      </span>
+                      <span className="userDetailOnUploadTme">
+                        {" "}
+                        {post?.content}{" "}
+                      </span>
+                    </div>
+                  </div>
+                </div>
 
-
-
-<div className={classes.commentListBox}>
-
-<div className="postDescription" style={{display:"flex",gap:"10px"}}>
-     
-<div className="userProfileImg" >  
-<ImgTag
-            src={
-              post?.profileImage
-                ? convert(post?.profileImage)
-                : " ../images/inputIcons/profile.png"
-            }
-            width={35}
-          />
-  
-  </div>
-  <div className="userDetailOnPost">
-          <div className="userDetailTopLine">
-            <span className="userDetailOnPostUserName">{post?.userName}</span>
-            <span className="userDetailOnUploadTme"> {post?.content} </span>
-          </div>
-
-       </div> 
-        </div>
-
-
-{
-  post?.comments.map((commit,index)=>{
-   return ( <div key={index}>
-      {commit.text },{commit.commentedBy}
-      </div>)
-  })
-}
-</div>
-
+                {commentsArray.map((comment, index) => {
+                  return (
+                    // <div key={index}>
+                    //   {commit.commentedBy}, {commit.text}
+                    // </div>
+                    <div key={index}>
+                      <ContentHeader
+                        data={{
+                          userName: comment.user.userName,
+                          profileImage: post.profileImage,
+                          createdAt: post.createdAt,
+                          text: comment.text,
+                        }}
+                      />
+                      {/* <span>{commit.text}</span> */}
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </Modal>
@@ -97,7 +120,6 @@ export default PostModal;
 
 const useStyles = makeStyles(() => ({
   contentBox: {
-   
     marginTop: "30px",
     // margin:"auto",
     padding: 0,
@@ -117,23 +139,20 @@ const useStyles = makeStyles(() => ({
     right: "-300px",
   },
   innerBox1: {
-    backgroundColor:"#737373",
+    backgroundColor: "#737373",
     width: "auto",
-    padding:0,
-    margin:0,
-    display:"flex",
+    padding: 0,
+    margin: 0,
+    display: "flex",
   },
-  
-  innerBox2: { width: "47%", height: "100%", padding:"10px" },
- 
-  innerBox1Img:{
-    maxWidth:"100%",
 
-  }
-,
-  commentListBox:{
-borderTop:"1px solid lightGray",
-padding:"10px"
-  }
+  innerBox2: { width: "47%", height: "100%", padding: "10px" },
 
+  innerBox1Img: {
+    maxWidth: "100%",
+  },
+  commentListBox: {
+    borderTop: "1px solid lightGray",
+    padding: "10px",
+  },
 }));

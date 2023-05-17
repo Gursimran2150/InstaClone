@@ -408,7 +408,7 @@ export const getAllPost = async (req, res) => {
         },
       },
     ]);
-    console.log("pos-->", data);
+    // console.log("pos-->", data);
     if (data === null) {
       res.send(constents.RESPONES.NO_DATA("No post avialable "));
     } else {
