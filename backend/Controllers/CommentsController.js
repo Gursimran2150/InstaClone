@@ -328,14 +328,14 @@ export const getCommentsOnPost = async (req, res) => {
 
 export const deleteComment = async (req, res) => {
   const token = req.headers.authorization;
-  const decoded = jwt.verify(token, secret);
+  const decoded = jwt.verify(token, process.env.JWTKEY);
   const userId = decoded.id;
   const { commentId } = req.params;
 
   try {
     const comment = await CommentModel.findById(commentId);
 
-    if (comment.commentedBy === userId) {
+    if (comment.commentedBy == userId) {
       await comment.deleteOne();
 
       res.send(constents.RESPONES.UPDATE_SUCCESS("deleted succesfully"));

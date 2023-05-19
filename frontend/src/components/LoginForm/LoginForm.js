@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./LoginForm.css";
-
 import InputFeild from "../InputField";
 import Button from "../Button";
 import ImgTag from "../ImgTag";
@@ -40,25 +38,26 @@ const LoginForm = () => {
   // login button submit form
   const handleSubmit = async (e) => {
     e.preventDefault();
-   const respones= await logIn(loginData)
-      if (respones.data.statusCode == 200) {
-        setToken(respones.data.token);
-        localStorage.setItem("token", JSON.stringify(respones.data.token));
-        // localStorage.setItem("loginUser", JSON.stringify(respones.data.userData));
-        localStorage.setItem("userCedentials",JSON.stringify(respones.data.userData))
-        navigate("/homePage");
-      } else if (
-        respones.data.statusCode == 400 ||
-        respones.data.statusCode == 404
-      ) {
-        setWarning(
-          "Sorry, your password was incorrect. Please double-check your password."
-        );
-      } else {
-        setWarning(respones.data.message);
-      }
+    const respones = await logIn(loginData);
+    if (respones.data.statusCode == 200) {
+      setToken(respones.data.token);
+      localStorage.setItem("token", JSON.stringify(respones.data.token));
 
-    
+      localStorage.setItem(
+        "userCedentials",
+        JSON.stringify(respones.data.userData)
+      );
+      navigate("/homePage");
+    } else if (
+      respones.data.statusCode == 400 ||
+      respones.data.statusCode == 404
+    ) {
+      setWarning(
+        "Sorry, your password was incorrect. Please double-check your password."
+      );
+    } else {
+      setWarning(respones.data.message);
+    }
   };
 
   const toggleBtn = (e) => {

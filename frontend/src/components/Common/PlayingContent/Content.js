@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Content.css";
 import { useDispatch, useSelector } from "react-redux";
-import { getPosts } from "../../../apiRequests/postApi";
-
 import Post from "./Post";
 import PostModal from "./PostModal";
 import { fetchAllPosts } from "../../../slices/postsSlice";
@@ -19,13 +17,6 @@ const Content = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectPost, setSelectPost] = useState(null);
 
-  //get all posts
-  // const getAllPosts = async () => {
-  //   await getPosts()
-  //     .then((response) => setPosts(response.data.data))
-  //     .catch((err) => console.log(err));
-  // };
-
   //handle open post modal
   const handleOpenModal = (post) => {
     dispatch(fetchComments(post._id));
@@ -40,12 +31,9 @@ const Content = () => {
 
   useEffect(() => {
     setAuthToken(JSON.parse(localStorage.getItem("token")));
-    //getAllPosts();
     dispatch(fetchAllPosts());
-    //setPosts(postState);
   }, [dispatch]);
 
-  //console.log(postState);
   return (
     <div className="postList">
       {posts &&

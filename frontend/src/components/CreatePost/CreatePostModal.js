@@ -1,21 +1,12 @@
-import { Dialog, DialogContent, IconButton, DialogTitle } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
 import React, { useRef, useState } from "react";
 import "./CreatePostModal.css";
-import ImgTag from "../ImgTag";
-import Button from "../Button";
-import { createUrl, uploadFile } from "../../apiRequests/postApi";
+import { uploadFile } from "../../apiRequests/postApi";
 import UploadPost from "./UploadPost";
 import SelectPost from "./SelectPost";
 
 const CreatePostModal = () => {
-  const [isOpen, setIsOpen] = useState(true);
   const [selectedFile, setSelectedFile] = useState(null);
   const [isGenraterLink, setGenraterLink] = useState("");
-
-  const handleClose = () => {
-    setIsOpen(false);
-  };
 
   //
   const fileInput = useRef(null);
@@ -43,19 +34,17 @@ const CreatePostModal = () => {
     return null;
   };
 
-  //
-
   return (
     <div className="createPostPage">
-        {isGenraterLink.length > 0 ? (
-          <UploadPost link={isGenraterLink} />
-        ) : (
-          <SelectPost
-            handleClick={handleClick}
-            fileInput={fileInput}
-            handleFileSelect={handleFileSelect}
-          />
-        )}
+      {isGenraterLink.length > 0 ? (
+        <UploadPost link={isGenraterLink} />
+      ) : (
+        <SelectPost
+          handleClick={handleClick}
+          fileInput={fileInput}
+          handleFileSelect={handleFileSelect}
+        />
+      )}
     </div>
   );
 };

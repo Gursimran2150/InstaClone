@@ -77,29 +77,37 @@ export const requestAccept = async (req, res) => {
 };
 
 export const unfollow = async (req, res) => {
-  const user = req.user;
-  console.log("users-->>", user);
+  const { _id } = req.body;
+  console.log("usersID-->>", _id);
 
   const { id } = req.params;
   try {
-    const unFollowUser = await followModel.find({ userId: user.id });
-    const unFollowingUser = await followModel.findById(id);
+    const unFollowUser = await followModel.findOne({ userId: _id });
+    //const unFollowingUser = await followModel.findById(id);
 
     console.log("unfollow-->>", unFollowUser);
-    if (unFollowUser.following.includes(id)) {
-      await unFollowUser.updateOne({ $pull: { following: id } });
-      await unFollowingUser.updateOne({ $pull: { follower: user.id } });
-      res.send(constents.RESPONES.UPDATE_SUCCESS("Unfollowed Successfully!"));
+    // console.log("unfollowing user->", unFollowingUser);
+    if (unFollowUser) {
+      if (unFollowUser.following.includes(id)) {
+        await unFollowUser.updateOne({ $pull: { following: id } });
+        // await unFollowingUser.updateOne({ $pull: { follower: user.id } });
+        res.send(constents.RESPONES.UPDATE_SUCCESS("Unfollowed Successfully!"));
+      } else {
+        res.send(
+          constents.RESPONES.ACCESS_DENIED(
+            (message = "You are not following this User")
+          )
+        );
+      }
     } else {
-      res.send(
-        constents.RESPONES.ACCESS_DENIED(
-          (message = "You are not following this User")
-        )
-      );
+      res.send(constents.RESPONES.ERROR("User or follower not found"));
     }
   } catch (error) {
     // res.status(500).json(error);
-    res.send(constents.RESPONES.ERROR(error));
+    res.json({
+      status: error.message,
+      sucess: false,
+    });
     console.log(error);
   }
 };

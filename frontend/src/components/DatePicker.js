@@ -1,17 +1,11 @@
-import React, { useState } from 'react'
-
 const DatePicker = () => {
+  return (
+    <>
+      <select>
+        <option value={""}> {""}</option>
+      </select>
+    </>
+  );
+};
 
-    const [dayValue, setDayValue] = useState("")
-
-    return (
-        <>
-            <select>
-                <option value={""}> {""}</option>
-
-            </select>
-        </>
-    )
-}
-
-export default DatePicker
+export default DatePicker;

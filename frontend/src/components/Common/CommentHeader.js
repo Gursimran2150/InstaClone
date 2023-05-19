@@ -1,30 +1,46 @@
-import React, { useEffect, useState } from "react";
 import ImgTag from "../ImgTag";
 import Button from "../Button";
 import moment from "moment";
 import "../Common/PlayingContent/Content.css";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchUserById } from "../../slices/userSlice";
+import React from "react";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import axios from "axios";
+import { BACKEND_URL } from "../../config";
 
-const CommentHeader = ({ data }) => {
-  // find the diff b/w post uploading date and current date
-  //   const dispatch = useDispatch();
-  //   const commentPersonUsername = useSelector(
-  //     (state) => state.user.data.userName
-  //   );
-  //   useEffect(() => {
-  //     const token = JSON.parse(localStorage.getItem("token"));
-  //     const id = JSON.parse(localStorage.getItem("userCedentials"))._id;
+const CommentHeader = ({ data, post }) => {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const handleMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
 
-  //     // console.log("login UserId-: " + id);
-  //     console.log("Commented by-: " + commentPersonUsername);
-  //     dispatch(
-  //       fetchUserById({
-  //         id: data.commentedBy != null ? data.commentedBy : id,
-  //         token,
-  //       })
-  //     );
-  //   }, [dispatch, data.commentedBy, commentPersonUsername]);
+  //getting username from localstorage
+  const userName = JSON.parse(localStorage.getItem("userCedentials")).userName;
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleThreeDotClick = (e) => {
+    handleMenu(e);
+  };
+
+  //deleting a comment
+  const deleteComment = async (id) => {
+    handleClose();
+    try {
+      const token = JSON.parse(localStorage.getItem("token"));
+      console.log("token-:", token);
+      console.log(`url-: ${BACKEND_URL}/comment/${id}`);
+      const { data } = await axios.delete(`${BACKEND_URL}/comment/${id}`, {
+        headers: { Authorization: token },
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  //creating a date
   const createDate = () => {
     let now = moment(new Date());
     let createdAt = moment(data.createdAt);
@@ -68,16 +84,46 @@ const CommentHeader = ({ data }) => {
         </div>
         <div className="userDetailOnPost">
           <div className="userDetailTopLine">
-            <span className="userDetailOnPostUserName">{data.commentedBy}</span>
+            <span className="userDetailOnPostUserName">{data?.userName}</span>
             <span className="userDetailOnUploadTme"> {createDate()} </span>
           </div>
 
-          <span className="userDetailonPostTittle"> {data.text} </span>
+          <span className="userDetailonPostTittle">
+            {" "}
+            {data.text ? data.text : "title"}{" "}
+          </span>
         </div>
       </div>
-      <div className="optionButton">
-        <Button text={"..."} />
-      </div>
+      {userName !== data.userName ? (
+        ""
+      ) : (
+        <div className="optionButton">
+          <Button onclick={handleThreeDotClick} text={"..."} />
+          <Menu
+            id="menu-appbar"
+            anchorEl={anchorEl}
+            anchorOrigin={{
+              vertical: "top",
+              horizontal: "left",
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+          >
+            <MenuItem
+              onClick={() => {
+                deleteComment(data._id);
+              }}
+            >
+              Delete
+            </MenuItem>
+          </Menu>
+        </div>
+      )}
     </div>
   );
 };

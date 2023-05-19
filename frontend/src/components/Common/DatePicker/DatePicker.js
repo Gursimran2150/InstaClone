@@ -1,51 +1,41 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./datepicker.css";
 
-function DatePicker({setBirthDate,birthDate,ableBtn}) {
-
+function DatePicker({ setBirthDate, birthDate, ableBtn }) {
   const [month, setMonth] = useState(new Date().getMonth() + 1);
   const [year, setYear] = useState(new Date().getFullYear());
 
-const handleChange=(e)=>{
+  const handleChange = (e) => {
+    setBirthDate({ ...birthDate, [e.target.name]: e.target.value });
+  };
 
-  setBirthDate({   ...birthDate,[e.target.name]:e.target.value})
-
-}
-
-
-  // set length of days 
+  // set length of days
   let lengthNum;
   if (
-    month == 1 ||
-    month == 3 ||
-    month == 5 ||
-    month == 7 ||
-    month == 8 ||
-    month == 10 ||
-    month == 12
+    month === 1 ||
+    month === 3 ||
+    month === 5 ||
+    month === 7 ||
+    month === 8 ||
+    month === 10 ||
+    month === 12
   ) {
     lengthNum = 31;
-  } else if (
-    month == 4 ||
-    month == 6 ||
-    month == 9 ||
-    month == 11
-  ) {
-      lengthNum = 30;
+  } else if (month === 4 || month === 6 || month === 9 || month === 11) {
+    lengthNum = 30;
   } else {
     //for leap year
     if (new Date(year, 1, 29).getMonth() === 1) {
-       lengthNum = 29;
+      lengthNum = 29;
     } else {
-       lengthNum = 28;
+      lengthNum = 28;
     }
   }
-  
 
-  //create array of day list 
+  //create array of day list
   const days = Array.from({ length: lengthNum }, (_, i) => i + 1);
 
-  //list of month 
+  //list of month
   const months = [
     { name: "January", value: "1" },
     { name: "February", value: "2" },
@@ -61,15 +51,11 @@ const handleChange=(e)=>{
     { name: "December", value: "12" },
   ];
 
-  //create array of year list 
+  //create array of year list
   const years = Array.from(
     { length: 100 },
     (_, i) => new Date().getFullYear() - i
   );
-
- 
-
-
 
   return (
     <div className="datePicker">
@@ -100,7 +86,6 @@ const handleChange=(e)=>{
           defaultValue={new Date().getDate()}
           // onChange={(e) => setDay(e.target.value)}
           onChange={handleChange}
-
         >
           {days.map((day, ind) => {
             return (
@@ -119,7 +104,6 @@ const handleChange=(e)=>{
           id="year"
           // onChange={(e) => setYear(e.target.value)}
           onChange={handleChange}
-
           className="yearSelect"
         >
           {years.map((year, ind) => {

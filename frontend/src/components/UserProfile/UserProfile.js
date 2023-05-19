@@ -5,24 +5,63 @@ import Button from "../Button";
 import Footer from "../Footer/Footer";
 import ImgTag from "../ImgTag";
 import "./UserProfile.css";
+import axios from "axios";
+import { BACKEND_URL } from "../../config";
+import PostModal from "../Common/PlayingContent/PostModal";
 
 const UserProfile = () => {
   const [currentUser, setCurrentUser] = useState(null);
+  const [userPosts, setUserPosts] = useState([]);
+  const [currentPost, setCurrentPost] = useState();
+  const [isOpen, setIsOpen] = useState(false);
 
+  //getting the user Data
   const getUserData = async (id, token) => {
-    await getUserById(id, token)
-      .then((response) => {
-        setCurrentUser(response.data);
-        console.log(response.data);
-      })
-      .catch((err) => console.log(err));
+    try {
+      const response = await getUserById(id, token);
+      setCurrentUser(response.data);
+    } catch (error) {
+      console.log("Error fetching user data:", error);
+    }
   };
 
+  //getting the posts of the user
+  const fetchAllPostsByUsername = async (userName, token) => {
+    try {
+      const { data } = await axios.get(
+        `${BACKEND_URL}/posts/get-post-byUserName/${userName}`,
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+      const posts = Object.values(data).slice(0, -1);
+      setUserPosts(posts);
+    } catch (error) {
+      console.log("Error fetching user posts:", error);
+    }
+  };
+
+  //calling both the methods and sending them token and user ID
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem("token"));
     const user = JSON.parse(localStorage.getItem("userCedentials"));
-    getUserData(user._id, token);
+    if (user) {
+      getUserData(user._id, token);
+      fetchAllPostsByUsername(user.userName, token);
+    }
   }, []);
+
+  //model for the posts when user will click hi one particular post
+  function openPostModel(post) {
+    setCurrentPost(post);
+    setIsOpen(true);
+  }
+
+  function handleClose() {
+    setIsOpen(false);
+  }
 
   // convert uri
   const convert = (url) => {
@@ -113,15 +152,23 @@ const UserProfile = () => {
         </div>
 
         <div className="userPostGallery">
-          {currentUser?.posts.map((post, ind) => {
-            return (
+          {userPosts &&
+            userPosts.map((post, ind) => (
               <div className="galleryImg" key={ind}>
-                <ImgTag src={convert(post?.media[0]?.url)} alt={"images"} />
+                {post?.media && post.media[0]?.url && (
+                  <div onClick={() => openPostModel(post)}>
+                    <ImgTag
+                      src={convert(post.media[0].url)}
+                      alt="posts"
+                      className="galleryImg"
+                    />
+                  </div>
+                )}
               </div>
-            );
-          })}
+            ))}
         </div>
       </div>
+      <PostModal post={currentPost} isOpen={isOpen} handleClose={handleClose} />
       <div className="userProfilePageFooter">
         <Footer />
       </div>

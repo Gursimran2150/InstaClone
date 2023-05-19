@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from "react";
 import ImgTag from "../../ImgTag";
 import ContentHeader from "../ContentHeader";
-import CommentModal from "../ContentModal/CommentModal";
 import Button from "../../Button";
 import { commentOnPost } from "../../../apiRequests/commentApi";
-import moment from "moment";
 import { postLike } from "../../../apiRequests/postApis/postLikeApi";
-import { useDispatch, useSelector } from "react-redux";
-import { likeDisLikePost } from "../../../slices/postLikeSlice";
+import { useDispatch } from "react-redux";
 import { fetchAllPosts } from "../../../slices/postsSlice";
 
 export default function Post({ post, authToken, onPressItem }) {
@@ -15,9 +12,6 @@ export default function Post({ post, authToken, onPressItem }) {
   const [comment, setComment] = useState("");
 
   const [isLiked, setIsLiked] = useState();
-  const [toggle, setToggle] = useState();
-
-  //likes button , share button
   const [likeBtn, setLikesBtn] = useState(
     "../images/inputIcons/blackHeart3.png"
   );
@@ -56,28 +50,10 @@ export default function Post({ post, authToken, onPressItem }) {
     addComment(commentData);
   }
 
-  //change like button
-  // const clickLike = async (id) => {
-  //   const respones = await postLike({ postId: id, token: authToken });
-
-  //   setToggle(!toggle);
-  //   console.log(toggle);
-
-  //   //dispatch(likeDisLikePost({ id, token: authToken }));
-  //   // if (
-  //   //   respones.data.statusCode === 200 &&
-  //   //   respones.data.message === "post was liked"
-  //   // ) {
-  //   //   console.log("I am liked");
-  //   //   setLikesBtn("../images/inputIcons/redHeart.png");
-  //   // } else {
-  //   //   setLikesBtn("../images/inputIcons/blackHeart3.png");
-  //   // }
-  // };
+  //handle like click
   const clickLike = async (id) => {
     await postLike({ postId: id, token: authToken });
     dispatch(fetchAllPosts());
-    setToggle((prevToggle) => !prevToggle);
   };
 
   useEffect(() => {
@@ -88,11 +64,10 @@ export default function Post({ post, authToken, onPressItem }) {
         ? "../images/inputIcons/redHeart.png"
         : "../images/inputIcons/blackHeart3.png"
     );
-  }, [isLiked, post?.likes?.users]);
+  }, [dispatch, isLiked, post?.likes?.users]);
 
   return (
     <div className="playingContent">
-      {/* content header */}
       <ContentHeader
         data={{
           _id: post._id,
@@ -153,10 +128,11 @@ export default function Post({ post, authToken, onPressItem }) {
           <span>{post?.userName} </span> {post.content}
         </div>
         <div className="viewComments">
-          {post.comments.map((comment, index) => {
+          {post.comment?.map((comment, index) => {
             return (
               <div key={index} className="viewCommentList">
-                <span> {comment.text} </span>
+                <strong>{`${comment.user.userName}`}</strong>
+                <span>&nbsp; {comment.text} </span>
               </div>
             );
           })}

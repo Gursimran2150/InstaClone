@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { BACKEND_URL } from "../config";
 
 const initialState = {
   data: {},
@@ -7,13 +8,11 @@ const initialState = {
   loading: false,
 };
 
+//fetching the user by id
 export const fetchUserById = createAsyncThunk(
   "fetch/user/id",
   async ({ id, token }) => {
-    console.log("id-: " + id);
-    console.log("token-: " + token);
-    console.log(`http://localhost:4500/user/${id}`);
-    const { data } = await axios.get(`http://localhost:4500/user/${id}`, {
+    const { data } = await axios.get(`${BACKEND_URL}/user/${id}`, {
       headers: {
         Authorization: token,
       },
@@ -22,6 +21,7 @@ export const fetchUserById = createAsyncThunk(
   }
 );
 
+//handling the promise
 const userSlice = createSlice({
   name: "user",
   initialState,

@@ -1,24 +1,33 @@
 import React from "react";
-import './Common/common.css'
+import "./Common/common.css";
 
 const InputField = ({
-  type, className,
-  id, placeholder, onchange, name,
-  required, value, innerInputContent, showBtn, autoFocus, pattern, maxNum, minNum,
+  type,
+  className,
+  id,
+  placeholder,
+  onchange,
+  name,
+  required,
+  value,
+  innerInputContent,
+  showBtn,
+  autoFocus,
+  pattern,
+  maxNum,
+  minNum,
   autocomplete,
 
-  handleBlur = () => { },
-  style
+  handleBlur = () => {},
+  style,
 }) => {
-
   return (
-
-    <div
-      className={`inputWithLabel`}
-      style={style}
-    >
-      <div className={`userNameInput ${value?.length > 0 ? "currentValue" : "changeValue"
-        } `}>
+    <div className={`inputWithLabel`} style={style}>
+      <div
+        className={`userNameInput ${
+          value?.length > 0 ? "currentValue" : "changeValue"
+        } `}
+      >
         {value?.length > 0 && (
           <span className="spanPassword"> {placeholder}</span>
         )}
@@ -38,14 +47,12 @@ const InputField = ({
           min={minNum}
           max={maxNum}
           autoComplete={autocomplete}
-        >
-        </input>
+        ></input>
       </div>
-      <div className={`${showBtn ? "show" : "InputIneerBtnHide"}`} >
+      <div className={`${showBtn ? "show" : "InputIneerBtnHide"}`}>
         {innerInputContent}
       </div>
     </div>
-
   );
 };
 

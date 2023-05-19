@@ -1,58 +1,35 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import ImgTag from "../ImgTag";
 import Button from "../Button";
 import moment from "moment";
 import "../Common/PlayingContent/Content.css";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchUserById } from "../../slices/userSlice";
-import MenuIcon from "@mui/icons-material/Menu";
+import { useDispatch } from "react-redux";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-const ContentHeader = ({ data }) => {
+import { deletePostById, fetchAllPosts } from "../../slices/postsSlice";
+
+const ContentHeader = ({ data, post }) => {
+  //dipatch to dispatch actions
+  const dispatch = useDispatch();
+
+  //To handle side menu for a post
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const handleMenu = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+  const handleMenu = (event) => setAnchorEl(event.currentTarget);
+  const handleClose = () => setAnchorEl(null);
+  const handleThreeDotClick = (e) => handleMenu(e);
 
+  // storing username and user id
   const userName = JSON.parse(localStorage.getItem("userCedentials")).userName;
+  const userId = JSON.parse(localStorage.getItem("userCedentials"))._id;
 
-  // console.log("myId" + data.userName);
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-  // find the diff b/w post uploading date and current date
-  // const dispatch = useDispatch();
-  // const commentPersonUsername = useSelector(
-  //   (state) => state.user.data.userName
-  // );
-  // useEffect(() => {
-  //   const token = JSON.parse(localStorage.getItem("token"));
-  //   const id = JSON.parse(localStorage.getItem("userCedentials"))._id;
-
-  //   // console.log("login UserId-: " + id);
-  //   // console.log("Commented by-: " + commentPersonUsername);
-  //   dispatch(
-  //     fetchUserById({
-  //       id: data.commentedBy != null ? data.commentedBy : id,
-  //       token,
-  //     })
-  //   );
-  // }, [dispatch, data.userName, data.commentedBy]);
-
-  const handleThreeDotClick = (e) => {
-    handleMenu(e);
-  };
-
+  //deleting post
   const deletePost = (id) => {
     handleClose();
-    console.log("Post delted" + id);
-  };
-  const updatePost = (id) => {
-    handleClose();
-    console.log("Post updated" + id);
+    dispatch(deletePostById({ id, userId: userId }));
+    dispatch(fetchAllPosts());
   };
 
+  // creating date for the post
   const createDate = () => {
     let now = moment(new Date());
     let createdAt = moment(data.createdAt);
@@ -106,7 +83,7 @@ const ContentHeader = ({ data }) => {
           </span>
         </div>
       </div>
-      {userName === data.userName ? (
+      {userName !== data.userName ? (
         ""
       ) : (
         <div className="optionButton">
@@ -133,7 +110,6 @@ const ContentHeader = ({ data }) => {
             >
               Delete
             </MenuItem>
-            <MenuItem onClick={() => updatePost(data._id)}>Edit</MenuItem>
           </Menu>
         </div>
       )}

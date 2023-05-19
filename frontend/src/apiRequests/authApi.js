@@ -1,7 +1,6 @@
 import axios from "axios";
 import { BACKEND_URL } from "../config";
 
-// import axios from ''
 const API = axios.create({ baseURL: BACKEND_URL });
 
 //login api request
@@ -44,7 +43,7 @@ export const reSendVerificaionCode = (data, navigate, setResendCodeMsg) => {
     .catch((err) => console.log(err));
 };
 
-//create random userName 
+//create random userName
 export const createRandomUserName = (data) => {
   return API.post("accounts/createUserName", { userName: data });
 };
@@ -53,7 +52,6 @@ export const createRandomUserName = (data) => {
 export const checkUserIs = (data) => {
   return API.get(`accounts/checkUser/${data}`);
 };
-
 
 //send forgot password link
 export const sendForgotLink = (payload) => {

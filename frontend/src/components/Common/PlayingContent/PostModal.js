@@ -1,23 +1,19 @@
-import SelectPost from "../../CreatePost/SelectPost";
 import { makeStyles } from "@mui/styles";
 import { Modal } from "react-bootstrap";
 import "./Content.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import ImgTag from "../../ImgTag";
-import Post from "./Post";
-import CommentPostModal from "./CommentPostModal";
 import ContentHeader from "../ContentHeader";
-import { useEffect, useState } from "react";
 import CommentHeader from "../CommentHeader";
 import { useSelector } from "react-redux";
 
 function PostModal({ post, isOpen, handleClose, postList, isClose }) {
   const classes = useStyles();
 
+  //fetching all the comments on a particular post using its id and removing the last element from it as api is returing in the form of object
   const comments = useSelector((state) => state.comments.data);
   const commentsArray = Object.values(comments).slice(0, -1);
 
-  //console.log(commentsArray);
   // convert uri
   const convert = (url) => {
     if (url.uri) {
@@ -28,8 +24,6 @@ function PostModal({ post, isOpen, handleClose, postList, isClose }) {
   };
 
   if (post) {
-    const filterPost = postList.filter((item) => post._id == item._id);
-
     return (
       <div>
         <Modal show={isOpen} className={classes.contentBox}>
@@ -75,6 +69,7 @@ function PostModal({ post, isOpen, handleClose, postList, isClose }) {
                       width={35}
                     />
                   </div>
+
                   <div className="userDetailOnPost">
                     <div className="userDetailTopLine">
                       <span className="userDetailOnPostUserName">
@@ -90,19 +85,17 @@ function PostModal({ post, isOpen, handleClose, postList, isClose }) {
 
                 {commentsArray.map((comment, index) => {
                   return (
-                    // <div key={index}>
-                    //   {commit.commentedBy}, {commit.text}
-                    // </div>
                     <div key={index}>
-                      <ContentHeader
+                      <CommentHeader
                         data={{
+                          _id: comment._id,
                           userName: comment.user.userName,
                           profileImage: post.profileImage,
                           createdAt: post.createdAt,
                           text: comment.text,
                         }}
+                        post={post}
                       />
-                      {/* <span>{commit.text}</span> */}
                     </div>
                   );
                 })}
@@ -113,15 +106,17 @@ function PostModal({ post, isOpen, handleClose, postList, isClose }) {
       </div>
     );
   }
+
   return null;
 }
 
 export default PostModal;
 
+//styles for the layout
+
 const useStyles = makeStyles(() => ({
   contentBox: {
     marginTop: "30px",
-    // margin:"auto",
     padding: 0,
   },
 

@@ -1,7 +1,15 @@
-
 import React from "react";
 
-const Button = ({ type, className, id, onclick, text, disabled, fontIcon, styles }) => {
+const Button = ({
+  type,
+  className,
+  id,
+  onclick,
+  text,
+  disabled,
+  fontIcon,
+  styles,
+}) => {
   return (
     <>
       <button
@@ -12,12 +20,8 @@ const Button = ({ type, className, id, onclick, text, disabled, fontIcon, styles
         disabled={disabled}
         style={styles}
       >
-        {
-          fontIcon
-        }
-        {
-          text
-        }
+        {fontIcon}
+        {text}
       </button>
     </>
   );

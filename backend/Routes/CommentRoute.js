@@ -1,12 +1,13 @@
 import express from "express";
 import {
-	createComment,
-	getCommentsOnPost,
-	getCommentWithReply,
-	likeOnComments,
-	likesOnReplies,
-	replyComment,
-	replyComments2,
+  createComment,
+  deleteComment,
+  getCommentsOnPost,
+  getCommentWithReply,
+  likeOnComments,
+  likesOnReplies,
+  replyComment,
+  replyComments2,
 } from "../Controllers/CommentsController.js";
 const router = express.Router();
 
@@ -20,6 +21,7 @@ const router = express.Router();
 // newwwwwwww router
 router.post("/:postId", createComment);
 router.get(`/:postId`, getCommentWithReply);
+router.delete("/:commentId", deleteComment);
 
 router.put(`/:commentId/reply`, replyComments2);
 router.put(`/:commentId/like`, likeOnComments);

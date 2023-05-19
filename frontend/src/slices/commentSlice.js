@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { BACKEND_URL } from "../config";
 
 const initialState = {
   data: {},
@@ -7,9 +8,10 @@ const initialState = {
   error: null,
 };
 
+//fetching all the comments on a particular post
 export const fetchComments = createAsyncThunk("fetch/comments", async (id) => {
   try {
-    const { data } = await axios.get(`http://localhost:4500/comment/${id}`);
+    const { data } = await axios.get(`${BACKEND_URL}/comment/${id}`);
     return data;
   } catch (e) {
     console.log(e);
@@ -17,6 +19,7 @@ export const fetchComments = createAsyncThunk("fetch/comments", async (id) => {
   }
 });
 
+//handling the promise
 const commentSlice = createSlice({
   name: "comment",
   initialState,

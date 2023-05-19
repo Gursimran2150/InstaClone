@@ -1,23 +1,18 @@
 import React, { useEffect, useState } from "react";
 import Button from "../Button";
 import ImgTag from "../ImgTag";
-import Emoji from "emoji-picker-react";
-
-import InputField from "../InputField";
 import { sharePost } from "../../apiRequests/postApi";
-
 const AddDecriptionPost = ({ handleBackClick, currentUser, link }) => {
-
-
   const [postData, setPostData] = useState({
     media: [{ url: "" }],
     type: 1,
     content: "",
   });
+
   const [description, setDescription] = useState("");
   const [authToekn, setAuthToken] = useState("");
   const [isPostShared, setPostShared] = useState(false);
-  const [messageOnShared,setMessageShared]=useState("")
+  const [messageOnShared, setMessageShared] = useState("");
 
   // convert uri
   const convert = (url) => {
@@ -41,14 +36,12 @@ const AddDecriptionPost = ({ handleBackClick, currentUser, link }) => {
   const handleSharePost = async (e) => {
     await sharePost(postData, authToekn)
       .then((respones) => {
-        
         if (respones.data.statusCode == 200) {
-          setPostShared(true)
-          setMessageShared(respones.data.message)
-        }else{
-          setPostShared(false)
-          setMessageShared(respones.data.message)
-
+          setPostShared(true);
+          setMessageShared(respones.data.message);
+        } else {
+          setPostShared(false);
+          setMessageShared(respones.data.message);
         }
       })
       .catch((error) => console.log(error));
@@ -56,8 +49,6 @@ const AddDecriptionPost = ({ handleBackClick, currentUser, link }) => {
 
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem("token"));
-    // const token = localStorage.getItem("token")
-
     setAuthToken(token);
   }, []);
 
@@ -88,7 +79,6 @@ const AddDecriptionPost = ({ handleBackClick, currentUser, link }) => {
                 <ImgTag
                   src={
                     currentUser?.profileImage?.uri
-                 
                       ? convert(currentUser?.profileImage?.uri)
                       : " ../images/inputIcons/profile.png"
                   }
@@ -113,8 +103,8 @@ const AddDecriptionPost = ({ handleBackClick, currentUser, link }) => {
         </div>
       ) : (
         <div className="createPostCont">
-<ImgTag src={"../images/inputTrue.png"} width={100}/>
-<h3> {messageOnShared} </h3>
+          <ImgTag src={"../images/inputTrue.png"} width={100} />
+          <h3> {messageOnShared} </h3>
         </div>
       )}
     </>

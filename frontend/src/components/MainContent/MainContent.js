@@ -17,16 +17,14 @@ const MainContent = () => {
   };
 
   useEffect(() => {
-    const token =JSON.parse( localStorage.getItem("token"))
+    const token = JSON.parse(localStorage.getItem("token"));
     getUserData(token);
   }, []);
 
   return (
     <div className="homePageMainContent">
       <div className="leftMainContent">
-        <div className="storyContainer">
-          {/* <Story /> */}
-        </div>
+        <div className="storyContainer">{/* <Story /> */}</div>
         <div className="mainContentList">
           <Content user={currentUser} />
         </div>
