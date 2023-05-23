@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./HomePage.css";
 import LeftHeader from "../../components/Header/LeftHeader";
 import Footer from "../../components/Footer/Footer";
@@ -16,7 +16,18 @@ import LeftSideHeaderModal from "../../components/Header/LeftSideHeaderModal";
 const HomePage = ({ comp }) => {
   const navigate = useNavigate();
   const [activeComponent, setActiveComponent] = useState(<MainContent />);
-  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState({});
+  const [createPostModel, setCreatePostModel] = useState(true);
+
+  useEffect(() => {
+    console.log("home page render");
+    const userData = JSON.parse(localStorage.getItem("userCedentials"));
+    //console.log(userData);
+    setCurrentUser(userData);
+  }, []);
+  const handleChnageClick = (component) => {
+    setActiveComponent(component);
+  };
 
   const headerLinks = [
     {
@@ -27,7 +38,9 @@ const HomePage = ({ comp }) => {
     {
       name: "Search",
       icon: "../images/inputIcons/search.png",
-      component: <LeftSideHeaderModal/>  ,
+      component: () => (
+        <LeftSideHeaderModal setActiveComponent={setActiveComponent} />
+      ),
     },
     {
       name: "Explore",
@@ -52,16 +65,20 @@ const HomePage = ({ comp }) => {
     {
       name: "Create",
       icon: "../images/inputIcons/create.png",
-      component: <CreatePostModal /> ,
+      component: (
+        <CreatePostModal
+          isOpen={createPostModel}
+          handleChnageClick={handleChnageClick}
+        />
+      ),
     },
     {
       name: "Profile",
       icon: "../images/inputIcons/profile.png",
-      component: <UserProfile />,
+      component: <UserProfile userId={currentUser._id} />,
     },
   ];
 
- 
   // get storage from local storage data
   const getAllStorage = () => {
     let data = [];
@@ -77,10 +94,6 @@ const HomePage = ({ comp }) => {
       localStorage.clear();
       navigate("/");
     }
-  };
-
-  const handleChnageClick = (component, name) => {
-    setActiveComponent(component);
   };
 
   return (
@@ -100,6 +113,7 @@ const HomePage = ({ comp }) => {
                 }
               />
             </div>
+
             <div className="leftHeaderLinkList">
               {headerLinks.map((item, index) => {
                 return (
@@ -137,7 +151,7 @@ const HomePage = ({ comp }) => {
                     />
                   </div>
                   <div>
-                    <div className="leftHeaderLinkName">More</div>
+                    <div className="leftHeaderLinkName">Logout</div>
                   </div>
                 </>
               }

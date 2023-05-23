@@ -14,4 +14,4 @@ const ImgTag = ({ src, id, width, height, handleClick, className }) => {
   );
 };
 
-export default ImgTag;
+export default React.memo(ImgTag);

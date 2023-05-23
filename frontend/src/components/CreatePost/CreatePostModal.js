@@ -4,11 +4,13 @@ import { uploadFile } from "../../apiRequests/postApi";
 import UploadPost from "./UploadPost";
 import SelectPost from "./SelectPost";
 
-const CreatePostModal = () => {
+const CreatePostModal = ({ isOpen, handleChnageClick }) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [isGenraterLink, setGenraterLink] = useState("");
+  // const [isOpen, setIsOpen] = useState(false)
 
   //
+
   const fileInput = useRef(null);
 
   const handleClick = () => {
@@ -20,7 +22,7 @@ const CreatePostModal = () => {
     setSelectedFile(file);
 
     const formData = new FormData();
-    formData.append("file", selectedFile);
+    formData.append("file", file);
 
     if (formData) {
       await uploadFile(formData)
@@ -31,22 +33,28 @@ const CreatePostModal = () => {
         })
         .catch((err) => console.log(err));
     }
-    return null;
   };
 
-  return (
-    <div className="createPostPage">
-      {isGenraterLink.length > 0 ? (
-        <UploadPost link={isGenraterLink} />
-      ) : (
-        <SelectPost
-          handleClick={handleClick}
-          fileInput={fileInput}
-          handleFileSelect={handleFileSelect}
-        />
-      )}
-    </div>
-  );
+  if (isOpen) {
+    return (
+      <div className="createPostPage">
+        {isGenraterLink.length > 0 ? (
+          <UploadPost
+            link={isGenraterLink}
+            handleChnageClick={handleChnageClick}
+          />
+        ) : (
+          <SelectPost
+            handleClick={handleClick}
+            fileInput={fileInput}
+            handleFileSelect={handleFileSelect}
+          />
+        )}
+      </div>
+    );
+  } else {
+    return null;
+  }
 };
 
 export default CreatePostModal;

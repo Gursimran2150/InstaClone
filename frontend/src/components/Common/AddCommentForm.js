@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Button from "../Button";
 import ImgTag from "../ImgTag";
 
@@ -11,16 +11,17 @@ const AddCommentForm = ({
   currentIndex,
   index,
 }) => {
+  // useEffect(()=<)
   return (
     <div>
       <form className="addCommentForm">
-        <input
+        {/* <input
           type="text"
           placeholder="Add a comment... "
           onChange={handleCommetBtn}
           name="addComment"
           id={index}
-        />
+        /> */}
 
         {postCommentBtn == currentIndex ? (
           <Button

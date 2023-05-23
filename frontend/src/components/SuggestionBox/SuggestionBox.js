@@ -52,7 +52,7 @@ const SuggestionBox = ({ user }) => {
       await axios.put(`${BACKEND_URL}/follow/unfollow/${id}`, {
         _id: user._id,
       });
-      console.log("UnFollow successful");
+      //console.log("UnFollow successful");
       dispatch(fetchUserById({ id: user._id, token }));
       getUsers(authToken);
     } catch (err) {

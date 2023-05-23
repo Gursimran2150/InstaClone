@@ -1,127 +1,121 @@
 .horizontal {
-
-    width: 100%;
-    /* color: rgb(var(--ig-secondary-text)); */
-    color: #737373;
-    font-family: var(--font-family-system);
-    font-size: 12px;
-    font-weight: var(--font-weight-system-semibold);
-    text-transform: uppercase;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: 4px 0px 10px 0px;
+  width: 100%;
+  /* color: rgb(var(--ig-secondary-text)); */
+  color: #737373;
+  font-family: var(--font-family-system);
+  font-size: 12px;
+  font-weight: var(--font-weight-system-semibold);
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 4px 0px 10px 0px;
 }
 
 .line {
-    width: 40%;
-    opacity: 0.8;
+  width: 40%;
+  opacity: 0.8;
 }
 
-
 /* inout field change css */
-.inputWithLabel{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    min-width: 268px;
+.inputWithLabel {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  min-width: 268px;
   color: rgba(var(--grey-5));
   border: 1px solid rgb(var(--grey-2));
   background-color: #fafafa;
   font-weight: normal;
-  }
+}
 
-  .spanPassword{
+.spanPassword {
   font-size: var(--system-11-font-size);
   padding-bottom: 1px;
   background-color: transparent;
-  }
+}
 
-  .userNameInput{
-    width: 79%;
-    display: flex;
-    flex-direction: column;
-    padding: 9x 0px 7px 8px;
-  }
+.userNameInput {
+  width: 79%;
+  display: flex;
+  flex-direction: column;
+  padding: 9x 0px 7px 8px;
+}
 
-  .userNameInput>input[type=text]{
+.userNameInput > input[type="text"] {
   border: none;
   font-size: 13px;
   border-radius: 2px;
   background-color: transparent;
-
-  }
-  .userNameInput>input[type=password]{
-    border: none;
-    font-size: 13px;
-    border-radius: 1px;
+}
+.userNameInput > input[type="password"] {
+  border: none;
+  font-size: 13px;
+  border-radius: 1px;
   background-color: transparent;
-  }
-
-  .userNameInput>input[type=tel]{
-    border: none;
-    font-size: 13px;
-    border-radius: 1px;
-  background-color: transparent;
-  }
-
-  .userNameInput>input[type=number]{
-    border: none;
-    font-size: 13px;
-    border-radius: 1px;
-  background-color: transparent;
-  }
-
-  .userNameInput>input[type=text],input[type=password],input[type=tel], input[type=number]:focus{
-    outline: none;
-  }
-
-  .currentValue{
-    padding-top: 2px;
-    padding-bottom: 2px;
-    padding-left: 8px;
-  }
-
-  .changeValue{
-    padding-top: 10px;
-    padding-bottom: 11px;
-    padding-left: 8px;
-  }
-
-  /* for inner content in input field  */
-  .InputIneerBtnHide{
-display: none;
-  }
-  .show{
-display: flex;
-align-items: center;
-padding: 0px 7px 0px 0px;
-gap: 7px;
-  }
-
-
-  /* dkndk */
-  .userNameRefreshBtn{
-
-border: none;
-background-color: transparent;
-display: flex;
-padding-left: 4px;
 }
 
-  /* btn */
-  #hideShow{
-    text-align: center;
-padding: 0px 2px 0px 4px;
-  }
+.userNameInput > input[type="tel"] {
+  border: none;
+  font-size: 13px;
+  border-radius: 1px;
+  background-color: transparent;
+}
 
+.userNameInput > input[type="number"] {
+  border: none;
+  font-size: 13px;
+  border-radius: 1px;
+  background-color: transparent;
+}
 
+.userNameInput > input[type="text"],
+input[type="password"],
+input[type="tel"],
+input[type="number"]:focus {
+  outline: none;
+}
 
+.currentValue {
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-left: 8px;
+}
 
-  /* jhfidhf */
-  input::-webkit-outer-spin-button,
+.changeValue {
+  padding-top: 10px;
+  padding-bottom: 11px;
+  padding-left: 8px;
+}
+
+/* for inner content in input field  */
+.InputIneerBtnHide {
+  display: none;
+}
+.show {
+  display: flex;
+  align-items: center;
+  padding: 0px 7px 0px 0px;
+  gap: 7px;
+}
+
+/* dkndk */
+.userNameRefreshBtn {
+  border: none;
+  background-color: transparent;
+  display: flex;
+  padding-left: 4px;
+}
+
+/* btn */
+#hideShow {
+  text-align: center;
+  padding: 0px 2px 0px 4px;
+}
+
+/* jhfidhf */
+input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-

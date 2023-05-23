@@ -42,15 +42,18 @@ const CommentHeader = ({ data, post }) => {
 
   //creating a date
   const createDate = () => {
-    let now = moment(new Date());
-    let createdAt = moment(data.createdAt);
+    let now = moment.utc();
+    let createdAt = moment.utc(data.createdAtC);
     let days = now.diff(createdAt, "days");
     if (days < 7) {
       if (days < 1) {
-        if (moment(createdAt).format("mm") < "60") {
-          return `${moment(createdAt).format("mm")}m`;
+        let minutes = moment.duration(now.diff(createdAt)).asMinutes();
+        if (minutes < 60) {
+          return `${Math.floor(minutes)}m`;
         } else {
-          return `${moment(createdAt).format("hh")}h`;
+          return `${Math.floor(
+            moment.duration(now.diff(createdAt)).asHours()
+          )}h`;
         }
       } else {
         return `${days}d`;

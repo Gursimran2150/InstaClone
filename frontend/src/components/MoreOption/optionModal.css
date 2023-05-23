@@ -1,0 +1,54 @@
+.optionModelWrapper {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  box-sizing: border-box;
+  background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
+}
+.options {
+  width: 400px;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  overflow: hidden;
+  box-sizing: border-box;
+  z-index: 999;
+}
+.options div {
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.options div button {
+  padding: 13px 0;
+  font-size: 14px;
+}
+.options div button {
+  position: relative;
+  background-color: white;
+}
+
+.options div button::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 0.01rem solid lightgray;
+  opacity: 0.4;
+
+  pointer-events: none;
+}
+.deleteBtn {
+  color: red;
+  font-weight: bold;
+}

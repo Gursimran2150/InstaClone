@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import "./Content.css";
 import { useDispatch, useSelector } from "react-redux";
 import Post from "./Post";
@@ -10,34 +10,40 @@ const Content = () => {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.allPosts.data.data);
 
-  //const [posts, setPosts] = useState([]);
-  const [authToken, setAuthToken] = useState("");
+  const authToken = useMemo(
+    () => JSON.parse(localStorage.getItem("token")),
+    []
+  );
+  const memoizedPosts = useMemo(() => posts, [posts]);
 
-  //view comment modal
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectPost, setSelectPost] = useState(null);
 
-  //handle open post modal
-  const handleOpenModal = (post) => {
-    dispatch(fetchComments(post._id));
-    setIsModalOpen(true);
-    setSelectPost(post);
-  };
+  const handleOpenModal = useMemo(
+    () => (post) => {
+      console.log("open model function");
+      dispatch(fetchComments(post._id));
+      setIsModalOpen(true);
+      setSelectPost(post);
+    },
+    [dispatch]
+  );
 
-  //handle close post modal
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
 
   useEffect(() => {
-    setAuthToken(JSON.parse(localStorage.getItem("token")));
+    console.log("render home");
     dispatch(fetchAllPosts());
   }, [dispatch]);
 
+  console.log("Parent rendering");
+
   return (
     <div className="postList">
-      {posts &&
-        posts.map((post, index) => {
+      {memoizedPosts &&
+        memoizedPosts.map((post, index) => {
           return (
             <Post
               post={post}

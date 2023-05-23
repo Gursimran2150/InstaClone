@@ -79,24 +79,23 @@ export const getUserByNameStart = async function (req, res) {
 export const getUserByNamePattern = async function (req, res) {
   const token = req.headers.authorization;
   const decoded = jwt.verify(token, process.env.JWTKEY);
-  const currentUserId = decoded.id;
+  // const currentUserId = decoded.id;
 
   const { pattern } = req.params;
   try {
     //get block list of current user
-    let blockList = await blockUserModel.findOne({ userId: currentUserId });
-
+    // let blockList = await blockUserModel.findOne({ userId: currentUserId });
+    //let followfollowings = await
     // get user
-    if (blockList === null) {
-      let user = await userModel.find({
-        firstName: { $regex: `${pattern}` },
-      });
-      user.length === 0
-        ? res.send(constents.RESPONES.NO_DATA("No data"))
-        : res.send(
-            constents.RESPONES.SUCCESS(user, "successfully get all user")
-          );
+
+    let user = await userModel.find({
+      firstName: { $regex: `${pattern}` },
+    });
+    if (user) {
     }
+    user.length === 0
+      ? res.send(constents.RESPONES.NO_DATA("No data"))
+      : res.send(constents.RESPONES.SUCCESS(user, "successfully get all user"));
   } catch (error) {
     console.log(error);
     res.send(constents.RESPONES.ERROR());

@@ -12,8 +12,8 @@ const initialState = {
 export const searchUsers = createAsyncThunk(
   "search/users",
   async ({ pattern, token }) => {
-    console.log("pattern  " + pattern);
-    console.log("token " + token);
+    //console.log("pattern  " + pattern);
+    // console.log("token " + token);
     try {
       const { data } = await axios.get(
         `${BACKEND_URL}/user/search-by-name-pattern/${pattern}`,

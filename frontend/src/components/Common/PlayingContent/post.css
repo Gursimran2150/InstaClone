@@ -1,0 +1,128 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.parentWrapper {
+  /* border: 1px solid red; */
+  width: 500px;
+
+  display: flex;
+  padding: 10px;
+  align-items: center;
+  flex-direction: column;
+  overflow: hidden;
+}
+.profileInfoContainer {
+  /* border: 1px solid green; */
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.profileInfoContainerLeftPart {
+  /* border: 2px solid yellow; */
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+/* .profileInfoContainerRightPart {
+  border: 2px solid crimson;
+} */
+.profileInfoContainerLeftPartImage img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+.profileUsername {
+  font-weight: bold;
+}
+.postTitle {
+  font-size: 12px;
+  font-weight: 400;
+}
+.postTime {
+  align-self: flex-start;
+  color: gray;
+  font-size: 14px;
+}
+.moreOptionButton {
+  background: transparent;
+  outline: none;
+  border: none;
+  color: black;
+  background-color: white;
+  font-size: 26px;
+}
+.imageContainer {
+  margin-top: 10px;
+  width: 100%;
+}
+.imageContainer img {
+  width: 100%;
+  border-radius: 4px;
+}
+.likesCommentShareContainer {
+  margin-top: 5px;
+  width: 100%;
+  display: flex;
+  padding: 0 1px;
+  justify-content: space-between;
+}
+.iconBtn {
+  background-color: white;
+  cursor: pointer;
+}
+.firstThreeIcons {
+  display: flex;
+  gap: 15px;
+  width: 25px;
+  height: 25px;
+}
+.iconBtn img {
+  width: 25px;
+}
+.iconBtn .saveIcon {
+  width: 20px;
+}
+.showLikesContainer {
+  margin-top: 10px;
+  padding-left: 2px;
+  width: 100%;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: start;
+}
+.postDescriptionContainer {
+  width: 100%;
+  max-lines: 2;
+}
+.viewAllCommentsContainer {
+  margin-top: 10px;
+  width: 100%;
+  color: gray;
+  cursor: pointer;
+}
+.addCommentContainer {
+  margin-top: 10px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 10px;
+  border-bottom: 0.5px solid lightgray;
+}
+.addCommentInput {
+  flex: 2;
+}
+.addCommentInput input {
+  width: 100%;
+  border: none;
+  outline: none;
+}
+.postbtn button {
+  background-color: white;
+  color: rgb(31, 174, 240);
+  font-weight: bold;
+}

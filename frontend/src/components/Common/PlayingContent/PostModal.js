@@ -46,13 +46,7 @@ function PostModal({ post, isOpen, handleClose, postList, isClose }) {
               />
             </div>
             <div className={classes.innerBox2}>
-              <ContentHeader
-                data={{
-                  userName: post.userName,
-                  profileImage: post.profileImage,
-                  createdAt: post.createdAt,
-                }}
-              />
+              <ContentHeader data={post} />
 
               <div className={classes.commentListBox}>
                 <div
@@ -93,6 +87,8 @@ function PostModal({ post, isOpen, handleClose, postList, isClose }) {
                           profileImage: post.profileImage,
                           createdAt: post.createdAt,
                           text: comment.text,
+                          postId: post._id,
+                          createdAtC: comment.createdAt,
                         }}
                         post={post}
                       />

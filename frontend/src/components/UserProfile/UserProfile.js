@@ -9,21 +9,13 @@ import axios from "axios";
 import { BACKEND_URL } from "../../config";
 import PostModal from "../Common/PlayingContent/PostModal";
 
-const UserProfile = () => {
-  const [currentUser, setCurrentUser] = useState(null);
+const UserProfile = ({ userId }) => {
+  const [currentUser, setCurrentUser] = useState({});
   const [userPosts, setUserPosts] = useState([]);
   const [currentPost, setCurrentPost] = useState();
   const [isOpen, setIsOpen] = useState(false);
 
   //getting the user Data
-  const getUserData = async (id, token) => {
-    try {
-      const response = await getUserById(id, token);
-      setCurrentUser(response.data);
-    } catch (error) {
-      console.log("Error fetching user data:", error);
-    }
-  };
 
   //getting the posts of the user
   const fetchAllPostsByUsername = async (userName, token) => {
@@ -46,12 +38,19 @@ const UserProfile = () => {
   //calling both the methods and sending them token and user ID
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem("token"));
-    const user = JSON.parse(localStorage.getItem("userCedentials"));
-    if (user) {
-      getUserData(user._id, token);
-      fetchAllPostsByUsername(user.userName, token);
-    }
-  }, []);
+
+    const getUserData = async (token) => {
+      try {
+        const response = await getUserById(userId, token);
+        setCurrentUser(response.data);
+      } catch (error) {
+        console.log("Error fetching user data:", error);
+      }
+    };
+
+    getUserData(token);
+    fetchAllPostsByUsername(currentUser.userName, token);
+  }, [currentUser.userName, userId]);
 
   //model for the posts when user will click hi one particular post
   function openPostModel(post) {
@@ -72,6 +71,19 @@ const UserProfile = () => {
     return url;
   };
 
+  //check if the userprofile opened is of current user or other user
+  const isSameUser = () => {
+    const localId = JSON.parse(localStorage.getItem("userCedentials"))._id;
+
+    if (currentUser._id === localId) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  //console.log(currentUser);
+
   return (
     <div className="userProfilePage">
       <div className="userContainer">
@@ -86,14 +98,18 @@ const UserProfile = () => {
           <section className="userDetailSection">
             <div className="userProfileUserName">
               <span>{currentUser?.userName} </span>
-              <Button text={"Edit Profile"} className="editProfileBtn" />
+              {isSameUser() ? (
+                <Button text={"Edit Profile"} className="editProfileBtn" />
+              ) : (
+                ""
+              )}
               <Button
                 text={<ImgTag src={"../images/refreshing-1.png"} width={20} />}
                 className={"editProfileBtn"}
               />
             </div>
             <div className="userContentList">
-              <span>{currentUser?.posts.length} posts </span>
+              <span>{currentUser?.posts?.length} posts </span>
               <Button
                 styles={{ margin: "0 20px" }}
                 text={`${
@@ -125,18 +141,22 @@ const UserProfile = () => {
               </div>
             }
           />
-          <AnchorTag
-            href={"*"}
-            text={
-              <div>
-                <ImgTag
-                  src={"../images/inputIcons/saveBlackIcon3.png"}
-                  width={10}
-                />
-                <span> saved </span>
-              </div>
-            }
-          />
+          {isSameUser() ? (
+            <AnchorTag
+              href={"*"}
+              text={
+                <div>
+                  <ImgTag
+                    src={"../images/inputIcons/saveBlackIcon3.png"}
+                    width={10}
+                  />
+                  <span> Saved </span>
+                </div>
+              }
+            />
+          ) : (
+            ""
+          )}
           <AnchorTag
             href={"*"}
             text={
