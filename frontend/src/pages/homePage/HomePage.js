@@ -12,12 +12,14 @@ import { getUser } from "../../apiRequests/userApi";
 import UserProfile from "../../components/UserProfile/UserProfile";
 import CreatePostModal from "../../components/CreatePost/CreatePostModal";
 import LeftSideHeaderModal from "../../components/Header/LeftSideHeaderModal";
+import MoreOptionProfileModel from "../../components/MoreOption/MoreOptionProfileModel";
 
 const HomePage = ({ comp }) => {
   const navigate = useNavigate();
   const [activeComponent, setActiveComponent] = useState(<MainContent />);
   const [currentUser, setCurrentUser] = useState({});
   const [createPostModel, setCreatePostModel] = useState(true);
+  const [isMoreOptionModelOpen, setMoreOptionModel] = useState(false);
 
   useEffect(() => {
     console.log("home page render");
@@ -80,20 +82,14 @@ const HomePage = ({ comp }) => {
   ];
 
   // get storage from local storage data
-  const getAllStorage = () => {
-    let data = [];
-    for (var i = 0; i < localStorage.length; i++) {
-      data[i] = localStorage.getItem(localStorage.key(i));
-    }
-    return data;
-  };
 
-  // for logout button
+  // for opening menu
   const handleClick = (e) => {
-    if (getAllStorage().length > 0) {
-      localStorage.clear();
-      navigate("/");
-    }
+    setMoreOptionModel(!isMoreOptionModelOpen);
+    // if (getAllStorage().length > 0) {
+    //   localStorage.clear();
+    //   navigate("/");
+    // }
   };
 
   return (
@@ -151,12 +147,16 @@ const HomePage = ({ comp }) => {
                     />
                   </div>
                   <div>
-                    <div className="leftHeaderLinkName">Logout</div>
+                    <div className="leftHeaderLinkName">More</div>
                   </div>
                 </>
               }
             />
           </div>
+          <MoreOptionProfileModel
+            isOpen={isMoreOptionModelOpen}
+            setIsOpen={setMoreOptionModel}
+          />
         </div>
       </div>
       <div className="rightContainer">

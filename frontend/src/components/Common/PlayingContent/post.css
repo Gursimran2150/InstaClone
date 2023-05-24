@@ -6,7 +6,7 @@
 
 .parentWrapper {
   /* border: 1px solid red; */
-  width: 500px;
+  width: 400px;
 
   display: flex;
   padding: 10px;
@@ -80,10 +80,11 @@
   height: 25px;
 }
 .iconBtn img {
-  width: 25px;
+  width: 21px;
 }
 .iconBtn .saveIcon {
-  width: 20px;
+  width: 18px;
+  height: 20px;
 }
 .showLikesContainer {
   margin-top: 10px;

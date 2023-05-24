@@ -1,5 +1,6 @@
 import React from "react";
 import AnchorTag from "../AnchorTag";
+import "./SuggestionBox.css";
 
 const SuggestionBoxFooter = () => {
   const links = [
@@ -49,7 +50,11 @@ const SuggestionBoxFooter = () => {
     <div className="suggestionBoxFooterLinks">
       <div className="suggestionBoxFooterLink">
         {links.map((link, ind) => {
-          return <AnchorTag text={link.name} href={link.url} key={ind} />;
+          return (
+            <a className={"suggestionlinks"} href={link.url} key={ind}>
+              {link.name}
+            </a>
+          );
         })}
       </div>
       <div className="suggestionBoxFooterHeading">

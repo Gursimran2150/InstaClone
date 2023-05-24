@@ -56,7 +56,8 @@
   /* display: flex; */
   /* align-items: center; */
   text-align: center;
-  justify-content: center;
+  /* border: 2px solid red; */
+  justify-content: space-between;
 }
 .userProfileUserName > span {
   /* display: flex; */
@@ -68,10 +69,21 @@
   font-size: 14px;
   border-radius: 8px;
   line-height: 14px;
-  margin-left: 20px;
+  transition: all 0.2s linear;
+  margin-left: 10px;
+  font-weight: 600;
+}
+.editProfileBtnCustom:hover {
+  background-color: #d2d2d2;
 }
 
 .userContentList {
+  display: flex;
+  align-items: center;
+  gap: 35px;
+}
+.userContentList div {
+  margin: 20px 0;
 }
 
 .userprofileName {
@@ -129,6 +141,7 @@
 
 /* footer */
 .userProfilePageFooter {
+  margin: 50px;
   /* flex: 1; */
 }
 
@@ -142,6 +155,71 @@
 
 .galleryImg {
   width: 100%;
-  height: 100%;
+  position: relative;
+  box-sizing: border-box;
+  max-height: 300px;
+  background-color: black;
+  cursor: pointer;
+}
+.galleryImgInside {
+  width: 100%;
   object-fit: cover;
+  height: 100%;
+}
+.userOptions {
+  text-decoration: none;
+  color: black;
+}
+.userProfileNavBar div {
+  display: flex;
+  align-items: center;
+}
+a {
+  text-decoration: none;
+}
+.activerBorder {
+}
+.followFollwerBtn {
+  font-weight: bold;
+  background-color: transparent;
+}
+.removeBg {
+  background-color: white;
+}
+.imageBorder {
+  border: 2px solid rgb(202, 202, 202);
+  box-sizing: border-box;
+  border-radius: 50%;
+}
+.galleryImgInsideDiv {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+.comments,
+.likes {
+  display: flex;
+  gap: 10px;
+}
+
+.comments,
+.likes span {
+  color: white;
+}
+.followBtn {
+  background-color: #0095f6;
+  color: white;
+  transition: all 0.2s linear;
+}
+.followBtn:hover {
+  background-color: #0081d7;
 }

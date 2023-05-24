@@ -1,173 +1,155 @@
-
-
 /* slectpost container 1 */
-.createPostPage{
+.createPostPage {
   width: 100%;
   height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: center
+  align-items: center;
 }
 
-.createPostCont{
+.createPostCont {
   min-width: 40%;
   max-width: 70%;
   border-radius: 10px;
+  padding: 70px 140px;
   display: flex;
   align-items: center;
-flex-direction: column;
-box-shadow: 0 0 10px 1px #b1acac
+  flex-direction: column;
+  box-shadow: 0 0 10px 1px #b1acac;
 }
-.createPostModalHeading{
+.createPostModalHeading {
   width: 100%;
   text-align: center;
-  padding: 8px 10px ;
-  border-bottom: 1px solid rgb( 219, 219, 219)
+  padding: 8px 10px;
+  border-bottom: 1px solid rgb(219, 219, 219);
 }
-.createPostModalHeading>h1{
+.createPostModalHeading > h1 {
   font-size: 16px;
-  font-weight: 600; 
+  font-weight: 600;
 }
 
-
-
-
-
-
-
-.createPostModalContent{
+.createPostModalContent {
   height: 50vh;
   display: flex;
   flex-direction: column;
-justify-content: center;
-gap: 10px;
+  justify-content: center;
+  gap: 10px;
 }
-.imgCont{
+.imgCont {
   display: flex;
   flex-direction: column;
 }
 
-.textDragPics{
+.textDragPics {
   font-weight: 400;
   font-size: 20px;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
-.selectPostBtn{
+.selectPostBtn {
   display: flex;
   justify-content: center;
 }
 
-.selectPostBtn > button{
-  color: #FFFFFF;
-  background-color: #0095F6;
+.selectPostBtn > button {
+  color: #ffffff;
+  background-color: #0095f6;
   padding: 7px 16px;
   border-radius: 8px;
   font-size: 16px;
   font-weight: 600;
 }
 
-
-
 /* second container crop img 2 */
-.cropPostModalHeading{
+.cropPostModalHeading {
   width: 100%;
   display: flex;
   text-align: center;
   padding: 8px 10px;
-  border-bottom: 1px solid rgb(219,219,219);
+  border-bottom: 1px solid rgb(219, 219, 219);
   justify-content: space-between;
 }
-.cropPostModalContent{
+.cropPostModalContent {
   width: 100%;
   height: auto;
   display: flex;
-  justify-content: center
+  justify-content: center;
 }
-.cropPostModalContent>img{
+.cropPostModalContent > img {
   max-width: 100%;
   /* width: auto; */
   height: auto;
 }
 /* /////////////////////// */
 
-
-
 /* add caption 3 */
-.addCaptionHeading{
+.addCaptionHeading {
   width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   padding: 8px 16px;
-  border-bottom: 1px solid rgb( 219, 219, 219);
+  border-bottom: 1px solid rgb(219, 219, 219);
 }
-.uploadPostModalWithUser{
+.uploadPostModalWithUser {
   width: 100%;
   height: auto;
   display: flex;
   flex-direction: row;
- justify-content: center;
+  justify-content: center;
 }
 
-.uploadPostModalImg{
+.uploadPostModalImg {
   width: 65%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.uploadPostModalImg>img{
+.uploadPostModalImg > img {
   max-width: 100%;
   /* width: auto; */
   height: auto;
 }
 
-.uploadPostModalUser{
+.uploadPostModalUser {
   width: 35%;
-  border-left: 1px solid rgb( 219, 219, 219);
+  border-left: 1px solid rgb(219, 219, 219);
 }
 
-
-
 /* dnjdkjdnckljds */
-.userNameCont{
+.userNameCont {
   display: flex;
   align-items: center;
   padding: 10px;
 }
-.userNameCont>h4{
+.userNameCont > h4 {
   margin-left: 10px;
 }
 
 /* **********£ */
 
-.uploadPostModalContent>img{
-object-fit: cover;
-max-width: 100%;
-width: auto;
-height: auto;
+.uploadPostModalContent > img {
+  object-fit: cover;
+  max-width: 100%;
+  width: auto;
+  height: auto;
 }
 
-.postModalBackBtn,.postModalNextBtn{
+.postModalBackBtn,
+.postModalNextBtn {
   background-color: transparent;
   font-size: 14px;
 }
-.postModalNextBtn{
-  color: #0095F6;
+.postModalNextBtn {
+  color: #0095f6;
 }
-
-
-
 
 /* next btn afetr image select  */
 
-
-
-
 /* write caption box */
-.writeCaptionBox>input{
-width: 100%;
+.writeCaptionBox > input {
+  width: 100%;
   height: 200px;
   resize: none;
 
@@ -175,20 +157,19 @@ width: 100%;
   /* background-color: antiquewhite; */
 }
 
-.descriptionBox{
+.descriptionBox {
   padding: 0px 10px;
   outline: none;
   width: 240px;
   height: 160px;
-overflow-y: scroll;
-color: black;
+  overflow-y: scroll;
+  color: black;
 }
 
-.descriptionEmojiBox{
+.descriptionEmojiBox {
   padding: 0px 10px;
   text-align: end;
-border-bottom: 1px solid rgb( 219, 219, 219);
-
+  border-bottom: 1px solid rgb(219, 219, 219);
 }
 
 /* end of write caption box */

@@ -1,60 +1,66 @@
 import React from "react";
 import "./ExploreScreen.css";
 import ImgTag from "../ImgTag";
-import img1 from "./images/1.jpeg";
-import img2 from "./images/2.jpeg";
-import img3 from "./images/3.jpeg";
-import img4 from "./images/4.jpeg";
+import { useSelector } from "react-redux";
 
 const ExploreScreen = () => {
-  const images = [
-    {
-      src: img1,
-    },
-    {
-      src: img2,
-    },
-    {
-      src: img3,
-    },
-    {
-      src: img4,
-    },
-    {
-      src: "../images/inputIcons/wedding.jpeg",
-    },
-    {
-      src: "../images/inputIcons/wedding.jpeg",
-    },
-    {
-      src: "../images/inputIcons/wedding.jpeg",
-    },
-    {
-      src: img2,
-    },
-    {
-      src: img3,
-    },
-    {
-      src: img4,
-    },
-    {
-      src: "../images/inputIcons/wedding.jpeg",
-    },
-    {
-      src: "../images/inputIcons/wedding.jpeg",
-    },
-  ];
+  const posts = useSelector((state) => state.allPosts.data.data);
+  const [hoveredPostId, setHoveredPostId] = React.useState(null);
 
+  //convert uri to url
+  const convert = (url) => {
+    if (url?.uri) {
+      const encoded = encodeURI(url.uri);
+      return encoded;
+    }
+    return url;
+  };
   return (
     <div className="exploreContainer">
       <div className="exploreViewRow">
-        {images.map((item, ind) => {
+        {posts.map((post, ind) => {
           return (
-            // <div className='exploreViewColumn' key={ind}>
             <>
-              <ImgTag src={item.src} />
-              {/* </div> */}
+              <div
+                className="imageWrapper"
+                onMouseOver={() => setHoveredPostId(post._id)}
+                onMouseOut={() => setHoveredPostId(null)}
+              >
+                <img key={ind} src={convert(post?.media[0].url)} alt="media" />
+                <div
+                  className="galleryImgInsideDiv"
+                  style={{
+                    display: post._id === hoveredPostId ? "flex" : "none",
+                  }}
+                >
+                  <div className="commentlikeWrapper">
+                    <div
+                      className="comments"
+                      style={{ width: "24px", backgroundColor: "transparent" }}
+                    >
+                      <img
+                        src="../images/inputIcons/heart.png"
+                        alt="heart"
+                        height={"24px"}
+                        width={"24px"}
+                      />
+                      <span>{post?.likes?.users?.length}</span>
+                    </div>
+                    <div
+                      className="likes"
+                      style={{ width: "24px", backgroundColor: "transparent" }}
+                    >
+                      <img
+                        src="../images/inputIcons/oval-black-speech-bubble.png"
+                        alt="heart"
+                        height={"24px"}
+                        width={"24px"}
+                      />
+                      <span>{post?.comments?.length}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </>
           );
         })}

@@ -14,6 +14,7 @@ const UserProfile = ({ userId }) => {
   const [userPosts, setUserPosts] = useState([]);
   const [currentPost, setCurrentPost] = useState();
   const [isOpen, setIsOpen] = useState(false);
+  const [hoveredPostId, setHoveredPostId] = useState(null);
 
   //getting the user Data
 
@@ -84,6 +85,7 @@ const UserProfile = ({ userId }) => {
 
   //console.log(currentUser);
 
+  // console.log(userPosts);
   return (
     <div className="userProfilePage">
       <div className="userContainer">
@@ -91,7 +93,13 @@ const UserProfile = ({ userId }) => {
           <div className="userAvtar">
             <div className="addProfileImg">
               <Button
-                text={<ImgTag src={"../images/x-mark-1.png"} width={150} />}
+                text={
+                  <ImgTag
+                    src={"../images/inputIcons/user.jpg"}
+                    className={"imageBorder"}
+                    width={150}
+                  />
+                }
               />
             </div>
           </div>
@@ -99,32 +107,72 @@ const UserProfile = ({ userId }) => {
             <div className="userProfileUserName">
               <span>{currentUser?.userName} </span>
               {isSameUser() ? (
-                <Button text={"Edit Profile"} className="editProfileBtn" />
+                <>
+                  <Button
+                    text={"Edit Profile"}
+                    className="editProfileBtn editProfileBtnCustom"
+                  />
+                  <Button
+                    text={
+                      <ImgTag
+                        src={"../images/inputIcons/settings.png"}
+                        width={20}
+                      />
+                    }
+                    className={"editProfileBtn removeBg"}
+                  />
+                </>
               ) : (
-                ""
+                <>
+                  <Button
+                    text={"Follow"}
+                    className="editProfileBtn followBtn"
+                  />
+                  <Button
+                    text={"Message"}
+                    className="editProfileBtn editProfileBtnCustom"
+                  />
+                </>
               )}
-              <Button
-                text={<ImgTag src={"../images/refreshing-1.png"} width={20} />}
-                className={"editProfileBtn"}
-              />
             </div>
             <div className="userContentList">
-              <span>{currentUser?.posts?.length} posts </span>
-              <Button
-                styles={{ margin: "0 20px" }}
-                text={`${
-                  currentUser?.followData?.follower?.length || 0
-                } followers`}
-              />
-              <Button
-                styles={{ margin: "0 20px" }}
-                text={`${
-                  currentUser?.followData?.following?.length || 0
-                } following`}
-              />
+              <div>
+                <span className={"followFollwerBtn"}>
+                  {currentUser?.posts?.length}{" "}
+                  <span
+                    style={{
+                      fontWeight: "normal",
+                    }}
+                  >
+                    posts
+                  </span>{" "}
+                </span>
+              </div>
+              <div className="followerContainer">
+                <Button
+                  // styles={{ margin: "20px 20px" }}
+                  className={"followFollwerBtn"}
+                  text={`${currentUser?.followData?.follower?.length || 0} `}
+                />
+                &nbsp; followers
+              </div>
+              <div className="followingContainer">
+                <Button
+                  // styles={{ margin: "20px 20px" }}
+                  className={"followFollwerBtn"}
+                  text={`${currentUser?.followData?.following?.length || 0} `}
+                />
+                &nbsp; following
+              </div>
             </div>
             <div className="userprofileName">
-              <span>{currentUser?.firstName} </span>
+              <span
+                style={{
+                  fontWeight: "bold",
+                }}
+              >
+                {currentUser?.firstName} {currentUser?.lastName}{" "}
+              </span>
             </div>
           </section>
         </header>
@@ -134,12 +182,14 @@ const UserProfile = ({ userId }) => {
             text={
               <div>
                 <ImgTag
-                  src={"../images/inputIcons/saveBlackIcon3.png"}
+                  src={"../images/inputIcons/grid.png"}
                   width={10}
+                  height={10}
                 />
-                <span> posts </span>
+                <span className="userOptions"> posts </span>
               </div>
             }
+            className={"activerBorder"}
           />
           {isSameUser() ? (
             <AnchorTag
@@ -150,7 +200,7 @@ const UserProfile = ({ userId }) => {
                     src={"../images/inputIcons/saveBlackIcon3.png"}
                     width={10}
                   />
-                  <span> Saved </span>
+                  <span className="userOptions"> Saved </span>
                 </div>
               }
             />
@@ -165,28 +215,63 @@ const UserProfile = ({ userId }) => {
                   src={"../images/inputIcons/saveBlackIcon3.png"}
                   width={10}
                 />
-                <span> tagged </span>
+                <span className="userOptions"> tagged </span>
               </div>
             }
           />
         </div>
 
-        <div className="userPostGallery">
-          {userPosts &&
-            userPosts.map((post, ind) => (
-              <div className="galleryImg" key={ind}>
-                {post?.media && post.media[0]?.url && (
-                  <div onClick={() => openPostModel(post)}>
-                    <ImgTag
-                      src={convert(post.media[0].url)}
-                      alt="posts"
-                      className="galleryImg"
-                    />
-                  </div>
-                )}
-              </div>
-            ))}
-        </div>
+        {userPosts[0] === 404 ? (
+          <div>
+            <h6 style={{ textAlign: "center" }}>No Posts</h6>
+          </div>
+        ) : (
+          <div className="userPostGallery">
+            {userPosts &&
+              userPosts.map((post, ind) => (
+                <div className="galleryImg" key={ind}>
+                  {post?.media && post.media[0]?.url && (
+                    <div
+                      onMouseOver={() => setHoveredPostId(post._id)}
+                      onMouseOut={() => setHoveredPostId(null)}
+                      onClick={() => openPostModel(post)}
+                    >
+                      <ImgTag
+                        src={convert(post.media[0].url)}
+                        alt="posts"
+                        className="galleryImgInside"
+                      />
+                      <div
+                        style={{
+                          display: post._id === hoveredPostId ? "flex" : "none",
+                        }}
+                        className="galleryImgInsideDiv"
+                      >
+                        <div className="comments">
+                          <img
+                            src="../images/inputIcons/heart.png"
+                            alt="heart"
+                            height={"24px"}
+                            width={"24px"}
+                          />
+                          <span>{post?.likes?.users?.length}</span>
+                        </div>
+                        <div className="likes">
+                          <img
+                            src="../images/inputIcons/oval-black-speech-bubble.png"
+                            alt="heart"
+                            height={"24px"}
+                            width={"24px"}
+                          />
+                          <span>{post?.comments?.length}</span>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ))}
+          </div>
+        )}
       </div>
       <PostModal post={currentPost} isOpen={isOpen} handleClose={handleClose} />
       <div className="userProfilePageFooter">
