@@ -61,7 +61,12 @@ const MoreOptionProfileModel = ({ isOpen, setIsOpen }) => {
             <span>Swtich apprerence</span>
           </div>
           <div className="option">
-            <img src="" alt="icon" height={"20px"} width={"20px"} />
+            <img
+              src="../images/inputIcons/reportproblem.png"
+              alt="icon"
+              height={"18px"}
+              width={"18px"}
+            />
             <span>Report a problem</span>
           </div>
         </div>

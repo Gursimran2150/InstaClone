@@ -55,7 +55,7 @@ const AddDecriptionPost = ({ handleBackClick, currentUser, link }) => {
   return (
     <>
       {!isPostShared ? (
-        <div className="createPostCont">
+        <div className="createPostCont paddingZero">
           <div className="addCaptionHeading">
             <Button
               text={"Back"}
@@ -102,7 +102,7 @@ const AddDecriptionPost = ({ handleBackClick, currentUser, link }) => {
           </div>
         </div>
       ) : (
-        <div className="createPostCont">
+        <div className="createPostCont padding4060 ">
           <ImgTag src={"../images/inputTrue.png"} width={100} />
           <h3> {messageOnShared} </h3>
         </div>

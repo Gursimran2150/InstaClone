@@ -52,3 +52,8 @@
   color: red;
   font-weight: bold;
 }
+@media screen and (max-width: 800px) {
+  .options {
+    width: 250px;
+  }
+}

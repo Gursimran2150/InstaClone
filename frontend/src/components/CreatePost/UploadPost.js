@@ -52,7 +52,7 @@ const UploadPost = ({ link, handleChnageClick }) => {
               currentUser={currentUser}
             />
           ) : (
-            <div className="createPostCont">
+            <div className="createPostCont paddingZero">
               <div className="cropPostModalHeading">
                 <Button
                   onclick={

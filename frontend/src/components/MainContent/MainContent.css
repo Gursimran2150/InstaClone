@@ -1,32 +1,35 @@
-
 /* here degien for left home screen side */
-.homePageMainContent{
- display: flex;
- /* flex-direction: column; */
+.homePageMainContent {
+  display: flex;
+  /* flex-direction: column; */
   max-width: 1113px;
   justify-content: space-between;
   padding-top: 4px;
+  gap: 64px;
   flex-flow: row nowrap;
+  /* border: 2px solid violet; */
   /* background-color: grey;
    */
 }
 
-.leftMainContent{
-  width: 635px;
-  margin-right: 64px;
+.leftMainContent {
+  min-width: 635px;
+  /* margin-right: 64px; */
 }
-
-
 
 /* left side of homeScreen */
-.rightMainContainer{
+.rightMainContainer {
   width: 320px;
-
+  /* border: 2px solid crimson; */
 }
 
-.mainContentList{
-
+.mainContentList {
   display: flex;
   justify-content: center;
+}
 
+@media screen and (max-width: 1171px) {
+  .rightMainContainer {
+    display: none;
+  }
 }
