@@ -10,8 +10,9 @@ import { BACKEND_URL } from "../../config";
 import { fetchUserById } from "../../slices/userSlice";
 import { getUser } from "../../apiRequests/userApi";
 import UserProfile from "../UserProfile/UserProfile";
+import "./leftheadermodal.css";
 
-const LeftSideHeaderModal = ({ setActiveComponent }) => {
+const LeftSideHeaderModal = ({ setActiveComponent, isOpen }) => {
   const dispatch = useDispatch();
   const token = JSON.parse(localStorage.getItem("token"));
   const [authToekn, setAuthToken] = useState("");
@@ -99,15 +100,39 @@ const LeftSideHeaderModal = ({ setActiveComponent }) => {
       console.log(err);
     }
   };
-  return (
-    <div className="hideComponent">
-      <div className="">
-        <h3>Search Users</h3>
-        <InputField type="ixy" onchange={handleChange} />
-      </div>
 
-      {searchedUsersTemp[1] !== 500
-        ? searchedUsers?.map((user, ind) => {
+  if (isOpen) {
+    return (
+      <div className="hideComponent">
+        <div className="inputWrapper">
+          <h3>Search </h3>
+          {/* <InputField
+          type="ixy"
+          onchange={handleChange}
+          className={"customInput"}
+        /> */}
+          <div>
+            <div className="headerForMobileRightSectionInput">
+              <input type="text" placeholder="Search" onChange={handleChange} />
+              {/* <input onChange={handleChange} /> */}
+              <img
+                className="searchInputIconImg"
+                width={"18px"}
+                src="../images/inputIcons/searchgrey.png"
+                alt="searchIcon"
+              />
+              <img
+                className="cancelInputIcon"
+                width={"16px"}
+                src="../images/inputIcons/cancel.png"
+                alt="searchIcon"
+              />
+            </div>
+          </div>
+        </div>
+
+        {searchedUsersTemp[1] !== 500 ? (
+          searchedUsers?.map((user, ind) => {
             const isFollowing = checkUserFollow(user._id);
             return (
               <div className="suggestedUserProfile" key={ind}>
@@ -148,17 +173,16 @@ const LeftSideHeaderModal = ({ setActiveComponent }) => {
               </div>
             );
           })
-        : ""}
-
-      <div>
-        <h5>Recent</h5>
-        <Button text={"see All"} />
+        ) : (
+          <>
+            <div className="recent">
+              <h5>Recent</h5>
+            </div>
+          </>
+        )}
       </div>
-      <div>
-        <video src=",,."></video>
-      </div>
-    </div>
-  );
+    );
+  } else return null;
 };
 
 export default LeftSideHeaderModal;

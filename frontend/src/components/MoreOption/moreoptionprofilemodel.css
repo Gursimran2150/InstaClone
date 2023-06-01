@@ -4,12 +4,12 @@
   position: fixed;
   top: 0;
   left: 0;
-
+  z-index: 999999 !important;
   box-sizing: border-box;
 }
 .optionsContainer {
   width: 260px;
-
+  z-index: -1 !important;
   position: absolute;
   left: 10px;
   background-color: white;
@@ -19,6 +19,7 @@
   border-top-right-radius: 10px;
   padding: 12px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  /* z-index: 99999999 !important; */
 }
 .option {
   padding: 13px;

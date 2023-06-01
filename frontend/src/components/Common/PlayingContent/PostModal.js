@@ -5,14 +5,66 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import ImgTag from "../../ImgTag";
 import ContentHeader from "../ContentHeader";
 import CommentHeader from "../CommentHeader";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import moment from "moment";
+import { useState } from "react";
+import { fetchComments } from "../../../slices/commentSlice";
 
-function PostModal({ post, isOpen, handleClose, postList, isClose }) {
+function PostModal({
+  post,
+  isOpen,
+  handleClose,
+  postList,
+  isClose,
+  likesCount,
+  likeFunction,
+  data,
+}) {
   const classes = useStyles();
 
+  const dispatch = useDispatch();
+
+  const payload = useSelector((state) => state.likes);
   //fetching all the comments on a particular post using its id and removing the last element from it as api is returing in the form of object
   const comments = useSelector((state) => state.comments.data);
   const commentsArray = Object.values(comments).slice(0, -1);
+
+  const [comment, setComment] = useState("");
+
+  console.log("PostModalData-:", data);
+
+  // console.log("likeUseStateCount:", likeCount);
+
+  function addCommmentData(id) {
+    setComment("");
+    console.log("Comment Count-:", data.tempCommentCount);
+    data.setTempCommentCount(data.tempCommentCount + 1);
+    data.addComment({ postId: id, text: comment });
+    dispatch(fetchComments(id));
+  }
+
+  // createDate
+  const createDate = () => {
+    let now = moment.utc();
+    let createdAt = moment.utc(data?.createdAt || post?.createdAt);
+    let days = now.diff(createdAt, "days");
+    if (days < 7) {
+      if (days < 1) {
+        let minutes = moment.duration(now.diff(createdAt)).asMinutes();
+        if (minutes < 60) {
+          return `${Math.floor(minutes)}m`;
+        } else {
+          return `${Math.floor(
+            moment.duration(now.diff(createdAt)).asHours()
+          )}h`;
+        }
+      } else {
+        return `${days}d`;
+      }
+    } else {
+      return `${Math.round(days / 7)}w`;
+    }
+  };
 
   // convert uri
   const convert = (url) => {
@@ -22,11 +74,11 @@ function PostModal({ post, isOpen, handleClose, postList, isClose }) {
     }
     return url;
   };
-
+  const isButtonDisabled = comment.length <= 1;
   if (post) {
     return (
       <div>
-        <Modal show={isOpen} className={classes.contentBox}>
+        <Modal show={isOpen} className={"contentBox"}>
           <div>
             <button className={classes.cancelBtn} onClick={handleClose}>
               <ImgTag
@@ -37,30 +89,32 @@ function PostModal({ post, isOpen, handleClose, postList, isClose }) {
             </button>
           </div>
 
-          <div className={classes.containerBox}>
-            <div className={classes.innerBox1}>
+          <div className={`containerBox `}>
+            <div className={`innerBox1`}>
               <ImgTag
                 src={convert(post?.media[0]?.url)}
                 className={classes.innerBox1Img}
                 width={550}
               />
             </div>
-            <div className={classes.innerBox2}>
+            <div className={"innerBox2"}>
               <ContentHeader data={post} />
 
-              <div className={classes.commentListBox}>
+              <div className={"commentListBox"}>
                 <div
                   className="postDescription"
                   style={{ display: "flex", gap: "10px" }}
                 >
                   <div className="userProfileImg">
-                    <ImgTag
+                    <img
                       src={
                         post?.profileImage
                           ? convert(post?.profileImage)
                           : " ../images/inputIcons/profile.png"
                       }
-                      width={35}
+                      width={"30px"}
+                      height={"30px"}
+                      alt="userimg"
                     />
                   </div>
 
@@ -96,6 +150,59 @@ function PostModal({ post, isOpen, handleClose, postList, isClose }) {
                   );
                 })}
               </div>
+              <div className="otherOptionsWrapper">
+                <div className="likeShareCommentSection">
+                  <div className="likesharecomment">
+                    <div className="threeOptions">
+                      <img
+                        src={payload.likeBtn}
+                        alt="likeIcon"
+                        width={"24px"}
+                        height={"24px"}
+                        onClick={() => {
+                          data.clickLike(post._id);
+                        }}
+                      />
+                      <img
+                        src="../images/inputIcons/blackIconComment.png"
+                        alt="cIcon"
+                        width={"24px"}
+                        height={"24px"}
+                      />
+                      <img
+                        src="../images/inputIcons/shareBlackIcon2.png"
+                        alt="sIcon"
+                        width={"24px"}
+                        height={"24px"}
+                      />
+                    </div>
+                  </div>
+                  <div className="saveIconCont">
+                    <img
+                      src="../images/inputIcons/saveBlackicon2.png"
+                      alt="saveIcon"
+                      width={"21px"}
+                      height={"21px"}
+                    />
+                  </div>
+                </div>
+                <div className="likesCount">{payload.likeCount} likes</div>
+                <div className="timeBox">{createDate()}</div>
+              </div>
+              <div className="inputComment">
+                <input
+                  type="text"
+                  placeholder="Add a comment..."
+                  onChange={(e) => setComment(e.target.value)}
+                  value={comment}
+                />
+                <button
+                  onClick={() => addCommmentData(post._id)}
+                  disabled={isButtonDisabled}
+                >
+                  Post
+                </button>
+              </div>
             </div>
           </div>
         </Modal>
@@ -111,39 +218,26 @@ export default PostModal;
 //styles for the layout
 
 const useStyles = makeStyles(() => ({
-  contentBox: {
-    marginTop: "30px",
-    padding: 0,
-  },
-
-  containerBox: {
-    padding: 0,
-    display: "flex",
-    width: "100%",
-    height: "80vh",
-  },
-
   cancelBtn: {
     backgroundColor: "transparent",
     objectFit: "cover",
     position: "absolute",
-    right: "-300px",
+    top: "-10px",
+    right: "-30px",
   },
-  innerBox1: {
-    backgroundColor: "#737373",
-    width: "auto",
-    padding: 0,
-    margin: 0,
-    display: "flex",
-  },
+  innerBox1: {},
 
-  innerBox2: { width: "47%", height: "100%", padding: "10px" },
+  innerBox2: {},
 
   innerBox1Img: {
-    maxWidth: "100%",
+    width: "100%",
+    margin: "auto",
+    // overflow: "hidden",
+    objectFit: "contain",
   },
   commentListBox: {
     borderTop: "1px solid lightGray",
     padding: "10px",
+    border: "2px solid red",
   },
 }));

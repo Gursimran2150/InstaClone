@@ -1,0 +1,180 @@
+.sendMessageParentWrapper {
+  width: 110%;
+  border: 1px solid green;
+  height: 100vh;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: -20px;
+}
+
+.sendMessageParent {
+  width: 80%;
+  height: 93vh;
+  display: flex;
+  border: 1px solid lightgray;
+}
+
+.userDetailsAndListUsers {
+  flex: 1;
+}
+.userChatBox {
+  flex: 2;
+  border-left: 1px solid lightgray;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.userNameHeaderBox {
+  border-bottom: 1px solid lightgray;
+  padding: 18px 0;
+  text-align: center;
+  font-weight: 600;
+  font-size: 16px;
+  position: relative;
+}
+.userNameHeaderBox img {
+  width: 22px;
+  height: 22px;
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+.usersMessageList {
+  display: flex;
+  flex-direction: column;
+
+  height: 84vh;
+  overflow-y: auto;
+}
+.userDetailsBoxM {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: flex-start;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+.userDetailsBoxM:hover {
+  background-color: #f1f0f0;
+}
+.userImgBox {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+
+  overflow: hidden;
+}
+.userImgBox img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+.userDetailBoxMChild {
+  display: flex;
+  flex-direction: column;
+}
+.userDetailBoxMChild h5 {
+  font-size: 14px;
+  font-weight: 400;
+  color: black;
+}
+.userDetailBoxMChild h6 {
+  font-size: 14px;
+  font-weight: 400;
+  color: gray;
+  margin-top: -5px;
+}
+.chatBoxHeader {
+  /* border: 1px solid lightgray; */
+  border-bottom: 1px solid lightgray;
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 12px;
+  box-sizing: border-box;
+}
+
+.userProfileLeftBox {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.userProfileLeftBox img {
+  height: 26px;
+  width: 26px;
+  border-radius: 50%;
+}
+.userProfileLeftBox h6 {
+  padding-top: 3px;
+}
+.userProfileRightBox {
+  display: flex;
+  gap: 13px;
+  align-items: center;
+}
+.userProfileRightBox img {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.userChats {
+  height: 75vh;
+
+  overflow: auto;
+}
+
+.sendChatContainer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 15px 0;
+  background-color: white;
+  z-index: 5555;
+}
+.chatSendInput {
+  border: 1px solid lightgray;
+  width: 88%;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  margin: auto;
+  border-radius: 50px;
+}
+.emogBox {
+  width: 5%;
+  cursor: pointer;
+}
+.inputBox {
+  width: 80%;
+
+  /* padding: 8px 8px; */
+}
+.inputBox input {
+  width: 100%;
+  padding: 8px 8px;
+  outline: none;
+  border: none;
+}
+.otherIconsBox {
+  width: 15%;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  cursor: pointer;
+}
+.sendBtn {
+  background-color: transparent;
+  color: #0fa1f8;
+  font-weight: 600;
+  transition: 0.2s all linear;
+}
+.sendBtn:hover {
+  color: #02476e;
+}

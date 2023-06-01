@@ -127,3 +127,9 @@
   color: rgb(31, 174, 240);
   font-weight: bold;
 }
+
+@media screen and (max-width: 400px) {
+  .parentWrapper {
+    width: 370px;
+  }
+}

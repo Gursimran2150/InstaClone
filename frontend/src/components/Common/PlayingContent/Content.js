@@ -19,13 +19,21 @@ const Content = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectPost, setSelectPost] = useState(null);
 
+  const [likesCount, setLikesCount] = useState(0);
+
+  const [data, setData] = useState({});
+
   const handleOpenModal = useMemo(
-    () => (post) => {
-      console.log("open model function");
-      dispatch(fetchComments(post._id));
-      setIsModalOpen(true);
-      setSelectPost(post);
-    },
+    () =>
+      ({ post, tempLikeCount, clickLike }) => {
+        console.log("open model function");
+
+        dispatch(fetchComments(post._id));
+        setLikesCount(tempLikeCount);
+
+        setIsModalOpen(true);
+        setSelectPost(post);
+      },
     [dispatch]
   );
 
@@ -35,10 +43,10 @@ const Content = () => {
 
   useEffect(() => {
     console.log("render home");
+
     dispatch(fetchAllPosts());
   }, [dispatch]);
-
-  console.log("Parent rendering");
+  console.log("data-:", data);
 
   return (
     <div className="postList">
@@ -50,6 +58,7 @@ const Content = () => {
               key={index}
               onPressItem={handleOpenModal}
               authToken={authToken}
+              setData={setData}
             />
           );
         })}
@@ -58,6 +67,8 @@ const Content = () => {
         postList={posts}
         isOpen={isModalOpen}
         handleClose={handleCloseModal}
+        likesCount={likesCount}
+        data={data}
       />
     </div>
   );

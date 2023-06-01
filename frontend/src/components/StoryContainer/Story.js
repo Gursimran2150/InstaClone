@@ -6,12 +6,12 @@ const Story = () => {
 
   const storyList = [
     {
-      profilePic: "../images/inputIcons/redHeart.png",
-      username: "instagram",
+      profilePic: "../images/inputIcons/user.jpg",
+      username: "demo2150",
     },
     {
-      profilePic: "../images/birthdayCake.png",
-      username: "instagram",
+      profilePic: "../images/inputIcons/user.jpg",
+      username: "temp2150",
     },
     // {
     //   "profilePic": "../images/inputTrue.png",

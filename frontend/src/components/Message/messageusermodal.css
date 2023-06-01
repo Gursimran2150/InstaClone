@@ -1,0 +1,54 @@
+.parentModalWrapper {
+  position: absolute;
+  width: 120%;
+  box-sizing: border-box;
+  height: 100vh;
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999999999999;
+}
+.messageUserContainer {
+  width: 450px;
+  height: 480px;
+  overflow: auto;
+  border-radius: 12px;
+
+  background-color: white;
+  transform: translateX(-25%);
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+.messageUserContainerHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 15px;
+  border-bottom: 1px solid lightgray;
+}
+.messageUserContainerHeader div {
+  cursor: pointer;
+}
+.newMessage {
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
+.nextbtn {
+  font-weight: 600;
+  color: #0fa1f8;
+  transition: 0.2s linear;
+  background-color: transparent;
+}
+.nextbtn:hover {
+  color: #033958;
+}
+.suggested {
+  font-weight: 500;
+  padding: 20px;
+}
+.suggestedUserList {
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+}

@@ -12,8 +12,14 @@ import { useDispatch } from "react-redux";
 
 import "./post.css";
 import ContentHeader from "../ContentHeader";
+import { fetchComments } from "../../../slices/commentSlice";
+import {
+  decrementLike,
+  incrementLike,
+  initState,
+} from "../../../slices/likeSlice";
 
-function Post({ post, authToken, onPressItem }) {
+function Post({ post, authToken, onPressItem, setData }) {
   const dispatch = useDispatch();
 
   const [isLiked, setIsLiked] = useState();
@@ -46,15 +52,18 @@ function Post({ post, authToken, onPressItem }) {
   );
 
   // addcomment
-  const addComment = async (data) => {
-    console.log("Add comment data");
-    await commentOnPost(data, authToken)
-      .then((response) => {
-        commentInputRef.current.value = "";
-        setTempCommentCount(tempCommentCount + 1);
-      })
-      .catch((err) => console.log(err));
-  };
+  const addComment = useCallback(
+    async (data) => {
+      console.log("Add comment data");
+      await commentOnPost(data, authToken)
+        .then((response) => {
+          commentInputRef.current.value = "";
+          setTempCommentCount(tempCommentCount + 1);
+        })
+        .catch((err) => console.log(err));
+    },
+    [authToken, tempCommentCount]
+  );
 
   // handle comment input
   function handleAddComment(id) {
@@ -70,12 +79,14 @@ function Post({ post, authToken, onPressItem }) {
       if (data?.message === "post was disLiked") {
         setTempLikeCount(tempLikeCount - 1);
         setLikesBtn("../images/inputIcons/blackHeart3.png");
+        dispatch(decrementLike());
       } else {
         setTempLikeCount(tempLikeCount + 1);
         setLikesBtn("../images/inputIcons/redHeart.png");
+        dispatch(incrementLike());
       }
     },
-    [authToken, tempLikeCount]
+    [authToken, dispatch, tempLikeCount]
   );
 
   //this hook will fectch the user credentails from the local storage and checks wheather the user has already liked the post or not is alredy liked change liked to true else false
@@ -92,6 +103,29 @@ function Post({ post, authToken, onPressItem }) {
         : "../images/inputIcons/blackHeart3.png"
     );
   }, [isLiked]);
+
+  function openPostModel({ post, tempLikeCount, clickLike }) {
+    const data = {
+      likeCount: tempLikeCount,
+      setLikeCount: setTempLikeCount,
+      isLiked: isLiked,
+      clickLike: clickLike,
+      likeBtn,
+      setLikesBtn,
+      createdAt: post.createdAt,
+      addComment,
+      setTempCommentCount,
+      tempCommentCount,
+    };
+    setData(data);
+    const payload = {
+      likeCount: tempLikeCount || 0,
+      likeBtn: likeBtn,
+    };
+    dispatch(initState(payload));
+
+    onPressItem({ post, tempLikeCount, clickLike });
+  }
 
   console.log(`Render post of ${post?.userName}`);
   return (
@@ -123,7 +157,10 @@ function Post({ post, authToken, onPressItem }) {
           <button className="iconBtn" onClick={() => clickLike(post?._id)}>
             <img src={likeBtn} alt="like" />
           </button>
-          <button className="iconBtn" onClick={() => onPressItem(post)}>
+          <button
+            className="iconBtn"
+            onClick={() => openPostModel({ post, tempLikeCount, clickLike })}
+          >
             <img
               src="../images/inputIcons/blackIconMessage.png"
               alt="comment"
@@ -155,7 +192,7 @@ function Post({ post, authToken, onPressItem }) {
       </div>
       <div
         className="viewAllCommentsContainer"
-        onClick={() => onPressItem(post)}
+        onClick={() => openPostModel({ post, tempLikeCount, clickLike })}
       >
         View All {tempCommentCount} Comments
       </div>
@@ -283,4 +320,4 @@ function Post({ post, authToken, onPressItem }) {
 
 //   return false;
 // };
-export default React.memo(Post);
+export default Post;

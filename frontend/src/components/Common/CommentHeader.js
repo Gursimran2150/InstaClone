@@ -7,9 +7,12 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import axios from "axios";
 import { BACKEND_URL } from "../../config";
+import { useDispatch } from "react-redux";
+import { fetchComments } from "../../slices/commentSlice";
 
 const CommentHeader = ({ data, post }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const dispatch = useDispatch();
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -35,6 +38,7 @@ const CommentHeader = ({ data, post }) => {
       const { data } = await axios.delete(`${BACKEND_URL}/comment/${id}`, {
         headers: { Authorization: token },
       });
+      dispatch(fetchComments(post._id));
     } catch (e) {
       console.log(e);
     }

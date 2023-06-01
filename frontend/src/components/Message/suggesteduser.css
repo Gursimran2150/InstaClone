@@ -1,0 +1,87 @@
+.suggestedUserContainer {
+  width: 100%;
+  padding: 7px 0px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  border-radius: 4px;
+}
+.userimg {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+.userimg img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+.userInfoS {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+}
+.usernameS {
+  font-weight: 500;
+}
+.fullname {
+  margin-top: -4px;
+}
+.suggestedUserContainer:hover {
+  background-color: #f1f1f1;
+}
+.checkBoxsend {
+  padding-right: 5px;
+}
+.checkBoxsend input {
+  width: 25px;
+  height: 25px;
+  border: 2px solid #999;
+  border-radius: 50%;
+  outline: none;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.checkBoxsend input:checked {
+  background-color: blue;
+  border-color: blue;
+}
+
+.checkBoxsend input:checked::before {
+  content: "\2713";
+  display: block;
+  text-align: center;
+  color: white;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: bold; /* Added font-weight property */
+}
+
+.checkBoxsend input:checked::after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 4px;
+  height: 9px;
+  border: 2px solid white;
+  border-top: none;
+  border-left: none;
+  transform: rotate(45deg);
+
+  /* top: 50%;
+  left: 50%; */
+  /* transform: translate(-50%, -50%); */
+  /* margin-top: -5px;
+  margin-left: -3px; */
+}
+
+.leftSend {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}

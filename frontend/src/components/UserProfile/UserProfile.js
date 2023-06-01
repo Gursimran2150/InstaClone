@@ -105,7 +105,8 @@ const UserProfile = ({ userId }) => {
           </div>
           <section className="userDetailSection">
             <div className="userProfileUserName">
-              <span>{currentUser?.userName} </span>
+              <span className="usernamespan">{currentUser?.userName} </span>
+              <span className="userRealName">{`${currentUser?.firstName} ${currentUser.lastName}`}</span>
               {isSameUser() ? (
                 <>
                   <Button
@@ -143,10 +144,9 @@ const UserProfile = ({ userId }) => {
                     style={{
                       fontWeight: "normal",
                     }}
-                  >
-                    posts
-                  </span>{" "}
+                  ></span>{" "}
                 </span>
+                <span>posts</span>
               </div>
               <div className="followerContainer">
                 <Button
@@ -167,6 +167,7 @@ const UserProfile = ({ userId }) => {
             </div>
             <div className="userprofileName">
               <span
+                className="usernamespan"
                 style={{
                   fontWeight: "bold",
                 }}
