@@ -38,6 +38,7 @@ const HomePage = ({ comp }) => {
       setIsHomePage(true);
     } else {
       setIsHomePage(false);
+      setIsOpen(false);
     }
 
     if (name === "Search") {
@@ -361,8 +362,9 @@ const HomePage = ({ comp }) => {
       </div>
 
       <LeftSideHeaderModal
-        setActiveComponent={setActiveComponent}
+        setActiveComponent={handleChnageClick}
         isOpen={isOpen}
+        setIsOpen={setIsOpen}
       />
     </>
   );

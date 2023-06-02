@@ -1,5 +1,4 @@
 const UserMessageProfile = ({ user }) => {
-  console.log(user);
   return (
     <div className="userDetailsBoxM">
       <div className="userImgBox">

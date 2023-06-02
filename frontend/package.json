@@ -29,7 +29,7 @@
     "react-scripts": "^5.0.1",
     "react-slideshow-image": "^4.2.1",
     "react-ymd-date-select": "^0.3.0",
-    "socket.io-client": "^4.6.1",
+    "socket.io-client": "^4.6.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./message.css";
 import axios from "axios";
 import UserMessageProfile from "./UserMessageProfile";
 import Conversations from "./Conversations";
 import MessageUsersModal from "./MessageUsersModal";
+import { io } from "socket.io-client";
+import SendMessageComp from "./SendMessageComp";
 
 const Message = () => {
   const [listChatUsers, setListChatUsers] = useState([]);
@@ -14,6 +16,38 @@ const Message = () => {
   const [text, setText] = useState("");
   const [roomId, setRoomId] = useState("");
   const [isMessageUserModalOpen, setMessageUserModal] = useState(false);
+  const [socket, setSocket] = useState(null);
+
+  // sockets use Effects
+
+  // setting up the socket connection
+  useEffect(() => {
+    console.log("socket set up");
+    setSocket(io("ws://localhost:5000"));
+  }, []);
+
+  // adding user to the user array in the socket
+  useEffect(() => {
+    if (currentUser._id && socket) {
+      console.log("added User to socket-:", currentUser._id);
+      socket.emit("addUser", currentUser._id);
+    }
+  }, [currentUser._id, socket]);
+
+  // getting the message from the user and setting it into the state messages
+  useEffect(() => {
+    console.log("Getting messages from socket");
+    socket?.on("getMessage", (data) => {
+      console.log("Data Comming-:", data);
+
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { _id: Date.now(), senderId: data.senderId, text: data.text },
+      ]);
+      console.log("i am running");
+      console.log("All messages-: ", messages);
+    });
+  }, [socket]);
 
   function isCurrentUser(id) {
     if (id === currentUser._id) {
@@ -25,12 +59,33 @@ const Message = () => {
 
   async function sendMessage() {
     try {
+      if (text === "") {
+        alert("message cant be empty");
+      }
       const { data } = await axios.post("http://localhost:4500/message", {
         roomId: roomId,
         senderId: currentUser._id,
         text: text,
       });
       console.log(`${data.text} sent successfully!`);
+      setMessages([
+        ...messages,
+        {
+          _id: Date.now(),
+          roomId: roomId,
+          senderId: currentUser._id,
+          text: text,
+        },
+      ]);
+
+      socket?.emit("sendMessage", {
+        senderId: currentUser._id,
+        receiverId: otherUser._id,
+        text: text,
+      });
+      console.log("senderId-:", currentUser._id);
+      console.log("receiverId-:", otherUser._id);
+      console.log("text-:", text);
       setText("");
     } catch (e) {
       console.log(e);
@@ -91,6 +146,7 @@ const Message = () => {
             <div className="usersMessageList">
               {listChatUsers.map((user) => (
                 <div
+                  key={user._id}
                   onClick={() =>
                     handleConversationClick(
                       isCurrentUser(user.members[0]._id)
@@ -132,6 +188,7 @@ const Message = () => {
                 <div className="userChats">
                   {messages.map((message) => (
                     <Conversations
+                      key={message._id}
                       text={message.text}
                       ownMessage={message.senderId === currentUser._id}
                     />
@@ -186,7 +243,7 @@ const Message = () => {
                 </div>
               </>
             ) : (
-              <div></div>
+              <SendMessageComp />
             )}
           </div>
         </div>

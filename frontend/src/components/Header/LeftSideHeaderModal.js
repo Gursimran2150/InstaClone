@@ -12,7 +12,7 @@ import { getUser } from "../../apiRequests/userApi";
 import UserProfile from "../UserProfile/UserProfile";
 import "./leftheadermodal.css";
 
-const LeftSideHeaderModal = ({ setActiveComponent, isOpen }) => {
+const LeftSideHeaderModal = ({ setActiveComponent, isOpen, setIsOpen }) => {
   const dispatch = useDispatch();
   const token = JSON.parse(localStorage.getItem("token"));
   const [authToekn, setAuthToken] = useState("");
@@ -132,47 +132,55 @@ const LeftSideHeaderModal = ({ setActiveComponent, isOpen }) => {
         </div>
 
         {searchedUsersTemp[1] !== 500 ? (
-          searchedUsers?.map((user, ind) => {
-            const isFollowing = checkUserFollow(user._id);
-            return (
-              <div className="suggestedUserProfile" key={ind}>
-                <div className="userProfile">
-                  <div className="suggestedUserProfileImg">
-                    <ImgTag
-                      handleClick={() =>
-                        setActiveComponent(<UserProfile userId={user._id} />)
-                      }
-                      src={
-                        user?.profileImage?.thumbnail?.uri
-                          ? convert(user?.profileImage?.thumbnail?.uri)
-                          : " ../images/inputIcons/profile.png"
+          searchedUsers?.length > 0 ? (
+            searchedUsers?.map((user, ind) => {
+              const isFollowing = checkUserFollow(user._id);
+              return (
+                <div className="suggestedUserProfile" key={ind}>
+                  <div className="userProfile">
+                    <div className="suggestedUserProfileImg">
+                      <ImgTag
+                        handleClick={() => {
+                          setIsOpen(false);
+                          setActiveComponent(
+                            <UserProfile userId={user._id} />,
+                            "UserProfile"
+                          );
+                        }}
+                        src={
+                          user?.profileImage?.thumbnail?.uri
+                            ? convert(user?.profileImage?.thumbnail?.uri)
+                            : " ../images/inputIcons/profile.png"
+                        }
+                      />
+                    </div>
+                    <div className="suggestedListUserCont">
+                      <span className="suggestedListUserName">
+                        {user?.userName}{" "}
+                      </span>
+                      <span className="suggestedListName">
+                        {" "}
+                        {user?.firstName}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="switchButton">
+                    <Button
+                      text={isFollowing ? "Following" : "Follow"}
+                      onclick={
+                        isFollowing
+                          ? () => unfollowBtn(user._id)
+                          : () => followBtn(user._id)
                       }
                     />
                   </div>
-                  <div className="suggestedListUserCont">
-                    <span className="suggestedListUserName">
-                      {user?.userName}{" "}
-                    </span>
-                    <span className="suggestedListName">
-                      {" "}
-                      {user?.firstName}
-                    </span>
-                  </div>
                 </div>
-
-                <div className="switchButton">
-                  <Button
-                    text={isFollowing ? "Following" : "Follow"}
-                    onclick={
-                      isFollowing
-                        ? () => unfollowBtn(user._id)
-                        : () => followBtn(user._id)
-                    }
-                  />
-                </div>
-              </div>
-            );
-          })
+              );
+            })
+          ) : (
+            <div>No Users Found</div>
+          )
         ) : (
           <>
             <div className="recent">
