@@ -1,0 +1,138 @@
+.showStoryContainer {
+  width: 100%;
+  height: 100vh;
+  /* border: 2px solid red; */
+  box-sizing: border-box;
+  background-color: rgb(30, 26, 26);
+  justify-content: space-between;
+  padding: 12px;
+  display: flex;
+}
+.instagramLogoStory img {
+  filter: invert(100%);
+  width: 120px;
+}
+.showCancelButton img {
+  width: 26px;
+}
+.instagramLogoStory {
+  flex: 1;
+  /* border: 2px solid red; */
+}
+.showStoryBox {
+  flex: 1;
+  /* border: 2px solid gold; */
+  overflow: hidden;
+  box-sizing: border-box;
+}
+.showCancelButton {
+  flex: 1;
+  text-align: end;
+  /* border: 2px solid green; */
+}
+
+.showStory {
+  width: 85%;
+  border-radius: 6px;
+  height: 100%;
+  margin: auto;
+  background-color: rgb(36, 35, 35);
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+    rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  /* border: 2px solid pink; */
+  padding: 16px;
+}
+.storyContent {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  /* border: 2px solid white; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+}
+.storyHeader {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  flex: 1;
+  /* border: 2px solid red; */
+}
+progress {
+  width: 100%;
+  height: 3px;
+  background-color: #e0e0e0;
+  border: none;
+
+  overflow: hidden;
+}
+
+progress::-webkit-progress-value {
+  background-color: white;
+  border-radius: 10px;
+}
+
+.firstBox {
+  display: flex;
+  gap: 5px;
+}
+.userNameStory {
+  color: whitesmoke;
+}
+.timeStamp {
+  color: rgb(104, 104, 104);
+}
+.secondBox {
+  display: flex;
+  gap: 15px;
+}
+.secondBox img {
+  width: 24px;
+  height: 24px;
+  filter: invert(100%);
+  cursor: pointer;
+}
+.storyUserInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.storyFooter {
+  display: flex;
+  width: 100%;
+  /* border: 2px solid red; */
+  align-items: flex-end;
+  gap: 20px;
+  flex: 1;
+}
+.storyFooter input {
+  background-color: transparent;
+  border: 2px solid whitesmoke;
+  outline: none;
+  caret-color: white;
+  border-radius: 50px;
+  padding: 8px;
+  flex: 2;
+}
+
+.storyFooter input::placeholder {
+  color: gray;
+}
+
+.storyFooter img {
+  width: 30px;
+  height: 30px;
+  filter: invert(100%);
+  margin-bottom: 7px;
+}
+.storyMedia {
+  /* border: 2px solid red; */
+  flex: 2;
+  overflow: hidden;
+}
+
+.storyMedia img {
+  object-fit: contain;
+}

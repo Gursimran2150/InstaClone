@@ -7,7 +7,7 @@ const UserMessageProfile = ({ user }) => {
 
       <div className="userDetailBoxMChild">
         <h5>{`${user.firstName} ${user.lastName}`}</h5>
-        <h6>Last Message</h6>
+        <h6>{user.userName}</h6>
       </div>
     </div>
   );

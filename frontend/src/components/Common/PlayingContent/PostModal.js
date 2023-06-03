@@ -31,15 +31,15 @@ function PostModal({
 
   const [comment, setComment] = useState("");
 
-  console.log("PostModalData-:", data);
+  //console.log("PostModalData-:", data);
 
   // console.log("likeUseStateCount:", likeCount);
 
   function addCommmentData(id) {
     setComment("");
     console.log("Comment Count-:", data.tempCommentCount);
-    data.setTempCommentCount(data.tempCommentCount + 1);
-    data.addComment({ postId: id, text: comment });
+    data?.setTempCommentCount(data.tempCommentCount + 1);
+    data?.addComment({ postId: id, text: comment });
     dispatch(fetchComments(id));
   }
 

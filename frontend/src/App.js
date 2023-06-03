@@ -8,6 +8,7 @@ import HomePage from "./pages/homePage/HomePage";
 import Login from "./pages/login/Login";
 import ForgetPassword from "./pages/forgetPassword/ForgetPassword";
 import RobotCaptchaScreen from "./pages/forgetPassword/RobotCaptchaScreen";
+import ShowStory from "./pages/showStory/ShowStory";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route path="/homePage" element={<HomePage />} />
         <Route path="/challenges" element={<RobotCaptchaScreen />} />
         <Route path="/" element={<Login />} />
+        <Route path="/story" element={<ShowStory />} />
       </Routes>
     </div>
   );

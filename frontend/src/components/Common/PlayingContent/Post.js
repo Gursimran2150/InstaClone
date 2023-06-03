@@ -8,7 +8,7 @@ import React, {
 
 import { commentOnPost } from "../../../apiRequests/commentApi";
 import { postLike } from "../../../apiRequests/postApis/postLikeApi";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import "./post.css";
 import ContentHeader from "../ContentHeader";
@@ -35,6 +35,8 @@ function Post({ post, authToken, onPressItem, setData }) {
   const [content, setContent] = useState(post?.content);
 
   const commentInputRef = useRef(null);
+  const [comment, setComment] = useState("");
+  const payloadTemp = useSelector((state) => state.likes);
 
   // convert uri
   const convert = (url) => {
@@ -57,6 +59,7 @@ function Post({ post, authToken, onPressItem, setData }) {
       console.log("Add comment data");
       await commentOnPost(data, authToken)
         .then((response) => {
+          setComment("");
           commentInputRef.current.value = "";
           setTempCommentCount(tempCommentCount + 1);
         })
@@ -67,9 +70,9 @@ function Post({ post, authToken, onPressItem, setData }) {
 
   // handle comment input
   function handleAddComment(id) {
-    const commentData = { postId: id, text: commentInputRef.current.value };
-    if (commentData.text === "") alert(`Can't be empty`);
-    else addComment(commentData);
+    const commentData = { postId: id, text: comment };
+
+    addComment(commentData);
   }
 
   //like dislike post
@@ -106,12 +109,8 @@ function Post({ post, authToken, onPressItem, setData }) {
 
   function openPostModel({ post, tempLikeCount, clickLike }) {
     const data = {
-      likeCount: tempLikeCount,
-      setLikeCount: setTempLikeCount,
-      isLiked: isLiked,
       clickLike: clickLike,
-      likeBtn,
-      setLikesBtn,
+
       createdAt: post.createdAt,
       addComment,
       setTempCommentCount,
@@ -119,7 +118,7 @@ function Post({ post, authToken, onPressItem, setData }) {
     };
     setData(data);
     const payload = {
-      likeCount: tempLikeCount || 0,
+      likeCount: post?.likes?.users?.length || 0,
       likeBtn: likeBtn,
     };
     dispatch(initState(payload));
@@ -202,10 +201,16 @@ function Post({ post, authToken, onPressItem, setData }) {
             type="text"
             placeholder="Add a comment..."
             ref={commentInputRef}
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
           />
         </div>
         <div className="postbtn">
-          <button onClick={() => handleAddComment(post?._id)}>Post</button>
+          {comment.length > 0 ? (
+            <button onClick={() => handleAddComment(post?._id)}>Post</button>
+          ) : (
+            ""
+          )}
         </div>
       </div>
     </div>

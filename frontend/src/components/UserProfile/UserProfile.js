@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { getUserById } from "../../apiRequests/userApi";
 import AnchorTag from "../AnchorTag";
 import Button from "../Button";
@@ -8,13 +8,40 @@ import "./UserProfile.css";
 import axios from "axios";
 import { BACKEND_URL } from "../../config";
 import PostModal from "../Common/PlayingContent/PostModal";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  decrementLike,
+  incrementLike,
+  initState,
+} from "../../slices/likeSlice";
+import { postLike } from "../../apiRequests/postApis/postLikeApi";
+import { commentOnPost } from "../../apiRequests/commentApi";
+import { fetchUserById } from "../../slices/userSlice";
+import { follow as followUser } from "../../apiRequests/followApi";
+import Message from "../Message/Message";
 
-const UserProfile = ({ userId }) => {
+const UserProfile = ({ userId, handleChnageClick }) => {
   const [currentUser, setCurrentUser] = useState({});
   const [userPosts, setUserPosts] = useState([]);
   const [currentPost, setCurrentPost] = useState();
   const [isOpen, setIsOpen] = useState(false);
   const [hoveredPostId, setHoveredPostId] = useState(null);
+  const [data, setData] = useState({});
+  // const [likeBtn, setLikesBtn] = useState("");
+  const [tempCommentCount, setTempCommentCount] = useState(0);
+  const [follow, setFollow] = useState(false);
+
+  const dispatch = useDispatch();
+  const logInUser = useSelector((state) => state.user.data);
+
+  useEffect(() => {
+    if (logInUser.followData.following.includes(userId)) {
+      setFollow(true);
+    } else {
+      setFollow(false);
+    }
+  }, [logInUser.followData.following, userId]);
+  // const logInUser = useSelector((state) => state.user);
 
   //getting the user Data
 
@@ -50,12 +77,35 @@ const UserProfile = ({ userId }) => {
     };
 
     getUserData(token);
+
     fetchAllPostsByUsername(currentUser.userName, token);
-  }, [currentUser.userName, userId]);
+  }, [currentUser, currentUser.userName, userId]);
 
   //model for the posts when user will click hi one particular post
   function openPostModel(post) {
     setCurrentPost(post);
+    setTempCommentCount(post?.comments?.length || 0);
+    //console.log("current Post-:", currentPost);
+
+    //console.log("like Btn", likeBtn);
+    const payload = {
+      likeCount: post?.likes?.users?.length || 0,
+      likeBtn: post?.likes?.users?.includes(
+        JSON.parse(localStorage.getItem("userCedentials"))._id
+      )
+        ? "../images/inputIcons/redHeart.png"
+        : "../images/inputIcons/blackHeart3.png",
+    };
+    const sendData = {
+      clickLike,
+      addComment,
+      setTempCommentCount,
+      tempCommentCount,
+    };
+    setData(sendData);
+
+    dispatch(initState(payload));
+
     setIsOpen(true);
   }
 
@@ -83,9 +133,76 @@ const UserProfile = ({ userId }) => {
     }
   };
 
-  //console.log(currentUser);
+  function handlePostModal(post) {
+    openPostModel(post);
+  }
 
-  // console.log(userPosts);
+  const clickLike = useCallback(
+    async (id) => {
+      const { data } = await postLike({
+        postId: id,
+        token: JSON.parse(localStorage.getItem("token")),
+      });
+      if (data?.message === "post was disLiked") {
+        // setTempLikeCount(tempLikeCount - 1);
+        //setLikesBtn("../images/inputIcons/blackHeart3.png");
+        dispatch(decrementLike());
+      } else {
+        //  setTempLikeCount(tempLikeCount + 1);
+        //setLikesBtn("../images/inputIcons/redHeart.png");
+        dispatch(incrementLike());
+      }
+    },
+    [dispatch]
+  );
+
+  const addComment = useCallback(async (data) => {
+    console.log("Add comment data");
+    await commentOnPost(data, JSON.parse(localStorage.getItem("token")))
+      .then((response) => {
+        //setComment("");
+        //commentInputRef.current.value = "";
+        // setTempCommentCount(tempCommentCount + 1);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
+  async function handleFollow(id) {
+    console.log("Follow User");
+    const user = JSON.parse(localStorage.getItem("userCedentials"));
+    const token = JSON.parse(localStorage.getItem("token"));
+    await followUser({
+      id: id,
+      token: JSON.parse(localStorage.getItem("token")),
+    })
+      .then((respones) => {
+        console.log("res-->", respones.data.message);
+        dispatch(fetchUserById({ id: user._id, token }));
+        setFollow(true);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  const unfollowBtn = async (id) => {
+    try {
+      console.log("UnFollow User");
+      const user = JSON.parse(localStorage.getItem("userCedentials"));
+      const token = JSON.parse(localStorage.getItem("token"));
+
+      await axios.put(`${BACKEND_URL}/follow/unfollow/${id}`, {
+        _id: user._id,
+      });
+      setFollow(false);
+      // console.log("UnFollow successful");
+
+      dispatch(fetchUserById({ id: user._id, token }));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div className="userProfilePage">
       <div className="userContainer">
@@ -126,11 +243,21 @@ const UserProfile = ({ userId }) => {
               ) : (
                 <>
                   <Button
-                    text={"Follow"}
+                    text={follow ? "Following" : "Follow"}
                     className="editProfileBtn followBtn"
+                    onclick={
+                      follow
+                        ? () => unfollowBtn(userId)
+                        : () => handleFollow(userId)
+                    }
+                    styles={{
+                      backgroundColor: follow ? "#efefef" : "#0095f6",
+                      color: follow ? "black" : "white",
+                    }}
                   />
                   <Button
                     text={"Message"}
+                    onclick={() => console.log("Open Message")}
                     className="editProfileBtn editProfileBtnCustom"
                   />
                 </>
@@ -235,7 +362,7 @@ const UserProfile = ({ userId }) => {
                     <div
                       onMouseOver={() => setHoveredPostId(post._id)}
                       onMouseOut={() => setHoveredPostId(null)}
-                      onClick={() => openPostModel(post)}
+                      onClick={() => handlePostModal(post)}
                     >
                       <ImgTag
                         src={convert(post.media[0].url)}
@@ -274,7 +401,12 @@ const UserProfile = ({ userId }) => {
           </div>
         )}
       </div>
-      <PostModal post={currentPost} isOpen={isOpen} handleClose={handleClose} />
+      <PostModal
+        post={currentPost}
+        isOpen={isOpen}
+        handleClose={handleClose}
+        data={data}
+      />
       <div className="userProfilePageFooter">
         <Footer />
       </div>

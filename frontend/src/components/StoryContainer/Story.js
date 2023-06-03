@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./Story.css";
 import ImgTag from "../ImgTag";
+import { Link } from "react-router-dom";
 const Story = () => {
   // const [storyList,setStoryList]=useState([])
 
@@ -48,12 +49,19 @@ const Story = () => {
     <div className="storyList">
       {storyList.map((item, index) => {
         return (
-          <div className="userStory" key={index}>
+          <Link
+            to={"/story"}
+            className="userStory"
+            key={index}
+            onClick={() => {
+              console.log("Story Clicked!!");
+            }}
+          >
             <div className="storyback">
               <ImgTag src={item.profilePic} width={59} height={59} />
             </div>
             <span className="storyUserName"> {item.username} </span>
-          </div>
+          </Link>
         );
       })}
     </div>
