@@ -5,8 +5,10 @@ import Content from "../Common/PlayingContent/Content";
 import SuggestionBox from "../SuggestionBox/SuggestionBox";
 import { getUser } from "../../apiRequests/userApi";
 
-const MainContent = () => {
+const MainContent = ({ handleChnageClick }) => {
   const [currentUser, setCurrentUser] = useState(null);
+
+  console.log("Chnage Click-:", handleChnageClick);
 
   const getUserData = async (token) => {
     await getUser(token)
@@ -27,7 +29,7 @@ const MainContent = () => {
       <div className="leftMainContent">
         <div className="storyContainer">{/* <Story /> */}</div>
         <div className="mainContentList">
-          <Content user={currentUser} />
+          <Content user={currentUser} handleChnageClick={handleChnageClick} />
         </div>
       </div>
 

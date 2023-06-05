@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./optionModal.css";
 import { useDispatch } from "react-redux";
-import { deletePostById } from "../../slices/postsSlice";
+import { deletePostById, fetchAllPosts } from "../../slices/postsSlice";
 import EditPost from "../EditPost/EditPost";
 
 const OptionModal = ({
@@ -24,6 +24,7 @@ const OptionModal = ({
   const deletePost = (id) => {
     dispatch(deletePostById({ id, userId: userId }));
     console.log("post deleted");
+    dispatch(fetchAllPosts());
     handleClose();
   };
   if (isOpen) {

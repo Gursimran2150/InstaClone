@@ -6,6 +6,7 @@ import Conversations from "./Conversations";
 import MessageUsersModal from "./MessageUsersModal";
 import { io } from "socket.io-client";
 import SendMessageComp from "./SendMessageComp";
+import { BACKEND_URL } from "../../config";
 
 const Message = () => {
   const [listChatUsers, setListChatUsers] = useState([]);
@@ -17,6 +18,8 @@ const Message = () => {
   const [roomId, setRoomId] = useState("");
   const [isMessageUserModalOpen, setMessageUserModal] = useState(false);
   const [socket, setSocket] = useState(null);
+
+  const scrollRef = useRef();
 
   // sockets use Effects
 
@@ -62,7 +65,7 @@ const Message = () => {
       if (text === "") {
         alert("message cant be empty");
       }
-      const { data } = await axios.post("http://localhost:4500/message", {
+      const { data } = await axios.post(`${BACKEND_URL}/message`, {
         roomId: roomId,
         senderId: currentUser._id,
         text: text,
@@ -94,9 +97,7 @@ const Message = () => {
 
   async function getChatUsers(userId) {
     try {
-      const { data } = await axios.get(
-        `http://localhost:4500/chatroom/${userId}`
-      );
+      const { data } = await axios.get(`${BACKEND_URL}/chatroom/${userId}`);
 
       setListChatUsers(data);
     } catch (e) {
@@ -114,9 +115,7 @@ const Message = () => {
 
   async function fetchAllMessages(roomId) {
     try {
-      const { data } = await axios.get(
-        `http://localhost:4500/message/${roomId}`
-      );
+      const { data } = await axios.get(`${BACKEND_URL}/message/${roomId}`);
 
       // console.log(data);
       setMessages(data);
@@ -129,6 +128,12 @@ const Message = () => {
     setCurrentUser(JSON.parse(localStorage.getItem("userCedentials")));
     getChatUsers(currentUser._id);
   }, [currentUser._id]);
+
+  useEffect(() => {
+    scrollRef.current?.scrollIntoView({
+      behavior: "smooth",
+    });
+  }, [messages]);
 
   return (
     <>
@@ -187,11 +192,13 @@ const Message = () => {
                 </div>
                 <div className="userChats">
                   {messages.map((message) => (
-                    <Conversations
-                      key={message._id}
-                      text={message.text}
-                      ownMessage={message.senderId === currentUser._id}
-                    />
+                    <div ref={scrollRef}>
+                      <Conversations
+                        key={message._id}
+                        text={message.text}
+                        ownMessage={message.senderId === currentUser._id}
+                      />
+                    </div>
                   ))}
                 </div>
 
@@ -243,7 +250,7 @@ const Message = () => {
                 </div>
               </>
             ) : (
-              <SendMessageComp />
+              <SendMessageComp setMessageUserModal={setMessageUserModal} />
             )}
           </div>
         </div>

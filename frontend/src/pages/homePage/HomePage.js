@@ -18,7 +18,9 @@ import Message from "../../components/Message/Message";
 
 const HomePage = ({ comp }) => {
   const navigate = useNavigate();
-  const [activeComponent, setActiveComponent] = useState(<MainContent />);
+  const [activeComponent, setActiveComponent] = useState(
+    <MainContent handleChnageClick={handleChnageClick} />
+  );
   const [currentUser, setCurrentUser] = useState({});
   const [createPostModel, setCreatePostModel] = useState(true);
   const [isMoreOptionModelOpen, setMoreOptionModel] = useState(false);
@@ -30,10 +32,14 @@ const HomePage = ({ comp }) => {
   useEffect(() => {
     console.log("home page render");
     const userData = JSON.parse(localStorage.getItem("userCedentials"));
-    //console.log(userData);
-    setCurrentUser(userData);
-  }, []);
-  const handleChnageClick = (component, name) => {
+    if (userData) {
+      //console.log(userData);
+      setCurrentUser(userData);
+    } else {
+      navigate("/");
+    }
+  }, [navigate]);
+  function handleChnageClick(component, name) {
     if (name === "Home" || name === "Search") {
       setIsHomePage(true);
     } else {
@@ -45,18 +51,18 @@ const HomePage = ({ comp }) => {
       setIsOpen(!isOpen);
     }
     setActiveComponent(component);
-  };
+  }
 
   const headerLinks = [
     {
       name: "Home",
       icon: "../images/inputIcons/home.png",
-      component: <MainContent />,
+      component: <MainContent handleChnageClick={handleChnageClick} />,
     },
     {
       name: "Search",
       icon: "../images/inputIcons/search.png",
-      component: <MainContent />,
+      component: <MainContent handleChnageClick={handleChnageClick} />,
     },
     {
       name: "Explore",

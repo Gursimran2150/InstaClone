@@ -29,7 +29,7 @@ const LeftSideHeaderModal = ({ setActiveComponent, isOpen, setIsOpen }) => {
     try {
       const id = JSON.parse(localStorage.getItem("userCedentials"))._id;
       const { data } = await axios.get(
-        `http://localhost:4500/follow/getFollower/${id}`
+        `${BACKEND_URL}/follow/getFollower/${id}`
       );
       console.log(data);
       console.log(data[0].following);

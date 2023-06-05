@@ -59,6 +59,7 @@
 .userDetailOnPostUserName {
   font-size: 14px;
   font-weight: 600;
+  cursor: pointer;
 }
 .userDetailonPostTittle {
   font-size: 12px;

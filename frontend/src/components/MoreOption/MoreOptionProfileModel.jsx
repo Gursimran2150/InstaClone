@@ -70,7 +70,7 @@ const MoreOptionProfileModel = ({ isOpen, setIsOpen }) => {
             <span>Report a problem</span>
           </div>
         </div>
-        <div className="line"></div>
+        {isOpen && <div className="line"></div>}
         <div className="secondOptionContainer ">
           <div className="option border-bottom">
             <span>Swtich accounts</span>

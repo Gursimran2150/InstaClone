@@ -1,7 +1,7 @@
 import React from "react";
 import "./sendmessagecomp.css";
 
-const SendMessageComp = () => {
+const SendMessageComp = ({ setMessageUserModal }) => {
   return (
     <div className="sendMessageContainer">
       <div className="sendMessageImage">
@@ -14,6 +14,9 @@ const SendMessageComp = () => {
       </div>
       <div className="sendMessageImageText">
         Send private messages to a friend
+      </div>
+      <div className="sendMessageBtn">
+        <button onClick={() => setMessageUserModal(true)}>Send Message</button>
       </div>
     </div>
   );

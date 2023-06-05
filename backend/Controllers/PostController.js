@@ -394,6 +394,7 @@ export const getAllPost = async (req, res) => {
           visibilty: 1,
           createdAt: 1,
           isLiked: 1,
+          userId: "$user._id",
           userName: "$user.userName",
           profileImage: "$user.profileImage.thumbnail",
           likes: {

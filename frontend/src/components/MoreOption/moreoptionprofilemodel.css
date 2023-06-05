@@ -59,5 +59,6 @@
   left: 10px;
   bottom: 196px;
   height: 3px;
-  background-color: rgb(227, 226, 226);
+  /* z-index: -5; */
+  /* background-color: rgb(227, 226, 226); */
 }

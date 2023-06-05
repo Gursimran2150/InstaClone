@@ -27,6 +27,23 @@
   );
   margin: 4px;
 }
+.storybackWatch {
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  background: radial-gradient(
+    circle at 33% 100%,
+    #d2d2d2 4%,
+    #d2d2d2 30%,
+    #d2d2d2 62%,
+    #d2d2d2 85%,
+    #d2d2d2
+  );
+  margin: 4px;
+}
 
 /* single user profle on story */
 .userStory {
@@ -36,6 +53,7 @@
   align-items: center;
   margin-top: 4px;
   margin-bottom: 8px;
+  text-decoration: none;
 }
 .storyback > img {
   outline-style: double;
@@ -46,6 +64,13 @@
 
   /* margin: 4px; */
   /* border: 2px solid lightblue */
+}
+.storybackWatch > img {
+  outline-style: double;
+  outline-color: white;
+  outline-width: 2px;
+  background-color: white;
+  border-radius: 50%;
 }
 .storyUserName {
   font-size: 12px;

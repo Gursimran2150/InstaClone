@@ -6,7 +6,7 @@ import PostModal from "./PostModal";
 import { fetchAllPosts } from "../../../slices/postsSlice";
 import { fetchComments } from "../../../slices/commentSlice";
 
-const Content = () => {
+const Content = ({ handleChnageClick }) => {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.allPosts.data.data);
 
@@ -59,6 +59,7 @@ const Content = () => {
               onPressItem={handleOpenModal}
               authToken={authToken}
               setData={setData}
+              handleChnageClick={handleChnageClick}
             />
           );
         })}

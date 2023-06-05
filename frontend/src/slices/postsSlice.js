@@ -24,7 +24,7 @@ export const deletePostById = createAsyncThunk(
   "post/delete",
   async ({ id, userId }) => {
     try {
-      const { data } = await axios.delete(`http://localhost:4500/posts/${id}`, {
+      const { data } = await axios.delete(`${BACKEND_URL}/posts/${id}`, {
         data: {
           userId,
         },

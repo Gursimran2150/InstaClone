@@ -3,6 +3,7 @@ import "./messageusermodal.css";
 import { useSelector } from "react-redux";
 import SuggestedUser from "./SuggestedUser";
 import axios from "axios";
+import { BACKEND_URL } from "../../config";
 
 const MessageUsersModal = ({
   isOpen,
@@ -39,7 +40,7 @@ const MessageUsersModal = ({
 
   async function createRoom(senderId, receiverId) {
     try {
-      const { data } = await axios.post("http://localhost:4500/chatroom", {
+      const { data } = await axios.post(`${BACKEND_URL}/chatroom`, {
         senderId: senderId,
         recieverId: receiverId,
       });

@@ -1,49 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Story.css";
 import ImgTag from "../ImgTag";
 import { Link } from "react-router-dom";
 const Story = () => {
   // const [storyList,setStoryList]=useState([])
+  const [iswacthed, setIsWatched] = useState(
+    JSON.parse(localStorage.getItem("isWatched"))
+  );
+
+  useEffect(() => {
+    localStorage.setItem("isWatched", "false");
+  }, []);
 
   const storyList = [
     {
       profilePic: "../images/inputIcons/user.jpg",
       username: "demo2150",
     },
-    {
-      profilePic: "../images/inputIcons/user.jpg",
-      username: "temp2150",
-    },
-    // {
-    //   "profilePic": "../images/inputTrue.png",
-    //   "username": "instagram"
-
-    // }, {
-    //   "profilePic": "../images/x-mark-1.png",
-    //   "username": "instagram"
-
-    // }, {
-    //   "profilePic": "../images/lightFacebookIcons.png",
-    //   "username": "instagram"
-
-    // }, {
-    //   "profilePic": "../images/facebook.png",
-    //   "username": "instagram"
-
-    // }, {
-    //   "profilePic": "../images/inputIcons/search.png",
-    //   "username": "instagram"
-
-    // }, {
-    //   "profilePic": "../images/inputIcons/reels.png",
-    //   "username": "instagram"
-
-    // }, {
-    //   "profilePic": "../images/inputIcons/instagram.png",
-    //   "username": "instagram"
-
-    // },
   ];
+  function handleClick() {
+    localStorage.setItem("isWatched", "true");
+  }
 
   return (
     <div className="storyList">
@@ -54,10 +31,10 @@ const Story = () => {
             className="userStory"
             key={index}
             onClick={() => {
-              console.log("Story Clicked!!");
+              handleClick();
             }}
           >
-            <div className="storyback">
+            <div className={iswacthed ? "storybackWatch" : "storyback"}>
               <ImgTag src={item.profilePic} width={59} height={59} />
             </div>
             <span className="storyUserName"> {item.username} </span>

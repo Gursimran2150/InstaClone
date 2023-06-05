@@ -3,6 +3,7 @@ import "./CreatePostModal.css";
 import { uploadFile } from "../../apiRequests/postApi";
 import UploadPost from "./UploadPost";
 import SelectPost from "./SelectPost";
+import { HOST } from "../../config";
 
 const CreatePostModal = ({ isOpen, handleChnageClick }) => {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -28,13 +29,14 @@ const CreatePostModal = ({ isOpen, handleChnageClick }) => {
       await uploadFile(formData)
         .then((response) => {
           response.data.statusCode === 200
-            ? setGenraterLink(response.data.url)
+            ? setGenraterLink(response.data.url.replace("localhost", HOST))
             : setGenraterLink("");
         })
         .catch((err) => console.log(err));
     }
   };
 
+  console.log("Image Link-:", isGenraterLink);
   if (isOpen) {
     return (
       <div className="createPostPage">

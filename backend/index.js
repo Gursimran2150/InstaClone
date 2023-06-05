@@ -26,6 +26,8 @@ import blockUserRoute from "./Routes/UserBlockRoute.js";
 import storyRoute from "./Routes/StoryRoute.js";
 const app = express();
 
+const hostName = "192.168.1.10";
+
 // import io from 'socket.io'
 
 // import { Server } from "socket.io";
@@ -59,8 +61,10 @@ mongoose
     }
   )
   .then(() =>
-    app.listen(process.env.SERVER_PORT, () => {
-      console.log(`Listening at Port ${process.env.SERVER_PORT}`);
+    app.listen(process.env.SERVER_PORT, hostName, () => {
+      console.log(
+        `Listening at Port ${process.env.SERVER_PORT} and host ${hostName}`
+      );
     })
   )
   .catch((error) => console.log(`${error} did not connect`));

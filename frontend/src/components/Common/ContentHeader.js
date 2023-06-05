@@ -6,7 +6,7 @@ import "../Common/PlayingContent/Content.css";
 
 import OptionModal from "../MoreOption/optionModal";
 
-const ContentHeader = ({ data, setContent }) => {
+const ContentHeader = ({ data, setContent, openUserProfile }) => {
   //dipatch to dispatch actions
 
   const [openOptionModal, setOpenOptionModal] = useState(false);
@@ -74,7 +74,12 @@ const ContentHeader = ({ data, setContent }) => {
         </div>
         <div className="userDetailOnPost">
           <div className="userDetailTopLine">
-            <span className="userDetailOnPostUserName">{data?.userName}</span>
+            <span
+              className="userDetailOnPostUserName"
+              onClick={() => openUserProfile(data?.userId)}
+            >
+              {data?.userName}
+            </span>
             <span className="userDetailOnUploadTme"> {createDate()} </span>
           </div>
 

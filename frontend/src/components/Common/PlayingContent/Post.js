@@ -18,8 +18,9 @@ import {
   incrementLike,
   initState,
 } from "../../../slices/likeSlice";
+import UserProfile from "../../UserProfile/UserProfile";
 
-function Post({ post, authToken, onPressItem, setData }) {
+function Post({ post, authToken, onPressItem, setData, handleChnageClick }) {
   const dispatch = useDispatch();
 
   const [isLiked, setIsLiked] = useState();
@@ -36,7 +37,6 @@ function Post({ post, authToken, onPressItem, setData }) {
 
   const commentInputRef = useRef(null);
   const [comment, setComment] = useState("");
-  const payloadTemp = useSelector((state) => state.likes);
 
   // convert uri
   const convert = (url) => {
@@ -118,12 +118,16 @@ function Post({ post, authToken, onPressItem, setData }) {
     };
     setData(data);
     const payload = {
-      likeCount: post?.likes?.users?.length || 0,
+      likeCount: tempLikeCount || 0,
       likeBtn: likeBtn,
     };
     dispatch(initState(payload));
 
     onPressItem({ post, tempLikeCount, clickLike });
+  }
+  function openUserProfile(userId) {
+    handleChnageClick &&
+      handleChnageClick(<UserProfile userId={userId} />, "Profile");
   }
 
   console.log(`Render post of ${post?.userName}`);
@@ -147,7 +151,11 @@ function Post({ post, authToken, onPressItem, setData }) {
           <button className="moreOptionButton">...</button>
         </div>
       </div> */}
-      <ContentHeader data={post} setContent={setContent} />
+      <ContentHeader
+        data={post}
+        setContent={setContent}
+        openUserProfile={openUserProfile}
+      />
       <div className="imageContainer">
         <img src={convertedUrl} alt="img" />
       </div>
@@ -185,7 +193,10 @@ function Post({ post, authToken, onPressItem, setData }) {
           ? "Be the First to like"
           : `${tempLikeCount} likes`}
       </div>
-      <div className="postDescriptionContainer">
+      <div
+        className="postDescriptionContainer"
+        onClick={() => openUserProfile(post?.userName)}
+      >
         <span style={{ fontWeight: "bold" }}>{post?.userName}</span>
         {` ${content}`}
       </div>
