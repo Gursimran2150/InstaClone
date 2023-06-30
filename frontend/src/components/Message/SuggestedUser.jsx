@@ -22,7 +22,14 @@ const SuggestedUser = ({ userId, setReceiverId, setOtherUser }) => {
     <div className="suggestedUserContainer">
       <div className="leftSend">
         <div className="userimg">
-          <img src="../images/inputIcons/profile.png" alt="profile" />
+          <img
+            src={
+              user?.profileImage === ""
+                ? "../images/inputIcons/profile.png"
+                : user?.profileImage
+            }
+            alt="profile"
+          />
         </div>
         <div className="userInfoS">
           <div className="usernameS">{user?.userName}</div>

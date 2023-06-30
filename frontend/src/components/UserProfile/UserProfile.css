@@ -33,11 +33,13 @@
   margin: 0px 30px 0px 0px;
   justify-content: center;
 }
+
 .addProfileImg {
   width: 150px;
   height: 100%;
 }
-.addProfileImg > button {
+
+.addProfileImg>button {
   border-radius: 50%;
   width: 100%;
   height: 100%;
@@ -45,7 +47,8 @@
   background-color: transparent;
   /* border: 1px solid #c7c7c7 */
 }
-.addProfileImg > img {
+
+.addProfileImg>img {
   object-fit: cover;
 }
 
@@ -60,10 +63,12 @@
   /* border: 2px solid red; */
   justify-content: space-between;
 }
-.userProfileUserName > span {
+
+.userProfileUserName>span {
   /* display: flex; */
   font-size: 20px;
 }
+
 .editProfileBtn {
   background-color: #efefef;
   padding: 0px 16px;
@@ -74,6 +79,7 @@
   margin-left: 10px;
   font-weight: 600;
 }
+
 .editProfileBtnCustom:hover {
   background-color: #d2d2d2;
 }
@@ -83,6 +89,7 @@
   align-items: center;
   gap: 35px;
 }
+
 .userContentList div {
   margin: 20px 0;
 }
@@ -105,9 +112,11 @@
   letter-spacing: 1px;
   font-weight: 600;
 }
+
 .userProfileNavBar a div {
   display: flex;
 }
+
 .userProfileNavBar a div span {
   margin: 0px 0px 0px 6px;
 }
@@ -123,6 +132,7 @@
   display: flex;
   flex-wrap: wrap;
 }
+
 .showImg {
   display: block;
   overflow: hidden;
@@ -130,7 +140,7 @@
   position: relative;
 }
 
-.showImg > img {
+.showImg>img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -160,20 +170,24 @@
   cursor: pointer;
   overflow: hidden;
 }
+
 .galleryImgInside {
   width: 100%;
   object-fit: cover;
   /* hei?ght: 100%; */
   height: 300px;
 }
+
 .userOptions {
   text-decoration: none;
   color: black;
 }
+
 .userProfileNavBar div {
   display: flex;
   align-items: center;
 }
+
 a {
   text-decoration: none;
 }
@@ -182,14 +196,19 @@ a {
   font-weight: bold;
   background-color: transparent;
 }
+
 .removeBg {
   background-color: white;
 }
+
 .imageBorder {
   border: 2px solid rgb(202, 202, 202);
   box-sizing: border-box;
   border-radius: 50%;
+  width: 150px;
+  height: 150px;
 }
+
 .galleryImgInsideDiv {
   width: 100%;
   height: 100%;
@@ -204,6 +223,7 @@ a {
   align-items: center;
   gap: 20px;
 }
+
 .comments,
 .likes {
   display: flex;
@@ -214,14 +234,17 @@ a {
 .likes span {
   color: white;
 }
+
 .followBtn {
   background-color: #0095f6;
   color: white;
   transition: all 0.2s linear;
 }
+
 .followBtn:hover {
   background-color: #0081d7;
 }
+
 .userRealName {
   display: none;
 }
@@ -231,6 +254,7 @@ a {
     flex-direction: column;
     margin-bottom: 0;
   }
+
   .userContentList {
     display: flex;
     align-items: center;
@@ -239,6 +263,7 @@ a {
     margin-top: 30px;
     border-top: 1px solid lightgray;
   }
+
   .userContentList div {
     margin: 20px 0;
 
@@ -247,25 +272,30 @@ a {
     align-items: center;
     justify-content: center;
   }
+
   .userProfileUserName {
     display: flex;
     justify-content: space-between;
     /* gap: 50px; */
     margin: 20px 0;
   }
+
   .userprofileName {
     padding-left: 30px;
   }
+
   .galleryImgInside {
     width: 150px;
     object-fit: contain;
     /* hei?ght: 100%; */
     height: 150px;
   }
+
   .userPostGallery {
     height: 150px;
   }
 }
+
 @media screen and (max-width: 460px) {
   .galleryImgInside {
     width: 100px;
@@ -273,7 +303,12 @@ a {
     /* hei?ght: 100%; */
     height: 100px;
   }
+
   .userPostGallery {
+    height: 100px;
+  }
+
+  .galleryImg {
     height: 100px;
   }
 }
@@ -281,7 +316,9 @@ a {
 @media screen and (max-width: 800px) {
   .imageBorder {
     width: 100px;
+    height: 100px;
   }
+
   .userAvtar {
     width: 100px;
     height: 100px;
@@ -290,20 +327,30 @@ a {
     margin: 0px 30px 0px 0px;
     justify-content: center;
   }
+
   .userRealName {
     display: inline-block;
     font-size: 15px;
   }
+
   .usernamespan {
     display: none;
   }
+
   .galleryImgInside {
     width: 100%;
     object-fit: cover;
     /* hei?ght: 100%; */
-    height: 200px;
+    /* height: 200px; */
+  }
+
+  .userPostGallery {
+    gap: 5px;
+  }
+
+  .mainFooter {
+    display: none;
   }
 }
 
-@media screen and (max-width: 1000px) {
-}
+@media screen and (max-width: 1000px) {}

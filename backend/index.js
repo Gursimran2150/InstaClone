@@ -3,15 +3,11 @@ import dotenv from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
-// import path from "node:path";
-// import process from "node:process";
 import swaggerJSDoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
 import fileUpload from "express-fileupload";
 import authMiddleWare from "./Middleware/AuthMiddleware.js";
 dotenv.config();
-
-// npm i dotenv
 import authRoute from "./Routes/AuthRoute.js";
 import postRoute from "./Routes/PostRoute.js";
 import userRoute from "./Routes/UserRoute.js";
@@ -24,42 +20,17 @@ import commentRoute from "./Routes/CommentRoute.js";
 import followRoute from "./Routes/followRoutes/RequestRoute.js";
 import blockUserRoute from "./Routes/UserBlockRoute.js";
 import storyRoute from "./Routes/StoryRoute.js";
+import deviceTokenRouter from "./Routes/DeviceTokenRoute.js";
+import path from "path";
 const app = express();
-
-const hostName = "192.168.1.10";
-
-// import io from 'socket.io'
-
-// import { Server } from "socket.io";
-
-// const io = new Server(3001, {
-//   cors: {
-// 		origin: "*",
-// 	},
-
-// });
-
-// io.on("connection", (socket) => {
-
-// 	socket.on("connect", (newUserId) => {
-// 		console.log("sockectConeent",newUserId);
-// 	})
-// 	socket.on("disconnect", () => {
-// 		console.log("scocket disconnect");
-// 	});
-
-// })
+const hostName = "192.168.1.2";
 
 // mongoose connect and then call server
 mongoose
-  .connect(
-    // "mongodb+srv://ems:12345@sds.ebmpxjy.mongodb.net/social?retryWrites=true&w=majority" ||
-    process.env.DATABASE || dev_db_url,
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    }
-  )
+  .connect(process.env.DATABASE || dev_db_url, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() =>
     app.listen(process.env.SERVER_PORT, hostName, () => {
       console.log(
@@ -71,20 +42,18 @@ mongoose
 
 //view engines setup
 app.set("view engine", "ejs");
-
 app.use(cors());
 app.use(fileUpload());
 app.use(bodyParser.json({ limit: "250mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "250mb", extended: true }));
-
 app.use(express.static("./public"));
 app.use(express.static("./uploads/files"));
 app.use(express.static("./uploads/images"));
+app.use(express.static("./uploads"));
 app.use(express.static("./uploads/videos"));
 app.use(express.static("./public/uploads/files"));
 app.use(express.static("./public/uploads/images"));
 app.use(express.static("./public/uploads/videos"));
-
 app.use("/accounts", authRoute);
 app.use("/user", userRoute);
 app.use("/posts", postRoute);
@@ -97,24 +66,4 @@ app.use("/likePost", authMiddleWare, likeRoute);
 app.use("/comment", commentRoute);
 app.use("/follow", followRoute);
 app.use("/block", blockUserRoute);
-
-// auth middleware
-// app.use((req, res, next) => {
-// 	if (!req.url.includes("auth")) {
-// 		return authMiddleWare(req, res, next);
-// 	}
-// 	next();
-// });npm iu
-
-// const user = require("./Routes/UserRoute.js");
-
-// const options = {
-// 	definition: {
-// 		openapi: "3.0.0",
-// 		info: {
-// 			title: "Hello World",
-// 			version: "1.0.0",
-// 		},
-// 	},
-// 	apis: ["./src/routes*.js"], // files containing annotations as above
-// };
+app.use("/notification", deviceTokenRouter);

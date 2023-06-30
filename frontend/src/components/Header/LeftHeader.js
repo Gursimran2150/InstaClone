@@ -8,8 +8,7 @@ import SuggestionBox from "../SuggestionBox/SuggestionBox";
 import MainContent from "../MainContent/MainContent";
 
 const LeftHeader = () => {
-
-  const [activeComponent,setActiveComponent]=useState(<MainContent/>)
+  const [activeComponent, setActiveComponent] = useState(<MainContent />);
   const navigate = useNavigate();
 
   const headerLinks = [
@@ -17,7 +16,7 @@ const LeftHeader = () => {
       url: "/",
       name: "Home",
       icon: "../images/inputIcons/home.png",
-    component:<MainContent />
+      component: <MainContent />,
     },
     {
       url: "",
@@ -28,7 +27,7 @@ const LeftHeader = () => {
       url: "/explore",
       name: "Explore",
       icon: "../images/inputIcons/exploer.png",
-    component:<SuggestionBox/>
+      component: <SuggestionBox />,
     },
     {
       url: "/reels",
@@ -66,16 +65,16 @@ const LeftHeader = () => {
   };
 
   const handleClick = (e) => {
-    if (getAllStorage().length > 0) {
-      localStorage.clear();
-      navigate("/");
-    }
+    // if (getAllStorage().length > 0) {
+    //   localStorage.clear();
+    //   navigate("/");
+    // }
+    console.log("I am clickd");
   };
 
-const handleChnageClick=(component,name)=>{
-setActiveComponent(component)
-}
-
+  const handleChnageClick = (component, name) => {
+    setActiveComponent(component);
+  };
 
   return (
     <div className="leftHeader">
@@ -95,7 +94,10 @@ setActiveComponent(component)
         <div className="leftHeaderLinkList">
           {headerLinks.map((item, index) => {
             return (
-              <div className="leftHeaderLinkBox" onClick={handleChnageClick(item.component,item.name)}>
+              <div
+                className="leftHeaderLinkBox"
+                onClick={handleChnageClick(item.component, item.name)}
+              >
                 <AnchorTag
                   href={item.url}
                   text={

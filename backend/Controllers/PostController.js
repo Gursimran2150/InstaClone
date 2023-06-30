@@ -396,7 +396,7 @@ export const getAllPost = async (req, res) => {
           isLiked: 1,
           userId: "$user._id",
           userName: "$user.userName",
-          profileImage: "$user.profileImage.thumbnail",
+          profileImage: "$user.profileImage",
           likes: {
             users: "$likes.users",
           },

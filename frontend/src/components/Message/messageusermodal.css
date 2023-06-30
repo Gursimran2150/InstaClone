@@ -52,3 +52,28 @@
   flex-direction: column;
   padding: 15px;
 }
+
+@media screen and (max-width: 800px) {
+  .parentModalWrapper {
+    width: 100%;
+    /* border: 2px solid red; */
+    display: flex;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+  }
+  .messageUserContainer {
+    min-width: 300px;
+    max-height: 400px;
+
+    width: auto;
+    height: auto;
+    overflow: auto;
+    border-radius: 12px;
+    transform: translateX(0);
+    background-color: white;
+
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  }
+}

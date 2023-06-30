@@ -16,7 +16,7 @@ const MessageUsersModal = ({
   const [receiverId, setReceiverId] = useState("initial value");
 
   const following = useSelector(
-    (state) => state.user.data.followData.following
+    (state) => state.user?.data?.followData?.following
   );
 
   function handleClose() {

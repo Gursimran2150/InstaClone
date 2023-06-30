@@ -3,7 +3,7 @@
   width: 100%;
   height: 100vh;
   position: relative;
-  /* border: 3px solid red; */
+
   justify-content: space-between;
   box-sizing: border-box;
   overflow-x: hidden;
@@ -14,6 +14,7 @@
   max-width: 244px;
   /* border: 2px solid gold; */
 }
+
 .rightContainer {
   width: 83%;
   display: flex;
@@ -22,37 +23,47 @@
 
   align-items: center;
 }
+
 .leftHeaderLinkBox {
   width: 200px;
   border-radius: 8px;
   /* border: 2px solid crimson; */
 }
+
 .leftHeaderLinkList {
   width: 100%;
   /* border: 2px solid red; */
 }
+
 .leftHeaderLinkBox:hover {
   background-color: rgb(233, 233, 233);
 }
+
 .leftHeaderLinkBox img {
   transition: all 0.2s linear;
 }
+
 .leftHeaderLinkBox:hover img {
   transform: scale(1.1);
 }
+
 .LeftHeaderBottom:hover {
   background-color: rgb(233, 233, 233);
 }
+
 .LeftHeaderBottom {
   width: 200px;
   border-radius: 8px;
 }
+
 .LeftHeaderBottom img {
   transition: all 0.2s linear;
 }
+
 .LeftHeaderBottom:hover img {
   transform: scale(1.1);
 }
+
 .instagramLogo {
   display: none;
   cursor: pointer;
@@ -66,16 +77,21 @@
     /* overflow: hidden; */
     /* border: 2px solid green; */
   }
+
   .leftHeaderLinkBox {
     width: 50px;
     /* border: 2px solid red; */
   }
+
   .LeftHeaderBottom {
     width: 50px;
   }
+
   .rightContainer {
-    width: 95%;
+    width: 100%;
+    overflow-x: hidden;
   }
+
   .instagramLogo {
     display: inline-block;
     cursor: pointer;
@@ -96,28 +112,38 @@
   border-bottom: 1px solid lightgray;
   width: 100%;
   overflow: hidden;
+  position: sticky;
+  top: 0;
+  left: 0;
 
-  padding: 5px 20px;
+  padding: 1px 20px;
+  /* border: 2px solid red; */
   display: none;
+  gap: 30px;
   justify-content: space-between;
   align-items: center;
 }
+
 .headerForMobileRightSection {
   flex: 2;
   display: flex;
   justify-content: center;
 
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
+
 .headerForMobileLogo {
   flex: 1;
+  margin-left: -10px;
 }
+
 .headerForMobileRightSectionInput {
   width: 100%;
 
   position: relative;
 }
+
 .headerForMobileRightSectionInput input {
   width: 100%;
   padding: 5px 35px;
@@ -127,7 +153,7 @@
   background-color: #f3f2f2;
 }
 
-.headerForMobileRightSectionInput input:focus ~ .cancelInputIcon {
+.headerForMobileRightSectionInput input:focus~.cancelInputIcon {
   display: inline-block;
 }
 
@@ -138,12 +164,15 @@
   display: none;
   transform: translateY(-50%);
 }
-.headerForMobileRightSectionInput input:not(:focus) ~ .searchInputIconImg {
+
+.headerForMobileRightSectionInput input:not(:focus)~.searchInputIconImg {
   display: inline-block;
 }
+
 .headerForMobileRightSectionInput input:focus {
   padding-left: 12px;
 }
+
 .cancelInputIcon {
   position: absolute;
   top: 50%;
@@ -151,6 +180,7 @@
   transform: translateY(-50%);
   display: none;
 }
+
 .homePageWrapper {
   width: 100%;
   height: 100vh;
@@ -159,22 +189,27 @@
   /* border: 2px solid red; */
 }
 
+.border-radius-50 {
+  border-radius: 50%
+}
+
 /* bottom navigation for small devices  */
 .bottomNavigation {
-  position: absolute;
-  z-index: 100;
+  position: fixed;
+  z-index: 10000000000;
   width: 100%;
   background-color: white;
   bottom: 0;
   border-top: 1px solid lightgray;
-  padding: 12px 6px;
+  padding: 14px 6px;
   display: flex;
-
+  box-sizing: border-box;
   justify-content: space-around;
   align-items: center;
   left: 0;
   display: none;
 }
+
 .bottomNavigation div img {
   transition: all 0.2s linear;
 }
@@ -182,20 +217,30 @@
 .bottomNavigation div:hover img {
   transform: scale(1.1);
 }
+
 @media only screen and (max-width: 800px) {
   .rightContainer {
     width: 100%;
+    overflow-y: auto;
   }
+
   .leftContainer {
     display: none;
   }
+
   .headerForMobile {
     display: flex;
   }
+
   .bottomNavigation {
     display: flex;
   }
+
   .postList {
     margin-bottom: 100px;
+  }
+
+  .homePageWrapper {
+    height: 90vh;
   }
 }

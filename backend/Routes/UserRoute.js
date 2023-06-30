@@ -11,11 +11,13 @@ import {
 	// unfollowUser,
 	getUserByUserName,
 	currentUser,
+	uploadProfilePic,
 } from "../Controllers/UserController.js";
 import authMiddleWare from "../Middleware/AuthMiddleware.js";
+import fileUpload from "express-fileupload";
 
 const router = express.Router();
-
+router.use(fileUpload())
 router.get("/", getAllUsers);
 // router.get("/", getttalll);
 router.get("/currentUser",currentUser)
@@ -35,24 +37,15 @@ router.get("/search-by-name-pattern/:pattern", getUserByNamePattern);
 router.get("/search-name-start-with/:char", getUserByNameStart);
 router.get("/search-name-end-with/:char", getUserByNameEnd);
 
-//following and unfollower Api
-// router.put("/:id/follow", followUser);
-// router.put("/:id/unfollow", unfollowUser);
-// const swaggerOption = {
-// 	swaggerDefination: {
-// 		info: {
-// 			title: "User API",
-// 			description:
-// 				"The API for all users that have Account on instagram platform",
-// 			contact: "Redsky Developers",
-// 			servers: ["http://localhost:4000"],
-// 		},
-// 	},
-// 	// give the file of user routes
-// 	api: ["./Routes/UserRoute.js"],
-// };
 
-// const swaggerDocs = swaggerJSDoc(swaggerOption);
-// router.use("api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+
+
+
+
+
+//uploading profile pic
+router.put("/users/:userId/profile-picture", uploadProfilePic);
+
+
 
 export default router;

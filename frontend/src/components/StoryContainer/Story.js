@@ -4,13 +4,13 @@ import ImgTag from "../ImgTag";
 import { Link } from "react-router-dom";
 const Story = () => {
   // const [storyList,setStoryList]=useState([])
-  const [iswacthed, setIsWatched] = useState(
-    JSON.parse(localStorage.getItem("isWatched"))
-  );
+  // const [iswacthed, setIsWatched] = useState(
+  //   JSON.parse(localStorage.getItem("isWatched"))
+  // );
 
-  useEffect(() => {
-    localStorage.setItem("isWatched", "false");
-  }, []);
+  // useEffect(() => {
+  //   localStorage.setItem("isWatched", "false");
+  // }, []);
 
   const storyList = [
     {
@@ -18,9 +18,9 @@ const Story = () => {
       username: "demo2150",
     },
   ];
-  function handleClick() {
-    localStorage.setItem("isWatched", "true");
-  }
+  // function handleClick() {
+  //   localStorage.setItem("isWatched", "true");
+  // }
 
   return (
     <div className="storyList">
@@ -30,11 +30,9 @@ const Story = () => {
             to={"/story"}
             className="userStory"
             key={index}
-            onClick={() => {
-              handleClick();
-            }}
+            onClick={() => {}}
           >
-            <div className={iswacthed ? "storybackWatch" : "storyback"}>
+            <div className={"storyback"}>
               <ImgTag src={item.profilePic} width={59} height={59} />
             </div>
             <span className="storyUserName"> {item.username} </span>

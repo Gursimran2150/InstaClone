@@ -97,11 +97,11 @@ const CommentHeader = ({ data, post }) => {
 
           <span className="userDetailonPostTittle">
             {" "}
-            {data.text ? data.text : "title"}{" "}
+            {data?.text ? data?.text : "title"}{" "}
           </span>
         </div>
       </div>
-      {userName !== data.userName ? (
+      {userName !== data?.userName ? (
         ""
       ) : (
         <div className="optionButton">

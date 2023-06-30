@@ -7,14 +7,17 @@
   padding-top: 4px;
   gap: 64px;
   flex-flow: row nowrap;
+  box-sizing: border-box;
+
   /* border: 2px solid violet; */
   /* background-color: grey;
    */
 }
 
 .leftMainContent {
-  min-width: 635px;
+  /* min-width: 635px; */
   /* margin-right: 64px; */
+  box-sizing: border-box;
 }
 
 /* left side of homeScreen */
@@ -31,5 +34,15 @@
 @media screen and (max-width: 1171px) {
   .rightMainContainer {
     display: none;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .leftMainContent {
+    /* border: 2px solid red; */
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
   }
 }

@@ -103,91 +103,102 @@ const LeftSideHeaderModal = ({ setActiveComponent, isOpen, setIsOpen }) => {
 
   if (isOpen) {
     return (
-      <div className="hideComponent">
-        <div className="inputWrapper">
-          <h3>Search </h3>
-          {/* <InputField
+      <div className="parentWrapperCompo" onClick={() => setIsOpen(false)}>
+        <div className="hideComponent" onClick={(e) => e.stopPropagation()}>
+          <div className="inputWrapper">
+            <h3>Search </h3>
+            {/* <InputField
           type="ixy"
           onchange={handleChange}
           className={"customInput"}
         /> */}
-          <div>
-            <div className="headerForMobileRightSectionInput">
-              <input type="text" placeholder="Search" onChange={handleChange} />
-              {/* <input onChange={handleChange} /> */}
-              <img
-                className="searchInputIconImg"
-                width={"18px"}
-                src="../images/inputIcons/searchgrey.png"
-                alt="searchIcon"
-              />
-              <img
-                className="cancelInputIcon"
-                width={"16px"}
-                src="../images/inputIcons/cancel.png"
-                alt="searchIcon"
-              />
+            <div>
+              <div className="headerForMobileRightSectionInput">
+                <input
+                  type="text"
+                  placeholder="Search"
+                  onChange={handleChange}
+                />
+                {/* <input onChange={handleChange} /> */}
+                <img
+                  className="searchInputIconImg"
+                  width={"18px"}
+                  src="../images/inputIcons/searchgrey.png"
+                  alt="searchIcon"
+                />
+                <img
+                  className="cancelInputIcon"
+                  width={"16px"}
+                  src="../images/inputIcons/cancel.png"
+                  alt="searchIcon"
+                />
+              </div>
             </div>
           </div>
-        </div>
 
-        {searchedUsersTemp[1] !== 500 ? (
-          searchedUsers?.length > 0 ? (
-            searchedUsers?.map((user, ind) => {
-              const isFollowing = checkUserFollow(user._id);
-              return (
-                <div className="suggestedUserProfile" key={ind}>
-                  <div className="userProfile">
-                    <div className="suggestedUserProfileImg">
-                      <ImgTag
-                        handleClick={() => {
-                          setIsOpen(false);
-                          setActiveComponent(
-                            <UserProfile userId={user._id} />,
-                            "UserProfile"
-                          );
-                        }}
-                        src={
-                          user?.profileImage?.thumbnail?.uri
-                            ? convert(user?.profileImage?.thumbnail?.uri)
-                            : " ../images/inputIcons/profile.png"
-                        }
-                      />
+          {searchedUsersTemp[1] !== 500 ? (
+            searchedUsers?.length > 0 ? (
+              searchedUsers?.map((user, ind) => {
+                const isFollowing = checkUserFollow(user._id);
+                return (
+                  <div className="suggestedUserProfile" key={ind}>
+                    <div className="userProfile">
+                      <div className="suggestedUserProfileImg">
+                        <ImgTag
+                          handleClick={() => {
+                            setIsOpen(false);
+                            setActiveComponent(
+                              <UserProfile userId={user._id} />,
+                              "UserProfile"
+                            );
+                          }}
+                          src={
+                            user?.profileImage === ""
+                              ? " ../images/inputIcons/profile.png"
+                              : user?.profileImage
+                          }
+                        />
+                      </div>
+                      <div className="suggestedListUserCont">
+                        <span className="suggestedListUserName">
+                          {user?.userName}{" "}
+                        </span>
+                        <span className="suggestedListName">
+                          {" "}
+                          {user?.firstName}
+                        </span>
+                      </div>
                     </div>
-                    <div className="suggestedListUserCont">
-                      <span className="suggestedListUserName">
-                        {user?.userName}{" "}
-                      </span>
-                      <span className="suggestedListName">
-                        {" "}
-                        {user?.firstName}
-                      </span>
+
+                    <div className="switchButton">
+                      {JSON.parse(localStorage.getItem("userCedentials"))
+                        ._id !== user._id ? (
+                        <Button
+                          text={isFollowing ? "Following" : "Follow"}
+                          onclick={
+                            isFollowing
+                              ? () => unfollowBtn(user._id)
+                              : () => followBtn(user._id)
+                          }
+                        />
+                      ) : (
+                        ""
+                      )}
                     </div>
                   </div>
-
-                  <div className="switchButton">
-                    <Button
-                      text={isFollowing ? "Following" : "Follow"}
-                      onclick={
-                        isFollowing
-                          ? () => unfollowBtn(user._id)
-                          : () => followBtn(user._id)
-                      }
-                    />
-                  </div>
-                </div>
-              );
-            })
+                );
+              })
+            ) : (
+              <div>No Users Found</div>
+            )
           ) : (
-            <div>No Users Found</div>
-          )
-        ) : (
-          <>
-            <div className="recent">
-              <h5>Recent</h5>
-            </div>
-          </>
-        )}
+            <>
+              <div className="recent">
+                <h5>Recent</h5>
+              </div>
+            </>
+          )}
+        </div>
       </div>
     );
   } else return null;

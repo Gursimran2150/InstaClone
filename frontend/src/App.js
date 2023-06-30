@@ -9,6 +9,7 @@ import Login from "./pages/login/Login";
 import ForgetPassword from "./pages/forgetPassword/ForgetPassword";
 import RobotCaptchaScreen from "./pages/forgetPassword/RobotCaptchaScreen";
 import ShowStory from "./pages/showStory/ShowStory";
+import { useEffect } from "react";
 
 function App() {
   return (
@@ -24,7 +25,7 @@ function App() {
         />
         <Route path="/accounts/password/reset" element={<ForgetPassword />} />
         <Route path="/accounts/emailsignup" element={<SignUp />} />
-        <Route path="/accounts/login" element={<Login />} />
+        {/* <Route path="/accounts/login" element={<Login />} /> */}
         <Route path="/homePage" element={<HomePage />} />
         <Route path="/challenges" element={<RobotCaptchaScreen />} />
         <Route path="/" element={<Login />} />

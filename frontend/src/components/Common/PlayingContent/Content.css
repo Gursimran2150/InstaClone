@@ -14,11 +14,13 @@
   border-bottom: 1px solid rgb(var(--ig-separator));
   display: inline-block;
 }
+
 .content {
   border-radius: 2px;
   overflow: hidden;
 }
-.content > img {
+
+.content>img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -32,6 +34,7 @@
   align-items: center;
   justify-content: space-between;
 }
+
 .userProfile {
   display: flex;
   flex-direction: row;
@@ -46,34 +49,40 @@
   border-radius: 50%;
   overflow: hidden;
 }
-.userProfileImg > img {
+
+.userProfileImg>img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  /* object-fit: contain; */
 }
+
 .userDetailOnPost {
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
+
 .userDetailOnPostUserName {
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
 }
+
 .userDetailonPostTittle {
   font-size: 12px;
 }
+
 .userDetailTopLine span:not(:last-of-type)::after {
   content: "\00B7";
   margin: 0 0.1em 0 0.3em;
 }
+
 .userDetailOnUploadTme {
   font-size: 13px;
   color: #737373;
 }
 
-.optionButton > button {
+.optionButton>button {
   font-size: 20px;
   background-color: transparent;
   padding-bottom: 7px;
@@ -88,7 +97,8 @@
   flex-direction: row;
   justify-content: space-between;
 }
-.LikeShare > button {
+
+.LikeShare>button {
   background-color: transparent;
 }
 
@@ -123,10 +133,12 @@
   display: flex;
   flex-direction: column;
 }
+
 .viewCommentList {
   display: flex;
 }
-.viewComments > span {
+
+.viewComments>span {
   color: #737373;
   cursor: pointer;
 }
@@ -139,16 +151,18 @@
   padding: 0px 0px 20px;
 }
 
-.addCommentForm > input[type="text"] {
+.addCommentForm>input[type="text"] {
   padding: 2px 0px;
   border: none;
   font-size: 14px;
   width: 80%;
 }
-.addCommentForm > input[type="text"]:focus {
+
+.addCommentForm>input[type="text"]:focus {
   outline: none;
 }
-.addCommentForm > button {
+
+.addCommentForm>button {
   background-color: transparent;
 }
 
@@ -180,9 +194,11 @@
 .postImg {
   flex: 1;
 }
+
 .UpdateContent {
   flex: 1;
 }
+
 .postImg {
   width: 100%;
 }
@@ -198,6 +214,7 @@
   display: flex;
   align-items: center;
 }
+
 .inputComment input {
   width: 90%;
   outline: none;
@@ -206,6 +223,7 @@
   caret-color: #737373;
   z-index: 1;
 }
+
 .inputComment button {
   width: 10%;
   background-color: transparent;
@@ -213,6 +231,7 @@
   font-weight: 500;
   /* border: 2px solid red; */
 }
+
 .likeShareCommentSection {
   /* border: 2px solid green; */
   display: flex;
@@ -221,13 +240,16 @@
   padding-top: 15px;
   margin-bottom: 10px;
 }
+
 .threeOptions {
   display: flex;
   gap: 15px;
 }
+
 .otherOptionsWrapper img {
   cursor: pointer;
 }
+
 .otherOptionsWrapper {
   width: 100%;
   /* border: 3px solid crimson; */
@@ -238,10 +260,12 @@
   z-index: 1;
   background-color: white;
 }
+
 .likesCount {
   color: black;
   font-weight: 600;
 }
+
 .timeBox {
   color: gray;
   font-size: 15px;
@@ -266,6 +290,7 @@
   padding: 10px;
   overflow: hidden;
 }
+
 .commentListBox {
   border-top: 1px solid lightGray;
   padding: 10px;
@@ -274,6 +299,7 @@
 
   overflow-y: auto;
 }
+
 .contentBox {
   margin-top: 10px;
   padding: 0;
@@ -284,6 +310,7 @@
   overflow: hidden;
   border-radius: 8px;
 }
+
 .containerBox {
   padding: 0;
   display: flex;
@@ -297,42 +324,60 @@
   .changeStyle {
     flex-direction: column;
   }
+
   .width100 {
     width: 100%;
   }
+
   .innerBox1 {
     width: 100%;
   }
+
   .innerBox1 img {
     padding-bottom: 180px;
     object-fit: contain;
   }
+
   .innerBox2 {
     width: 100%;
   }
+
   .commentListBox {
-    display: none;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 50px;
   }
+
   .contentBox {
     width: 60%;
   }
+
   .containerBox {
     flex-direction: column;
     width: 100%;
   }
+
   .modal-dialog {
-    width: 70%;
+    width: 80%;
   }
+
   .modal-content {
-    width: 70% !important;
+    width: 80% !important;
     margin: auto;
     margin-top: 10%;
-    height: 70vh !important;
+    height: 75vh !important;
   }
+
   .inputComment {
     display: none;
   }
+
   .otherOptionsWrapper {
     bottom: 10px;
+  }
+
+  .contentHeader {
+    padding-left: 5px;
+    padding-right: 10px;
   }
 }

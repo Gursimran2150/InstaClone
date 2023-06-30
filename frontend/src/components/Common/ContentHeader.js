@@ -19,6 +19,8 @@ const ContentHeader = ({ data, setContent, openUserProfile }) => {
   const userName = JSON.parse(localStorage.getItem("userCedentials")).userName;
   const userId = JSON.parse(localStorage.getItem("userCedentials"))._id;
 
+  console.log("My data ==============>", data);
+
   // creating date for the post
   const createDate = () => {
     let now = moment.utc();
@@ -65,9 +67,9 @@ const ContentHeader = ({ data, setContent, openUserProfile }) => {
         <div className="userProfileImg">
           <ImgTag
             src={
-              data?.profileImage
-                ? convert(data?.profileImage)
-                : " ../images/inputIcons/profile.png"
+              data?.profileImage === ""
+                ? " ../images/inputIcons/profile.png"
+                : data?.profileImage
             }
             width={35}
           />

@@ -4,6 +4,9 @@ import bcrypt from "bcrypt";
 import { constents } from "../Constents.js";
 import mongoose from "mongoose";
 import blockUserModel from "../Models/BlockListModel.js";
+import path from "path";
+import { error } from "console";
+
 
 // *******************************************
 export const currentUser = async (req, res) => {
@@ -161,14 +164,14 @@ export const updateUser = async (req, res) => {
 
   if (id === userId) {
     try {
-      // console.log("password -->>", password);
+
       if (password) {
         const salt = await bcrypt.genSalt(10);
         req.body.password = await bcrypt.hash(password, salt);
-        // console.log("crypt pss-->>>", req.body.password);
+       
       }
 
-      // have to change this
+      
       const user = await userModel.findByIdAndUpdate(id, req.body, {
         new: true,
       });
@@ -177,8 +180,7 @@ export const updateUser = async (req, res) => {
         process.env.JWTKEY,
         { expiresIn: "24h" }
       );
-      // console.log({ user, token });
-      // res.status(200).json({ user, token });
+ 
       res.send(
         constents.RESPONES.SUCCESS(
           { user, token },
@@ -189,10 +191,7 @@ export const updateUser = async (req, res) => {
       res.send(constents.RESPONES.ERROR());
     }
   } else {
-    // res.status(403).json({
-    // 	success: false,
-    // 	message: "Access Denied! You can update only your own Account.",
-    // });
+    
     res.send(constents.RESPONES.ACCESS_DENIED());
   }
 };
@@ -229,29 +228,12 @@ export const deleteUser = async (req, res) => {
 /********************************************
  ***** API for get user with all data *******/
 export const getUser = async (req, res) => {
-  // console.log("secretKey--->>", secret);
-  // const token = req.headers.authorization;
-  // console.log("token--->>", token);
-  // const decoded = jwt.verify(token, secret);
-  // const userId = decoded.id;
-  // console.log("userId--->", userId);
+
 
   const userId = req.params.id;
   console.log("userId==>", userId);
-  try {
-    const token = req.headers.authorization;
-    console.log("token->", process.env.JWTKEY);
-
-    const decoded = jwt.verify(token, process.env.JWTKEY);
-    console.log("decoded-->", decoded);
-
-    const currentUserId = decoded.id;
-
-    const list = await blockUserModel.findOne({ userId: currentUserId });
-
-    // console.log( list.blockedUsers.includes(userId));
-    if (list?.blockedUsers?.includes(userId)) {
-      const data = await userModel.aggregate([
+  try{
+     const data = await userModel.aggregate([
         {
           $match: { _id: mongoose.Types.ObjectId(userId) },
         },
@@ -287,49 +269,7 @@ export const getUser = async (req, res) => {
             status: 1,
             dateOfBirth: 1,
             userName: 1,
-            profileImage: { thumbnail: 1 },
-          },
-        },
-      ]);
-      res.send(constents.RESPONES.SUCCESS(data[0]));
-    } else {
-      const data = await userModel.aggregate([
-        {
-          $match: { _id: mongoose.Types.ObjectId(userId) },
-        },
-
-        {
-          $lookup: {
-            from: "posts",
-            localField: "_id",
-            foreignField: "userId",
-            as: "posts",
-          },
-        },
-        {
-          $lookup: {
-            from: "followers",
-            localField: "_id",
-            foreignField: "userId",
-            as: "followData",
-          },
-        },
-        {
-          $unwind: {
-            path: "$followData",
-            preserveNullAndEmptyArrays: true,
-          },
-        },
-        {
-          $project: {
-            firstName: 1,
-            lastName: 1,
-            role: 1,
-            visibility: 1,
-            status: 1,
-            dateOfBirth: 1,
-            userName: 1,
-            profileImage: { thumbnail: 1 },
+            profileImage: 1 ,
             posts: {
               media: {
                 thumbnail: 1,
@@ -340,97 +280,48 @@ export const getUser = async (req, res) => {
         },
       ]);
       res.send(constents.RESPONES.SUCCESS(data[0]));
-    }
+    
   } catch (error) {
     console.log("error from get user by id api", error);
     res.send(constents.RESPONES.ERROR(error));
   }
 };
 
-// export const getUser = async (req, res) => {
-// 	const id = req.params.id;
-// 	const user = await userModel.findById(id);
-// 	try {
-// 		if (user) {
-// 			const { password, ...otherDetails } = user._doc;
-// 			res.send(
-// 				constents.RESPONES.SUCCESS(
-// 					otherDetails,
-// 					constents.RESPONES.USER_MESSAGE.USER_ID
-// 				)
-// 			);
-// 		} else {
-// 			res.send(constents.RESPONES.NO_DATA());
-// 		}
-// 	} catch (error) {
-// 		res.send(constents.RESPONES.ERROR(error));
-// 	}
-// };
 
-// Follow a User
-// changed
-// export const followUser = async (req, res) => {
-// 	const id = req.params.id;
-// 	const { _id } = req.body;
-// 	// console.log(id, _id);
-// 	if (_id == id) {
-// 		res.status(403).json({
-// 			success: false,
-// 			message: "Action Forbidden",
-// 		});
-// 	} else {
-// 		try {
-// 			const followUser = await userModel.findById(id);
-// 			const followingUser = await userModel.findById(_id);
+// ***** API for uploading user profile Image *******
 
-// 			if (!followUser.followers.includes(_id)) {
-// 				await followUser.updateOne({ $push: { followers: _id } });
-// 				await followingUser.updateOne({ $push: { following: id } });
-// 				res.status(200).json({ success: true, message: "User followed!" });
-// 			} else {
-// 				res.status(403).json({
-// 					success: false,
-// 					message: "you are already following this id",
-// 				});
-// 			}
-// 		} catch (error) {
-// 			// console.log(error);
-// 			res.status(500).json(error);
-// 		}
-// 	}
-// };
+export const uploadProfilePic = async (req, res) => {
+  const userId = req.params.userId;
+  const { profileUrl } = req.body;
+  try {
 
-// Unfollow a User
-// changed
-// export const unfollowUser = async (req, res) => {
-// 	const id = req.params.id;
-// 	const { _id } = req.body;
+    const updatedUser = await userModel.findByIdAndUpdate(
+      userId, 
+      { profileImage:profileUrl },
+      { new: true }
+    );
 
-// 	if (_id === id) {
-// 		res.status(403).json({
-// 			success: false,
-// 			message: "Action Forbidden",
-// 		});
-// 	} else {
-// 		try {
-// 			const unFollowUser = await userModel.findById(id);
-// 			const unFollowingUser = await userModel.findById(_id);
+    console.log("Updated User-:", updateUser)
+    console.log("Profile Image-:",profileUrl)
 
-// 			if (unFollowUser.followers.includes(_id)) {
-// 				await unFollowUser.updateOne({ $pull: { followers: _id } });
-// 				await unFollowingUser.updateOne({ $pull: { following: id } });
-// 				res.status(200).json({
-// 					success: true,
-// 					message: "Unfollowed Successfully!",
-// 				});
-// 			} else {
-// 				res.status(403).json({
-// 					success: false,
-// 					message: "You are not following this User",
-// 				});
-// 			}
-// 		} catch (error) {
-// 			res.status(500).json(error);
-// 		}
-// 	}
-// };
+    if (!updatedUser) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    return res.status(200).json({ message: 'Profile URL updated successfully' });
+
+  } catch (err) { 
+    res.json(
+      {
+        message: "failed",
+        err:error.message
+      }
+    )
+  }
+};
+
+
+
+
+
+

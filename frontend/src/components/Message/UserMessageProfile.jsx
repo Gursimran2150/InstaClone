@@ -2,7 +2,14 @@ const UserMessageProfile = ({ user }) => {
   return (
     <div className="userDetailsBoxM">
       <div className="userImgBox">
-        <img src="../images/inputIcons/profile.png" alt="icon" />
+        <img
+          src={
+            user?.profileImage === ""
+              ? "../images/inputIcons/profile.png"
+              : user?.profileImage
+          }
+          alt="icon"
+        />
       </div>
 
       <div className="userDetailBoxMChild">

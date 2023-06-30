@@ -34,7 +34,10 @@ const MainContent = ({ handleChnageClick }) => {
       </div>
 
       <div className="rightMainContainer">
-        <SuggestionBox user={currentUser} />
+        <SuggestionBox
+          user={currentUser}
+          handleChnageClick={handleChnageClick}
+        />
       </div>
     </div>
   );

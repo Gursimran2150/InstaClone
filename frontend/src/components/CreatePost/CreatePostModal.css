@@ -14,16 +14,19 @@
   /* padding: 70px 140px; */
   display: flex;
   align-items: center;
+  height: 50vh;
   flex-direction: column;
   box-shadow: 0 0 10px 1px #b1acac;
 }
+
 .createPostModalHeading {
   width: 100%;
   text-align: center;
   padding: 8px 10px;
   border-bottom: 1px solid rgb(219, 219, 219);
 }
-.createPostModalHeading > h1 {
+
+.createPostModalHeading>h1 {
   font-size: 16px;
   font-weight: 600;
 }
@@ -35,6 +38,7 @@
   justify-content: center;
   gap: 10px;
 }
+
 .imgCont {
   display: flex;
   flex-direction: column;
@@ -46,12 +50,13 @@
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
+
 .selectPostBtn {
   display: flex;
   justify-content: center;
 }
 
-.selectPostBtn > button {
+.selectPostBtn>button {
   color: #ffffff;
   background-color: #0095f6;
   padding: 7px 16px;
@@ -69,17 +74,21 @@
   border-bottom: 1px solid rgb(219, 219, 219);
   justify-content: space-between;
 }
+
 .cropPostModalContent {
   width: 100%;
-  height: auto;
+  height: 100%;
   display: flex;
   justify-content: center;
 }
-.cropPostModalContent > img {
+
+.cropPostModalContent>img {
   max-width: 100%;
   /* width: auto; */
-  height: auto;
+  height: 100%;
+  object-fit: cover;
 }
+
 /* /////////////////////// */
 
 /* add caption 3 */
@@ -92,6 +101,7 @@
   padding: 8px 16px;
   border-bottom: 1px solid rgb(219, 219, 219);
 }
+
 .uploadPostModalWithUser {
   width: 100%;
   height: auto;
@@ -106,7 +116,8 @@
   align-items: center;
   justify-content: center;
 }
-.uploadPostModalImg > img {
+
+.uploadPostModalImg>img {
   max-width: 100%;
   /* width: auto; */
   height: auto;
@@ -123,13 +134,14 @@
   align-items: center;
   padding: 10px;
 }
-.userNameCont > h4 {
+
+.userNameCont>h4 {
   margin-left: 10px;
 }
 
 /* **********£ */
 
-.uploadPostModalContent > img {
+.uploadPostModalContent>img {
   object-fit: cover;
   max-width: 100%;
   width: auto;
@@ -141,6 +153,7 @@
   background-color: transparent;
   font-size: 14px;
 }
+
 .postModalNextBtn {
   color: #0095f6;
 }
@@ -148,7 +161,7 @@
 /* next btn afetr image select  */
 
 /* write caption box */
-.writeCaptionBox > input {
+.writeCaptionBox>input {
   width: 100%;
   height: 200px;
   resize: none;
@@ -175,6 +188,7 @@
 .padding4060 {
   padding: 70px 140px;
 }
+
 /* end of write caption box */
 
 @media screen and (max-width: 800px) {
@@ -182,6 +196,7 @@
     min-width: 40%;
     max-width: 90%;
     border-radius: 10px;
+    height: 60vh;
     padding: 30px 80px;
     display: flex;
     align-items: center;
@@ -189,6 +204,7 @@
     margin-bottom: 100px;
     box-shadow: 0 0 10px 1px #b1acac;
   }
+
   .textDragPics {
     font-weight: 400;
     font-size: 16px;
@@ -198,16 +214,20 @@
       Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
       sans-serif;
   }
+
   .userNameCont img {
     width: 24px;
   }
+
   .userNameCont h4 {
     padding-top: 5px;
     font-size: 15px;
   }
+
   .paddingZero {
     padding: 0px 0px;
   }
+
   .descriptionBox {
     padding: 0px 10px;
     outline: none;
@@ -217,6 +237,7 @@
     overflow-y: scroll;
     color: black;
   }
+
   .uploadPostModalWithUser {
     width: 100%;
     height: auto;
@@ -231,9 +252,11 @@
     margin-top: 15px;
     border-top: 1px solid rgb(219, 219, 219);
   }
+
   .uploadPostModalUser textarea {
     width: 100%;
   }
+
   .createPostCont h3 {
     font-size: 18px;
     text-align: center;

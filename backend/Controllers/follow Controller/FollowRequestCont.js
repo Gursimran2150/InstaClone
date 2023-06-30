@@ -78,19 +78,22 @@ export const requestAccept = async (req, res) => {
 
 export const unfollow = async (req, res) => {
   const { _id } = req.body;
-  console.log("usersID-->>", _id);
+  // console.log("usersID-->>", _id);
 
   const { id } = req.params;
   try {
     const unFollowUser = await followModel.findOne({ userId: _id });
-    //const unFollowingUser = await followModel.findById(id);
+    const unFollowingUser = await followModel.findOne({ userId: id });
+
+    console.log("UnderScore User iD -:", _id);
+    console.log("Simple User iD -:", id);
 
     console.log("unfollow-->>", unFollowUser);
-    // console.log("unfollowing user->", unFollowingUser);
+    console.log("unfollowing user->", unFollowingUser);
     if (unFollowUser) {
       if (unFollowUser.following.includes(id)) {
         await unFollowUser.updateOne({ $pull: { following: id } });
-        // await unFollowingUser.updateOne({ $pull: { follower: user.id } });
+        await unFollowingUser.updateOne({ $pull: { follower: _id } });
         res.send(constents.RESPONES.UPDATE_SUCCESS("Unfollowed Successfully!"));
       } else {
         res.send(
@@ -113,59 +116,47 @@ export const unfollow = async (req, res) => {
 };
 
 export const followNew = async (req, res) => {
-  // const token = req.headers.authorization;
-
-  console.log(req.headers);
-  // const user = req.user
+  // console.log(req.headers);
+  console.log("I am called");
 
   try {
     const { id } = req.params;
-
     const token = req.headers.authorization;
-    console.log("i am running");
-    //console.log("token->", jwt.verify(JSON.parse(token), process.env.JWTKEY));
-    jwt.verify(token, process.env.JWTKEY)
-      ? console.log("TRUE")
-      : console.log("FALSE");
     const decoded = jwt.verify(token, process.env.JWTKEY);
     const currentUserId = decoded.id;
 
     const followedUser = await UserModel.findById(id);
-    console.log("followedUser==>", followedUser);
+    console.log("followedUser ==>", followedUser);
 
     if (followedUser.visibility === 1) {
       const following = await followModel.findOne({ userId: currentUserId });
-      console.log("following->", following);
+      console.log("following ->", following);
 
-      // if (following.following.includes(id)) {
-      // res.send("ALREADY FOLLOWING");
-      // } else
       if (following !== null) {
         await following.updateOne({ $push: { following: id } });
       } else {
         const followingData = new followModel({
           userId: currentUserId,
           following: [mongoose.Types.ObjectId(id)],
-          follower: [],
+          // follower: [mongoose.Types.ObjectId(id)],
         });
         await followingData.save();
-
-        // check follower
-        const follow = await followModel.findOne({ userId: id });
-        console.log("follow->", follow);
-        if (follow !== null) {
-          await follow.updateOne({ $push: { follower: currentUserId } });
-        } else {
-          const followData = new followModel({
-            userId: id,
-            following: [],
-            follower: [mongoose.Types.ObjectId(currentUserId)],
-          });
-          await followData.save();
-        }
       }
+
+      const follow = await followModel.findOne({ userId: id });
+      console.log("follow ->", follow);
+      if (follow !== null) {
+        await follow.updateOne({ $push: { follower: currentUserId } });
+      } else {
+        const followData = new followModel({
+          userId: id,
+          following: [],
+          follower: [mongoose.Types.ObjectId(currentUserId)],
+        });
+        await followData.save();
+      }
+
       res.send(constents.RESPONES.SUCCESS("", "following"));
-      // res.status(200).json("following");
     } else {
       const request = new requestModel({
         from: currentUserId,
@@ -176,6 +167,7 @@ export const followNew = async (req, res) => {
     }
   } catch (error) {
     console.log(error);
+    res.status(500).json(error);
   }
 };
 

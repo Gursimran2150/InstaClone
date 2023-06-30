@@ -9,8 +9,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchUserById } from "../../slices/userSlice";
 import axios from "axios";
 import { BACKEND_URL } from "../../config";
+import UserProfile from "../UserProfile/UserProfile";
 
-const SuggestionBox = ({ user }) => {
+const SuggestionBox = ({ user, handleChnageClick }) => {
   const dispatch = useDispatch();
 
   //getting list of user current user and auth token of current user
@@ -99,10 +100,20 @@ const SuggestionBox = ({ user }) => {
         <div className="userProfile">
           <div>
             <ImgTag
+              className={"suggestedImg"}
               src={
-                currentUser?.profileImage?.uri
-                  ? convert(user?.profileImage?.uri)
-                  : "../images/inputIcons/profile.png"
+                currentUser?.profileImage === ""
+                  ? "../images/inputIcons/profile.png"
+                  : userData?.profileImage
+              }
+              handleClick={() =>
+                handleChnageClick(
+                  <UserProfile
+                    userId={currentUser._id}
+                    handleChnageClick={handleChnageClick}
+                  />,
+                  "UserProfile"
+                )
               }
               width={60}
             />
@@ -111,7 +122,7 @@ const SuggestionBox = ({ user }) => {
             <span className="suggestedListUserName">
               {currentUser?.userName}
             </span>
-            <span className="suggestedListName">
+            <span className="suggestedListName">``
               {currentUser?.firstName} {user?.lastName}
             </span>
           </div>
@@ -137,10 +148,20 @@ const SuggestionBox = ({ user }) => {
                 <div className="userProfile">
                   <div className="suggestedUserProfileImg">
                     <ImgTag
+                      className={"suggestedImg"}
                       src={
-                        user?.profileImage?.thumbnail?.uri
-                          ? convert(user?.profileImage?.thumbnail?.uri)
-                          : "../images/inputIcons/profile.png"
+                        user?.profileImage === ""
+                          ? "../images/inputIcons/profile.png"
+                          : user?.profileImage
+                      }
+                      handleClick={() =>
+                        handleChnageClick(
+                          <UserProfile
+                            userId={user._id}
+                            handleChnageClick={handleChnageClick}
+                          />,
+                          "UserProfile"
+                        )
                       }
                     />
                   </div>

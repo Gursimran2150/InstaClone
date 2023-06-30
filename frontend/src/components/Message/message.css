@@ -1,12 +1,12 @@
 .sendMessageParentWrapper {
-  width: 110%;
-  border: 1px solid green;
+  width: 100%;
+  /* border: 5px solid green; */
   height: 100vh;
   box-sizing: border-box;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-left: -20px;
+  /* margin-left: -20px; */
 }
 
 .sendMessageParent {
@@ -124,7 +124,7 @@
 }
 
 .userChats {
-  height: 75vh;
+  height: 73vh;
 
   overflow: auto;
 }
@@ -177,4 +177,41 @@
 }
 .sendBtn:hover {
   color: #02476e;
+}
+
+@media screen and (max-width: 800px) {
+  .sendMessageParent {
+    width: 80%;
+    /* height: ; */
+    height: 70vh;
+    /* background-color: #02476e; */
+    display: flex;
+    border: 1px solid lightgray;
+  }
+
+  .userChats {
+    height: 67vh;
+    /* background-color: aqua; */
+    overflow: auto;
+  }
+  .sendMessageParent {
+    width: 100%;
+    height: 100vh;
+  }
+
+  .sendChatContainer {
+    bottom: 100px;
+  }
+  .chatSendInput {
+    width: 95%;
+  }
+  .emogBox {
+    width: 10%;
+    cursor: pointer;
+  }
+  .inputBox {
+    width: 80%;
+
+    /* padding: 8px 8px; */
+  }
 }

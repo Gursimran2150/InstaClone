@@ -24,6 +24,11 @@ const CreatePostModal = ({ isOpen, handleChnageClick }) => {
 
     const formData = new FormData();
     formData.append("file", file);
+    formData.append(
+      "userId",
+      JSON.parse(localStorage.getItem("userCedentials"))._id + "Posts"
+    );
+    formData.append("profileImage", "post");
 
     if (formData) {
       await uploadFile(formData)

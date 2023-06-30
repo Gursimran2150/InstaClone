@@ -7,7 +7,7 @@ import ContentHeader from "../ContentHeader";
 import CommentHeader from "../CommentHeader";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { fetchComments } from "../../../slices/commentSlice";
 
 function PostModal({
@@ -34,6 +34,10 @@ function PostModal({
   //console.log("PostModalData-:", data);
 
   // console.log("likeUseStateCount:", likeCount);
+
+  // useEffect(() => {
+  //   dispatch(fetchComments(post?._id));
+  // }, [dispatch, post?._id]);
 
   function addCommmentData(id) {
     setComment("");

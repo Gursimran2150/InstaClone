@@ -26,7 +26,7 @@ const Message = () => {
   // setting up the socket connection
   useEffect(() => {
     console.log("socket set up");
-    setSocket(io("ws://localhost:5000"));
+    setSocket(io("ws://192.168.1.2:5000"));
   }, []);
 
   // adding user to the user array in the socket
@@ -126,20 +126,28 @@ const Message = () => {
 
   useEffect(() => {
     setCurrentUser(JSON.parse(localStorage.getItem("userCedentials")));
-    getChatUsers(currentUser._id);
+    currentUser._id && getChatUsers(currentUser._id);
   }, [currentUser._id]);
 
   useEffect(() => {
-    scrollRef.current?.scrollIntoView({
-      behavior: "smooth",
-    });
+    if (window.innerWidth >= 800) {
+      scrollRef.current?.scrollIntoView({
+        behavior: "smooth",
+      });
+    }
   }, [messages]);
 
   return (
     <>
       <div className="sendMessageParentWrapper">
         <div className="sendMessageParent">
-          <div className="userDetailsAndListUsers">
+          <div
+            style={{
+              display:
+                openConversation && window.innerWidth <= 800 ? "none" : "block",
+            }}
+            className="userDetailsAndListUsers"
+          >
             <div className="userNameHeaderBox">
               {currentUser.userName}
               <img
@@ -176,7 +184,13 @@ const Message = () => {
 
           {/* chat box conatiner  */}
 
-          <div className="userChatBox">
+          <div
+            className="userChatBox"
+            style={{
+              display:
+                !openConversation && window.innerWidth <= 800 ? "none" : "flex",
+            }}
+          >
             {openConversation ? (
               <>
                 <div className="chatBoxHeader">

@@ -9,23 +9,26 @@
   width: 400px;
 
   display: flex;
-  padding: 10px;
+  padding: 0px;
   align-items: center;
   flex-direction: column;
   overflow: hidden;
 }
+
 .profileInfoContainer {
   /* border: 1px solid green; */
   display: flex;
   justify-content: space-between;
   width: 100%;
 }
+
 .profileInfoContainerLeftPart {
   /* border: 2px solid yellow; */
   display: flex;
   align-items: center;
   gap: 8px;
 }
+
 /* .profileInfoContainerRightPart {
   border: 2px solid crimson;
 } */
@@ -34,18 +37,22 @@
   height: 30px;
   border-radius: 50%;
 }
+
 .profileUsername {
   font-weight: bold;
 }
+
 .postTitle {
   font-size: 12px;
   font-weight: 400;
 }
+
 .postTime {
   align-self: flex-start;
   color: gray;
   font-size: 14px;
 }
+
 .moreOptionButton {
   background: transparent;
   outline: none;
@@ -54,14 +61,18 @@
   background-color: white;
   font-size: 26px;
 }
+
 .imageContainer {
   margin-top: 10px;
   width: 100%;
+  position: relative;
 }
+
 .imageContainer img {
   width: 100%;
   border-radius: 4px;
 }
+
 .likesCommentShareContainer {
   margin-top: 5px;
   width: 100%;
@@ -69,23 +80,29 @@
   padding: 0 1px;
   justify-content: space-between;
 }
+
 .iconBtn {
   background-color: white;
   cursor: pointer;
 }
+
 .firstThreeIcons {
   display: flex;
-  gap: 15px;
-  width: 25px;
-  height: 25px;
+  gap: 19px;
+  width: 26px;
+  height: 26px;
 }
+
 .iconBtn img {
-  width: 21px;
+  width: 25px;
 }
+
 .iconBtn .saveIcon {
-  width: 18px;
-  height: 20px;
+  width: 20px;
+  height: 25px;
+  margin-right: 3px;
 }
+
 .showLikesContainer {
   margin-top: 10px;
   padding-left: 2px;
@@ -95,16 +112,19 @@
   cursor: pointer;
   text-align: start;
 }
+
 .postDescriptionContainer {
   width: 100%;
   max-lines: 2;
 }
+
 .viewAllCommentsContainer {
   margin-top: 10px;
   width: 100%;
   color: gray;
   cursor: pointer;
 }
+
 .addCommentContainer {
   margin-top: 10px;
   width: 100%;
@@ -114,22 +134,86 @@
   padding-bottom: 10px;
   border-bottom: 0.5px solid lightgray;
 }
+
 .addCommentInput {
   flex: 2;
 }
+
 .addCommentInput input {
   width: 100%;
   border: none;
   outline: none;
 }
+
 .postbtn button {
   background-color: white;
   color: rgb(31, 174, 240);
   font-weight: bold;
 }
 
-@media screen and (max-width: 400px) {
+.heartShowDblClick {
+  width: 100px !important;
+  /* Set the desired width */
+  height: 100px;
+  opacity: 0.9;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  animation-name: scaleHeart;
+  animation-timing-function: ease;
+  animation-duration: 0.3s;
+  /* animation-iteration-count: infinite; */
+}
+
+@keyframes scaleHeart {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    transform-origin: center;
+  }
+
+  100% {
+    transform: translate(-50%, -50%) scale(1.1);
+    transform-origin: center;
+  }
+}
+
+/* @media screen and (max-width: 400px) {
   .parentWrapper {
     width: 370px;
+  }
+} */
+@media screen and (max-width: 650px) {
+  .parentWrapper {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .likesCommentShareContainer {
+    padding: 0px 10px;
+  }
+
+  .showLikesContainer {
+    padding-left: 10px;
+  }
+
+  .postDescriptionContainer {
+    padding-left: 10px;
+  }
+
+  .viewAllCommentsContainer {
+    padding-left: 10px;
+  }
+
+  .addCommentContainer {
+    padding-left: 10px;
+  }
+
+  .imageContainer img {
+    width: 100%;
+    border-radius: 0px;
   }
 }

@@ -1,13 +1,24 @@
 /* story list  */
 .storyList {
-  width: 100%;
+  /* width: 100%;
   display: flex;
   justify-content: flex-start;
   margin-top: 16px;
   padding: 16px 0px;
   margin-left: 150px;
-  gap: 10px;
+  gap: 10px; */
   /* overflow-x:scroll */
+  width: 45%;
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 16px;
+  padding: 16px 0px;
+  /* margin-left: 150px; */
+  gap: 10px;
+  /* overflow-y: scroll; */
+  margin-right: 31vw;
+
+  /* overflow-x: auto; */
 }
 
 .storyback {
@@ -17,16 +28,15 @@
   justify-content: center;
   width: 66px;
   height: 66px;
-  background: radial-gradient(
-    circle at 33% 100%,
-    #fed373 4%,
-    #f15245 30%,
-    #d92e7f 62%,
-    #9b36b7 85%,
-    #515ecf
-  );
+  background: radial-gradient(circle at 33% 100%,
+      #fed373 4%,
+      #f15245 30%,
+      #d92e7f 62%,
+      #9b36b7 85%,
+      #515ecf);
   margin: 4px;
 }
+
 .storybackWatch {
   border-radius: 50%;
   display: flex;
@@ -34,14 +44,12 @@
   justify-content: center;
   width: 64px;
   height: 64px;
-  background: radial-gradient(
-    circle at 33% 100%,
-    #d2d2d2 4%,
-    #d2d2d2 30%,
-    #d2d2d2 62%,
-    #d2d2d2 85%,
-    #d2d2d2
-  );
+  background: radial-gradient(circle at 33% 100%,
+      #d2d2d2 4%,
+      #d2d2d2 30%,
+      #d2d2d2 62%,
+      #d2d2d2 85%,
+      #d2d2d2);
   margin: 4px;
 }
 
@@ -55,7 +63,8 @@
   margin-bottom: 8px;
   text-decoration: none;
 }
-.storyback > img {
+
+.storyback>img {
   outline-style: double;
   outline-color: white;
   outline-width: 2px;
@@ -65,13 +74,15 @@
   /* margin: 4px; */
   /* border: 2px solid lightblue */
 }
-.storybackWatch > img {
+
+.storybackWatch>img {
   outline-style: double;
   outline-color: white;
   outline-width: 2px;
   background-color: white;
   border-radius: 50%;
 }
+
 .storyUserName {
   font-size: 12px;
   line-height: 12px;
@@ -79,9 +90,12 @@
   color: rgb(var(--ig-primary-text));
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 650px) {
   .storyList {
     margin-left: 20px;
     margin-top: 8px;
+    margin-right: 16px;
+    width: 100%;
+
   }
 }

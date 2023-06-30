@@ -136,3 +136,65 @@ progress::-webkit-progress-value {
 .storyMedia img {
   object-fit: contain;
 }
+
+@media screen and (max-width: 1260px) {
+  .showStoryBox {
+    flex: 3;
+    /* width: 400px; */
+    /* border: 2px solid red; */
+  }
+  .instagramLogoStory {
+    flex: 1;
+    /* border: 2px solid gold; */
+  }
+  .showCancelButton {
+    flex: 1;
+    /* border: 2px solid green; */
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .showStoryBox {
+    width: 99%;
+    height: 100vh;
+    overflow: hidden;
+    /* border: 2px solid red; */
+    padding: 0;
+    margin: 0;
+  }
+  .instagramLogoStory {
+    display: none;
+  }
+  .showCancelButton {
+    /* width: 10%; */
+    display: none;
+  }
+  .showStoryContainer {
+    width: 99%;
+    height: 92.5vh;
+    box-sizing: border-box;
+    overflow: hidden;
+    /* border: 2px solid red; */
+    box-sizing: border-box;
+    background-color: rgb(30, 26, 26);
+    justify-content: space-between;
+    padding: 0px;
+    display: flex;
+    padding-bottom: 10px;
+  }
+  .showStory {
+    width: 99%;
+    height: 92.5vh;
+    overflow: hidden;
+  }
+  .storyFooter {
+    gap: 10px;
+  }
+  .storyFooter img {
+    width: 28px;
+    height: 28px;
+    filter: invert(100%);
+    margin-bottom: 7px;
+    overflow: hidden;
+  }
+}

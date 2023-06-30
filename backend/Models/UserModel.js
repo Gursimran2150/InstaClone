@@ -47,7 +47,8 @@ const UserSchema = mongoose.Schema(
 			},
 		},
 		profileImage: {
-			type: Object,
+			type: String,
+			default:""
 		},
 		dateOfBirth: {
 			type: Date,
@@ -70,9 +71,7 @@ const UserSchema = mongoose.Schema(
 		OTP: {
 			type: Object,
 		},
-		profileImage: {
-			type: Object,
-		},
+		
 	},
 	{
 		timestamps: true,

@@ -60,9 +60,9 @@ const AddBirthDate = () => {
     })
       .then((res) => {
         if (res.data.statusCode === 200) {
-          localStorage.setItem("SignUpUser", JSON.stringify(res?.data));
-          localStorage.setItem("userCedentials", JSON.stringify(res?.data));
-          navigate("/accounts/emailsignup/codeveified");
+          // localStorage.setItem("SignUpUser", JSON.stringify(res?.data));
+          // localStorage.setItem("userCedentials", JSON.stringify(res?.data));
+          navigate("/");
         } else if (res.data.statusCode === 500) {
           alert("Server Error");
         }

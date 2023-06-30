@@ -72,8 +72,10 @@ const LoginForm = () => {
   };
 
   useEffect(() => {
-    localStorage.setItem("token", JSON.stringify(token));
-  }, [token]);
+    if (localStorage.getItem('token')) { 
+      navigate('/homePage');
+    }
+  }, [navigate, token]);
 
   return (
     <div className="loginForm">

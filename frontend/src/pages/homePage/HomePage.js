@@ -15,6 +15,9 @@ import LeftSideHeaderModal from "../../components/Header/LeftSideHeaderModal";
 import MoreOptionProfileModel from "../../components/MoreOption/MoreOptionProfileModel";
 import Story from "../../components/StoryContainer/Story";
 import Message from "../../components/Message/Message";
+import { getToken } from "firebase/messaging";
+import { messaging } from "../../firebase";
+import { sendDeviceToken } from "../../apiRequests/Notifications/sendDeviceTokenApi";
 
 const HomePage = ({ comp }) => {
   const navigate = useNavigate();
@@ -29,14 +32,42 @@ const HomePage = ({ comp }) => {
 
   const [isOpen, setIsOpen] = useState(false);
 
+  console.log("USERRRRRRR=======>", currentUser);
+  // useEffect(() => {
+  //   async function requestNotificationPermission() {
+  //     const permission = await Notification.requestPermission();
+  //     console.log("requesting permissions");
+  //     if (permission === "granted") {
+  //       const token = await getToken(messaging, {
+  //         vapidKey:
+  //           "BBEUH8v2PmhOhnT51cdLRC2O3WupLquRl6J-tgNOBQ0r9ifXfC2pdNwjys2yVu9JXep-f4s8RLJW9gYBiTnjnfI",
+  //       });
+  //       console.log("Message token-:", token);
+  //       sendDeviceToken(
+  //         JSON.parse(localStorage.getItem("userCedentials"))._id,
+  //         token
+  //       );
+  //     } else if (permission === "denied") {
+  //       alert("You have not accepted the Notifications");
+  //     }
+  //   }
+  //   console.log("Notifcation request asking")
+  //   requestNotificationPermission();
+  // }, []);
+
+  useEffect(() => { 
+    if (!localStorage.getItem('token')) { 
+      navigate('/')
+    }
+  },[navigate])
+
   useEffect(() => {
     console.log("home page render");
     const userData = JSON.parse(localStorage.getItem("userCedentials"));
-    if (userData) {
+    const token = JSON.parse(localStorage.getItem("token"));
+    if (userData && token !== "") {
       //console.log(userData);
       setCurrentUser(userData);
-    } else {
-      navigate("/");
     }
   }, [navigate]);
   function handleChnageClick(component, name) {
@@ -96,7 +127,10 @@ const HomePage = ({ comp }) => {
     },
     {
       name: "Profile",
-      icon: "../images/inputIcons/profile.png",
+      icon:
+        currentUser?.profileImage === ""
+          ? "../images/inputIcons/profile.png"
+          : currentUser?.profileImage,
       component: <UserProfile userId={currentUser._id} />,
     },
   ];
@@ -112,11 +146,17 @@ const HomePage = ({ comp }) => {
     // }
   };
 
+  console.log("CURRENT USER-:", currentUser.profileImage);
   return (
     <>
       <div className="homePageWrapper">
         {/* header navbar on 800px  */}
-        <div className="headerForMobile">
+        <div
+          className="headerForMobile"
+          style={{
+            display: isHomePage && window.innerWidth <= 800 ? "flex" : "none",
+          }}
+        >
           <div className="headerForMobileLogo">
             <ImgTag src={"/images/instagramLogo.png"} width={103} height={32} />
           </div>
@@ -198,6 +238,11 @@ const HomePage = ({ comp }) => {
                                   src={item.icon}
                                   width={25}
                                   height={25}
+                                  className={
+                                    item.name === "Profile"
+                                      ? "border-radius-50"
+                                      : ""
+                                  }
                                 />
                               </div>
                               <div className="leftHeaderLinkName">
@@ -250,7 +295,12 @@ const HomePage = ({ comp }) => {
               text={
                 <div
                   className="leftHeaderLinkbottom"
-                  onClick={() => setActiveComponent(<MainContent />)}
+                  onClick={() =>
+                    handleChnageClick(
+                      <MainContent handleChnageClick={handleChnageClick} />,
+                      "Home"
+                    )
+                  }
                 >
                   <div>
                     <ImgTag
@@ -330,7 +380,9 @@ const HomePage = ({ comp }) => {
             <AnchorTag
               text={
                 <div className="leftHeaderLinkbottom">
-                  <div>
+                  <div
+                    onClick={() => handleChnageClick(<Message />, "Message")}
+                  >
                     <ImgTag
                       src={"../images/inputIcons/messanger.png"}
                       width={25}
@@ -355,9 +407,14 @@ const HomePage = ({ comp }) => {
                 >
                   <div>
                     <ImgTag
-                      src={"../images/inputIcons/profile.png"}
+                      src={
+                        currentUser?.profileImage === ""
+                          ? "../images/inputIcons/profile.png"
+                          : currentUser?.profileImage
+                      }
                       width={25}
                       height={25}
+                      className={"border-radius-50"}
                     />
                   </div>
                 </div>

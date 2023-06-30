@@ -252,8 +252,8 @@ export const getCommentsOnPost = async (req, res) => {
       {
         $lookup: {
           from: "users",
-          foreignField: "_id",
           localField: "commentedBy",
+          foreignField: "_id",
           as: "user",
         },
       },
@@ -263,35 +263,11 @@ export const getCommentsOnPost = async (req, res) => {
           preserveNullAndEmptyArrays: true,
         },
       },
-
       {
-        $lookup: {
-          from: "comments_replies",
-          foreignField: "commentId",
-          localField: "_id",
-          as: "replies",
-        },
-      },
-      {
-        $unwind: {
-          path: "$replies",
-          preserveNullAndEmptyArrays: true,
-        },
-      },
-
-      {
-        $lookup: {
-          from: "users",
-          foreignField: "_id",
-          localField: "replies.replyedBy",
-          as: "replyedUser",
-        },
-      },
-
-      {
-        $unwind: {
-          path: "$replyedUser",
-          preserveNullAndEmptyArrays: true,
+        $addFields: {
+          "user.profileImage": {
+            $ifNull: ["$user.profileImage", null],
+          },
         },
       },
       {
@@ -300,7 +276,7 @@ export const getCommentsOnPost = async (req, res) => {
           text: 1,
           user: {
             userName: "$user.userName",
-            profileImage: "$user.profileImage.thumbnail",
+            profileImage: "$user.profileImage",
           },
           createdAt: 1,
           replies: {

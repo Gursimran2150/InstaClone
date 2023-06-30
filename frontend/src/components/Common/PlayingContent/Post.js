@@ -38,6 +38,8 @@ function Post({ post, authToken, onPressItem, setData, handleChnageClick }) {
   const commentInputRef = useRef(null);
   const [comment, setComment] = useState("");
 
+  const [heart, setHeart] = useState("none");
+
   // convert uri
   const convert = (url) => {
     console.log("converting uri to url");
@@ -90,6 +92,37 @@ function Post({ post, authToken, onPressItem, setData, handleChnageClick }) {
       }
     },
     [authToken, dispatch, tempLikeCount]
+  );
+
+  const dblclickLike = useCallback(
+    async (id) => {
+      let data1 = "";
+      if (likeBtn === "../images/inputIcons/blackHeart3.png") {
+        const { data } = await postLike({ postId: id, token: authToken });
+        data1 = data;
+      }
+      setHeart("block");
+      setTimeout(() => {
+        setHeart("none");
+      }, 600);
+      if (data1?.message === "post was disLiked") {
+        // setTempLikeCount(tempLikeCount - 1);
+        // setLikesBtn("../images/inputIcons/blackHeart3.png");
+        // dispatch(decrementLike());
+      } else {
+        // console.log(post?.likes?.users?.length + 1, tempLikeCount);
+        if (post?.likes?.users?.length + 1 >= tempLikeCount) {
+          if (likeBtn === "../images/inputIcons/redHeart.png") {
+            setLikesBtn("../images/inputIcons/redHeart.png");
+          } else {
+            setTempLikeCount(tempLikeCount + 1);
+            setLikesBtn("../images/inputIcons/redHeart.png");
+            dispatch(incrementLike());
+          }
+        }
+      }
+    },
+    [authToken, dispatch, likeBtn, post?.likes?.users?.length, tempLikeCount]
   );
 
   //this hook will fectch the user credentails from the local storage and checks wheather the user has already liked the post or not is alredy liked change liked to true else false
@@ -156,8 +189,17 @@ function Post({ post, authToken, onPressItem, setData, handleChnageClick }) {
         setContent={setContent}
         openUserProfile={openUserProfile}
       />
-      <div className="imageContainer">
+      <div
+        className="imageContainer"
+        onDoubleClick={() => dblclickLike(post?._id)}
+      >
         <img src={convertedUrl} alt="img" />
+        <img
+          src="../images/inputIcons/heart.png"
+          alt="heart"
+          className="heartShowDblClick"
+          style={{ display: heart }}
+        />
       </div>
       <div className="likesCommentShareContainer">
         <div className="firstThreeIcons">
@@ -218,7 +260,15 @@ function Post({ post, authToken, onPressItem, setData, handleChnageClick }) {
         </div>
         <div className="postbtn">
           {comment.length > 0 ? (
-            <button onClick={() => handleAddComment(post?._id)}>Post</button>
+            <button
+              type="submit"
+              onClick={(e) => {
+                e.preventDefault();
+                handleAddComment(post?._id);
+              }}
+            >
+              Post
+            </button>
           ) : (
             ""
           )}
